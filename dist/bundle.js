@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   blogTitle: 'LifeGadget',
   blogTitleTag: 'LifeGadget（ライフガジェット）',
-  blogUrl: 'http://localhost:8080/wordpress',
+  blogUrl: 'http://lifegadget.me',
   perPage: 20
 };
 
@@ -66459,7 +66459,7 @@ var Category = function (_React$Component) {
     value: function fetchData(category) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-      var params = '?context=embed&filter[category_name]=' + category + '&per_page=' + _config2.default.perPage + '&page=' + page;
+      var params = '?context=embed&categories=' + category + '&per_page=' + _config2.default.perPage + '&page=' + page;
       return (0, _nodeFetch2.default)(_config2.default.blogUrl + '/wp-json/wp/v2/posts' + params, {
         method: 'get',
         mode: 'cors'
@@ -66813,7 +66813,7 @@ var Search = function (_React$Component) {
     value: function fetchData(keyword) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-      var params = '?context=embed&filter[s]=' + keyword + '&per_page=' + _config2.default.perPage + '&page=' + page;
+      var params = '?context=embed&search=' + keyword + '&per_page=' + _config2.default.perPage + '&page=' + page;
       return (0, _nodeFetch2.default)(_config2.default.blogUrl + '/wp-json/wp/v2/posts' + params, {
         method: 'get',
         mode: 'cors'
@@ -66944,7 +66944,7 @@ var Tag = function (_React$Component) {
     value: function fetchData(tag) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-      var params = '?context=embed&filter[tag]=' + tag + '&per_page=' + _config2.default.perPage + '&page=' + page;
+      var params = '?context=embed&tags=' + tag + '&per_page=' + _config2.default.perPage + '&page=' + page;
       return (0, _nodeFetch2.default)(_config2.default.blogUrl + '/wp-json/wp/v2/posts' + params, {
         method: 'get',
         mode: 'cors'
@@ -67148,7 +67148,7 @@ var routes = exports.routes = _react2.default.createElement(
   { path: '/', component: _Root2.default },
   _react2.default.createElement(_reactRouter.IndexRoute, { component: _Index2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '/:page', component: _Index2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/archive/:id', component: _Archive2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/archives/:id', component: _Archive2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '/search/', component: _Search2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '/search/:keyword', component: _Search2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '/search/:keyword/:page', component: _Search2.default }),
@@ -67221,7 +67221,7 @@ var Article = function Article(props) {
     var markup = converter.makeHtml(props.article[contentType].rendered.toString());
     return { __html: markup };
   }
-
+  console.log(props);
   var article = props.article.id !== Number(props.params.id) ? '' : _react2.default.createElement(
     'div',
     null,
@@ -67374,7 +67374,7 @@ var ArticleCategory = function ArticleCategory(props) {
       { key: id },
       _react2.default.createElement(
         _reactRouter.Link,
-        { to: '/category/' + props.category[categoryId].slug },
+        { to: '/category/' + props.category[categoryId].id },
         props.category[categoryId].name
       )
     );
@@ -67632,10 +67632,14 @@ var IndexList = function IndexList(props) {
     return _react2.default.createElement(
       'li',
       { key: item.id },
-      eyecatch,
       _react2.default.createElement(
         _reactRouter.Link,
-        { to: '/archive/' + item.id },
+        { to: '/archives/' + item.id },
+        eyecatch
+      ),
+      _react2.default.createElement(
+        _reactRouter.Link,
+        { to: '/archives/' + item.id },
         item.title.rendered
       ),
       _react2.default.createElement(
@@ -67680,9 +67684,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var IndexTitle = function IndexTitle(props) {
   var pathname = props.location.pathname.split('/')[1];
   var getCategory = function getCategory(categoryList) {
-    return function (slug) {
+    return function (id) {
       return categoryList.map(function (category) {
-        return category.slug === slug ? category.name : null;
+        return category.id === parseInt(id) ? category.name : null;
       });
     };
   };
@@ -67692,8 +67696,8 @@ var IndexTitle = function IndexTitle(props) {
         return '\u300C' + props.params.keyword + '\u300D\u306E\u691C\u7D22\u7D50\u679C';
       case 'category':
         {
-          var getCategoryid = getCategory(props.category);
-          var categoryName = getCategoryid(props.params.category).find(function (i) {
+          var getCategoryName = getCategory(props.category);
+          var categoryName = getCategoryName(props.params.category).find(function (i) {
             return i != null;
           });
           return '\u300C' + categoryName + '\u300D\u30AB\u30C6\u30B4\u30EA\u306E\u8A18\u4E8B\u4E00\u89A7';

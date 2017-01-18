@@ -15,7 +15,7 @@ class Tag extends React.Component {
   }
 
   static fetchData(tag, page = 1) {
-    const params = `?context=embed&filter[tag]=${tag}&per_page=${config.perPage}&page=${page}`;
+    const params = `?context=embed&tags=${tag}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',

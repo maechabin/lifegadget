@@ -2,16 +2,16 @@ import React from 'react';
 
 const IndexTitle = (props) => {
   const pathname = props.location.pathname.split('/')[1];
-  const getCategory = categoryList => slug => categoryList.map(
-    category => (category.slug === slug ? category.name : null),
+  const getCategory = categoryList => id => categoryList.map(
+    category => (category.id === parseInt(id) ? category.name : null),
   );
   const getTitle = (name) => {
     switch (name) {
       case 'search':
         return `「${props.params.keyword}」の検索結果`;
       case 'category': {
-        const getCategoryid = getCategory(props.category);
-        const categoryName = getCategoryid(props.params.category).find(i => i != null);
+        const getCategoryName = getCategory(props.category);
+        const categoryName = getCategoryName(props.params.category).find(i => i != null);
         return `「${categoryName}」カテゴリの記事一覧`;
       }
       case 'tag':

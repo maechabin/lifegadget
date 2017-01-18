@@ -18,8 +18,8 @@ const IndexList = (props) => {
       const eyecatch = (item.source_url) ? <img src={item.source_url} alt={item.title.rendered} /> : '';
       return (
         <li key={item.id}>
-          {eyecatch}
-          <Link to={`/archive/${item.id}`}>{item.title.rendered}</Link>
+          <Link to={`/archives/${item.id}`}>{eyecatch}</Link>
+          <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
           <p><time>{formatDate(item.date)}</time></p>
           <p dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
         </li>

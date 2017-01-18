@@ -12,7 +12,7 @@ const ArticleCategory = (props) => {
       const categoryId = getCategoryId(id).find(i => i != null);
       return (
         <span key={id}>
-          <Link to={`/category/${props.category[categoryId].slug}`}>
+          <Link to={`/category/${props.category[categoryId].id}`}>
             {props.category[categoryId].name}
           </Link>
         </span>

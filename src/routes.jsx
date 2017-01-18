@@ -12,7 +12,7 @@ export const routes = (
   <Route path="/" component={Root}>
     <IndexRoute component={Index} />
     <Route path="/:page" component={Index} />
-    <Route path="/archive/:id" component={Archive} />
+    <Route path="/archives/:id" component={Archive} />
     <Route path="/search/" component={Search} />
     <Route path="/search/:keyword" component={Search} />
     <Route path="/search/:keyword/:page" component={Search} />
