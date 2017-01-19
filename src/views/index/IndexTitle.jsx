@@ -17,13 +17,13 @@ const IndexTitle = (props) => {
       case 'tag':
         return `「${props.params.tag}」タグの記事一覧`;
       default:
-        return '';
+        return '記事一覧';
     }
   };
   const total = (props.resetList && props.routingKey !== '') ? '' : `全 ${props.total} 件`;
 
   return (
-    <div>
+    <div className="index__title">
       <h2>{getTitle(pathname)}</h2>
       <p>{total}</p>
     </div>

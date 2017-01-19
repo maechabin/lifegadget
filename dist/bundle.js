@@ -8,6 +8,7 @@ exports.default = {
   blogTitle: 'LifeGadget',
   blogTitleTag: 'LifeGadget（ライフガジェット）',
   blogUrl: 'http://lifegadget.me',
+  blogLogoImage: '/assets/image/lifegadget_white.png',
   perPage: 20
 };
 
@@ -66651,6 +66652,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -66660,6 +66663,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = require('react-redux');
 
 var _rootAction = require('../actions/rootAction');
+
+var _config = require('../../config');
+
+var _config2 = _interopRequireDefault(_config);
 
 var _Header = require('../views/root/Header.jsx');
 
@@ -66699,7 +66706,7 @@ var Root = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Header2.default, this.props),
+        _react2.default.createElement(_Header2.default, _extends({}, this.props, { config: _config2.default })),
         this.props.children,
         _react2.default.createElement(_Sidebar2.default, null),
         _react2.default.createElement(_Footer2.default, null)
@@ -66733,7 +66740,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Root);
 
-},{"../actions/rootAction":357,"../views/root/Footer.jsx":381,"../views/root/Header.jsx":382,"../views/root/Sidebar.jsx":384,"react":315,"react-redux":248}],363:[function(require,module,exports){
+},{"../../config":1,"../actions/rootAction":357,"../views/root/Footer.jsx":381,"../views/root/Header.jsx":382,"../views/root/Sidebar.jsx":384,"react":315,"react-redux":248}],363:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67221,7 +67228,6 @@ var Article = function Article(props) {
     var markup = converter.makeHtml(props.article[contentType].rendered.toString());
     return { __html: markup };
   }
-  console.log(props);
   var article = props.article.id !== Number(props.params.id) ? '' : _react2.default.createElement(
     'div',
     null,
@@ -67277,7 +67283,7 @@ var ArticleBreadcrumb = function ArticleBreadcrumb(props) {
   var getCategory = function getCategory(categoryList) {
     return function (id) {
       return categoryList.map(function (category, i) {
-        return category.id === id ? i : null;
+        return category.id === parseInt(id) ? i : null;
       });
     };
   };
@@ -67290,7 +67296,7 @@ var ArticleBreadcrumb = function ArticleBreadcrumb(props) {
 
   return _react2.default.createElement(
     'ul',
-    { is: true, itemscope: true, itemtype: 'http://schema.org/BreadcrumbList', className: 'breadcrumb' },
+    { is: true, itemscope: true, itemtype: 'http://schema.org/BreadcrumbList', 'class': 'breadcrumb' },
     _react2.default.createElement(
       'li',
       { is: true, itemprop: 'itemListElement', itemscope: true, itemtype: 'http://schema.org/ListItem' },
@@ -67318,7 +67324,7 @@ var ArticleBreadcrumb = function ArticleBreadcrumb(props) {
       { is: true, itemprop: 'itemListElement', itemscope: true, itemtype: 'http://schema.org/ListItem' },
       _react2.default.createElement(
         _reactRouter.Link,
-        { is: true, itemscope: true, itemtype: 'http://schema.org/Thing', itemprop: 'item', to: '/category/' + props.category[category[0]].slug },
+        { is: true, itemscope: true, itemtype: 'http://schema.org/Thing', itemprop: 'item', to: '/category/' + props.category[category[0]].id },
         _react2.default.createElement(
           'span',
           { is: true, itemprop: 'name' },
@@ -67520,10 +67526,13 @@ var ArticleUser = function ArticleUser(props) {
     };
   };
   var userId = getUser(props.user)(props.article.author);
+  var id = userId.find(function (id) {
+    return id != null;
+  });
   var user = props.nameOnly ? _react2.default.createElement(
     'p',
     null,
-    props.user[userId].slug
+    props.user[id].slug
   ) : _react2.default.createElement(
     'section',
     null,
@@ -67532,16 +67541,16 @@ var ArticleUser = function ArticleUser(props) {
       null,
       '\u3053\u306E\u8A18\u4E8B\u3092\u66F8\u3044\u305F\u4EBA'
     ),
-    _react2.default.createElement('img', { src: props.user[userId].avatar_urls['96'], alt: props.user[userId].slug }),
+    _react2.default.createElement('img', { src: props.user[id].avatar_urls['96'], alt: props.user[id].slug }),
     _react2.default.createElement(
       'p',
       null,
-      props.user[userId].slug
+      props.user[id].slug
     ),
     _react2.default.createElement(
       'p',
       null,
-      props.user[userId].description
+      props.user[id].description
     )
   );
   return _react2.default.createElement(
@@ -67638,9 +67647,13 @@ var IndexList = function IndexList(props) {
         eyecatch
       ),
       _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/archives/' + item.id },
-        item.title.rendered
+        'h3',
+        null,
+        _react2.default.createElement(
+          _reactRouter.Link,
+          { to: '/archives/' + item.id },
+          item.title.rendered
+        )
       ),
       _react2.default.createElement(
         'p',
@@ -67651,12 +67664,12 @@ var IndexList = function IndexList(props) {
           formatDate(item.date)
         )
       ),
-      _react2.default.createElement('p', { dangerouslySetInnerHTML: rawMarkup(item.excerpt.rendered) })
+      _react2.default.createElement('div', { dangerouslySetInnerHTML: rawMarkup(item.excerpt.rendered) })
     );
   });
   return _react2.default.createElement(
     'ul',
-    null,
+    { className: 'index__list' },
     list
   );
 };
@@ -67705,14 +67718,14 @@ var IndexTitle = function IndexTitle(props) {
       case 'tag':
         return '\u300C' + props.params.tag + '\u300D\u30BF\u30B0\u306E\u8A18\u4E8B\u4E00\u89A7';
       default:
-        return '';
+        return '記事一覧';
     }
   };
   var total = props.resetList && props.routingKey !== '' ? '' : '\u5168 ' + props.total + ' \u4EF6';
 
   return _react2.default.createElement(
     'div',
-    null,
+    { className: 'index__title' },
     _react2.default.createElement(
       'h2',
       null,
@@ -67929,10 +67942,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _config = require('../../../config');
-
-var _config2 = _interopRequireDefault(_config);
-
 var _SearchForm = require('./SearchForm.jsx');
 
 var _SearchForm2 = _interopRequireDefault(_SearchForm);
@@ -67940,25 +67949,35 @@ var _SearchForm2 = _interopRequireDefault(_SearchForm);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Header = function Header(props) {
+  var headerClassName = props.location.pathname === '/' ? 'header' : 'header header__mini';
   return _react2.default.createElement(
     'header',
-    { className: 'header' },
+    { className: headerClassName },
     _react2.default.createElement(
-      'h1',
-      null,
+      'div',
+      { className: 'header__title' },
       _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/' },
-        _config2.default.blogTitle
-      )
-    ),
-    _react2.default.createElement(_SearchForm2.default, props)
+        'h1',
+        null,
+        _react2.default.createElement(
+          _reactRouter.Link,
+          { to: '/' },
+          _react2.default.createElement('img', { src: props.config.blogLogoImage, alt: props.config.blogTitle, width: '404' })
+        ),
+        _react2.default.createElement(
+          'span',
+          null,
+          '\u751F\u6D3B\u3092\u30B5\u30DD\u30FC\u30C8\u3059\u308B\u8A18\u4E8B\u30E1\u30C7\u30A3\u30A2\u300C\u30E9\u30A4\u30D5\u30AC\u30B8\u30A7\u30C3\u30C8\u300D'
+        )
+      ),
+      _react2.default.createElement(_SearchForm2.default, props)
+    )
   );
 };
 
 exports.default = Header;
 
-},{"../../../config":1,"./SearchForm.jsx":383,"react":315,"react-router":284}],383:[function(require,module,exports){
+},{"./SearchForm.jsx":383,"react":315,"react-router":284}],383:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

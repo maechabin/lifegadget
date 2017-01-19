@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { changeValue, setSearchValue } from '../actions/rootAction';
+import config from '../../config';
 
 // view files
 import Header from '../views/root/Header.jsx';
@@ -12,7 +13,7 @@ class Root extends React.Component {
   render() {
     return (
       <div>
-        <Header {...this.props} />
+        <Header {...this.props} config={config} />
         {this.props.children}
         <Sidebar />
         <Footer />

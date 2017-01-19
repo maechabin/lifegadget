@@ -19,15 +19,17 @@ const IndexList = (props) => {
       return (
         <li key={item.id}>
           <Link to={`/archives/${item.id}`}>{eyecatch}</Link>
-          <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
+          <h3>
+            <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
+          </h3>
           <p><time>{formatDate(item.date)}</time></p>
-          <p dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
+          <div dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
         </li>
       );
     },
   );
   return (
-    <ul>{list}</ul>
+    <ul className="index__list">{list}</ul>
   );
 };
 IndexList.propTypes = {
