@@ -1,3 +1,5 @@
+$_theme-color: #0B4475;
+
 body, div, pre, p, blockquote, form, fieldset, input, textarea, select, option,
 dl, dt, dd, ul, ol, li,
 h1, h2, h3, h4, h5, h6,
@@ -12,15 +14,23 @@ img {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 游ゴシック, "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, "Noto Sans Japanese", "Noto Sans CJK JP", sans-serif;
+  color: #212121;
 }
 .more-link {
   display: none;
 }
 
+a {
+  color: $_theme-color;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .header {
   box-sizing: border-box;
   padding: 16px;
-  background-color: #000;
+  background-color: $_theme-color;
   h1 a {
     color: #fff;
     text-decoration: none;
@@ -28,11 +38,31 @@ body {
 }
 
 .index {
-  width: 720px;
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    li {
+      border-radius: 2px;
+      box-sizing: border-box;
+      list-style-type: none;
+      width: 300px;
+      margin: 8px;
+      border: 1px solid $_theme-color;
+      time {
+        color: #494949;
+      }
+      p {
+        padding: 8px;
+      }
+    }
+  }
 }
 
 .article {
-  width: 720px;
+  box-sizing: border-box;
+  width: 728px;
+  margin: 0 8px;
   h2 {
     font-size: 40px;
   }
@@ -51,12 +81,32 @@ body {
 }
 
 .breadcrumb {
+  li {
+    display: inline;
+  }
+}
+
+.pagination {
+  text-align: center;
+  ul {
+    margin: 32px auto;
+    li {
+      width: 32px;
+      text-align: center;
+      display: inline-block;
+    }
+  }
 
 }
 
 .footer {
+  width: 100%;
   color: #fff;
+  text-align: center;
   box-sizing: border-box;
-  padding: 16px;
-  background-color: #000;
+  padding: 32px 0;
+  background-color: $_theme-color;
+  address {
+    display: inline;
+  }
 }

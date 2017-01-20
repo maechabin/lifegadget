@@ -19,7 +19,7 @@ const IndexList = (props) => {
       return (
         <li key={item.id}>
           {eyecatch}
-          <Link to={`/archive/${item.id}`}>{item.title.rendered}</Link>
+          <h2><Link to={`/archive/${item.id}`}>{item.title.rendered}</Link></h2>
           <p><time>{formatDate(item.date)}</time></p>
           <p dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
         </li>
