@@ -6,7 +6,6 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 
 import { combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import serialize from 'serialize-javascript';
 import { Provider } from 'react-redux';
 
 // Store
@@ -22,6 +21,7 @@ import { archiveReducer } from './reducers/archiveReducer';
 import { fetchCategoryAsync, fetchUserAsync } from './actions/rootAction';
 
 import config from '../config';
+import renderFullPage from './renderFullPage';
 import { routes } from './routes.jsx';
 
 const app = express();
@@ -93,26 +93,6 @@ function handleRender(req, res) {
       return res.status(404).send('Not found');
     }
   });
-}
-function renderFullPage(html, finalState) {
-  return `
-    <!doctype html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <title>${config.blogTitleTag}</title>
-        <link rel="stylesheet" href="/assets/style.css">
-      </head>
-
-      <body>
-        <div class="content">${html}</div>
-        <script>
-          window.__PRELOADED_STATE__ = ${serialize(finalState)}
-        </script>
-        <script src="/assets/bundle.js"></script>
-      </body>
-    </html>
-    `;
 }
 
 app.listen(

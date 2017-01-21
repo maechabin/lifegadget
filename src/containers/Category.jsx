@@ -15,7 +15,7 @@ class Category extends React.Component {
   }
 
   static fetchData(category, page = 1) {
-    const params = `?context=embed&filter[category_name]=${category}&per_page=${config.perPage}&page=${page}`;
+    const params = `?context=embed&categories=${category}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',

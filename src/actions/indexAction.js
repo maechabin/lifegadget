@@ -29,7 +29,7 @@ export function saveMedia(payload) {
   return {
     type: SAVE_MEDIA,
     payload,
-  }
+  };
 }
 export function saveMediaAsync(url) {
   return fetch(url, {
@@ -93,6 +93,7 @@ export function searchArticleAsync(callback, keyword, page) {
             return false;
           },
         )).then(res4 => {
+          console.log(res);
           return res2.map((obj, i) => {
             return Object.assign({}, obj, res4[i]);
           });

@@ -1,20 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const ArticleUser = (props) => {
   const getUser = userList => id => userList.map(
     (user, i) => (user.id === id ? i : null),
   );
   const userId = getUser(props.user)(props.article.author);
-  const user = (props.nameOnly) ? <p>{props.user[userId].slug}</p> : (
+  const id = userId.find(id => id != null);
+  const user = (props.nameOnly) ? (
+    <p className="article__user_name">
+      <Link to={`/author/${props.user[id].id}`}>{props.user[id].slug}</Link>
+    </p>
+  ) : (
     <section>
       <h3>この記事を書いた人</h3>
-      <img src={props.user[userId].avatar_urls['96']} alt={props.user[userId].slug} />
-      <p>{props.user[userId].slug}</p>
-      <p>{props.user[userId].description}</p>
+      <figure>
+        <img src={props.user[id].avatar_urls['96']} alt={props.user[id].slug} />
+        <figcaption>
+          <Link to={`/author/${props.user[id].id}`}>{props.user[id].slug}</Link>
+        </figcaption>
+      </figure>
+      <p>{props.user[id].description}</p>
     </section>
   );
   return (
-    <div>
+    <div className="article__user">
       {user}
     </div>
   );

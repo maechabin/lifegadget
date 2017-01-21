@@ -18,16 +18,18 @@ const IndexList = (props) => {
       const eyecatch = (item.source_url) ? <img src={item.source_url} alt={item.title.rendered} /> : '';
       return (
         <li key={item.id}>
-          {eyecatch}
-          <h2><Link to={`/archive/${item.id}`}>{item.title.rendered}</Link></h2>
+          <Link to={`/archives/${item.id}`}>{eyecatch}</Link>
+          <h3>
+            <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
+          </h3>
           <p><time>{formatDate(item.date)}</time></p>
-          <p dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
+          <div dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
         </li>
       );
     },
   );
   return (
-    <ul>{list}</ul>
+    <ul className="index__list">{list}</ul>
   );
 };
 IndexList.propTypes = {

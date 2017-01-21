@@ -28,17 +28,79 @@ a {
 }
 
 .header {
+  position: relative;
   box-sizing: border-box;
-  padding: 16px;
   background-color: $_theme-color;
-  h1 a {
+  background-image: url(./image/lifegadget_header.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  &__mini {
+    height: 240px;
+  }
+  &__title {
+    box-sizing: border-box;
+    height: 240px;
+    width: 100%;
+    text-align: center;
+    padding: 32px;
+    background-color: rgba(0,0,0,.6);
     color: #fff;
-    text-decoration: none;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+    span {
+      display: block;
+      font: {
+        weight: normal;
+        size:16px;
+      }
+    }
+  }
+}
+
+.searchform {
+  margin-top: 16px;
+  box-sizing: border-box;
+  text-align: center;
+  input[type="text"] {
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 32px;
+    box-sizing: border-box;
+    border: 1px solid #bebebe;
+    width: 216px;
+    padding: 0 8px;
+  }
+  button {
+    vertical-align: middle;
+    width: 64px;
+    box-sizing: border-box;
+    line-height: 32px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    color: #fff;
+    background-color: $_theme-color;
   }
 }
 
 .index {
-  ul {
+  box-sizing: border-box;
+  padding: 16px 0;
+  &__title {
+    text-align: center;
+    h2 {
+      font-size: 32px;
+    }
+    p {
+      font-size: 24px;
+    }
+  }
+  &__list {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -49,24 +111,47 @@ a {
       width: 300px;
       margin: 8px;
       border: 1px solid $_theme-color;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 180px;
+      }
+      h3 {
+        padding: 8px 8px 0;
+        font-size: 18px;
+        font-weight: bold;
+      }
       time {
-        color: #494949;
+        color: #757575;
       }
       p {
-        padding: 8px;
+        font-size: 16px;
+        padding: 0 8px 8px 8px;
+      }
+    }
+  }
+  @media screen and (max-width: 632px) {
+    &__list {
+      li {
+        width: 100%;
       }
     }
   }
 }
 
 .article {
-  box-sizing: border-box;
-  width: 728px;
-  margin: 0 8px;
+  max-width: 728px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 0;
   h2 {
     font-size: 40px;
   }
   h3 {
+    background-color: $_theme-color;
+    color: #fff;
+    padding: 8px 16px;
+    margin: 16px auto;
     font-size: 32px;
   }
   h4{
@@ -78,11 +163,44 @@ a {
     line-height: 2;
     margin-bottom: 32px;
   }
+  &__category {
+    display: inline-block;
+    span {
+      margin-right: 8px;
+    }
+  }
+  &__tag {
+    display: inline-block;
+    span {
+      margin-right: 8px;
+    }
+  }
+  &__user {
+    max-width: 100%;
+    section {
+      text-align: center;
+      margin-top: 16px;
+      width: 100%;
+      border-radius: 2px;
+      box-sizing: border-box;
+      padding: 16px;
+      border: 2px solid $_theme-color;
+      p {
+        text-align: left;
+      }
+    }
+    p {
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+  }
 }
 
 .breadcrumb {
+  margin-bottom: 32px;
   li {
     display: inline;
+    margin-right: 8px;
   }
 }
 

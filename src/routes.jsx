@@ -7,12 +7,13 @@ import Archive from './containers/Archive.jsx';
 import Search from './containers/Search.jsx';
 import Category from './containers/Category.jsx';
 import Tag from './containers/Tag.jsx';
+import Author from './containers/Author.jsx';
 
 export const routes = (
   <Route path="/" component={Root}>
     <IndexRoute component={Index} />
     <Route path="/:page" component={Index} />
-    <Route path="/archive/:id" component={Archive} />
+    <Route path="/archives/:id" component={Archive} />
     <Route path="/search/" component={Search} />
     <Route path="/search/:keyword" component={Search} />
     <Route path="/search/:keyword/:page" component={Search} />
@@ -20,5 +21,7 @@ export const routes = (
     <Route path="/category/:category/:page" component={Category} />
     <Route path="/tag/:tag" component={Tag} />
     <Route path="/tag/:tag/:page" component={Tag} />
+    <Route path="/author/:author" component={Author} />
+    <Route path="/author/:author/:page" component={Author} />
   </Route>
 );

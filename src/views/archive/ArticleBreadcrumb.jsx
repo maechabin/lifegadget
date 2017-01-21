@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 const ArticleBreadcrumb = (props) => {
   const getCategory = categoryList => id => categoryList.map(
-    (category, i) => (category.id === id ? i : null),
+    (category, i) => (category.id === parseInt(id) ? i : null),
   );
   const getCategoryId = getCategory(props.category);
   const category = _.isEmpty(props.article.categories) ? '' : props.article.categories.map(
@@ -12,7 +12,7 @@ const ArticleBreadcrumb = (props) => {
   );
 
   return (
-    <ul is itemscope itemtype="http://schema.org/BreadcrumbList" className="breadcrumb">
+    <ul is itemscope itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
       <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to="/">
           <span is itemprop="name">ホーム</span>
@@ -22,7 +22,7 @@ const ArticleBreadcrumb = (props) => {
         <span>&gt;</span>
       </li>
       <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to={`/category/${props.category[category[0]].slug}`}>
+        <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to={`/category/${props.category[category[0]].id}`}>
           <span is itemprop="name">{props.category[category[0]].name}</span>
         </Link>
       </li>

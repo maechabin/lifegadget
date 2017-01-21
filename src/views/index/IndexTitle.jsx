@@ -1,29 +1,38 @@
 import React from 'react';
 
 const IndexTitle = (props) => {
+  console.log(props);
   const pathname = props.location.pathname.split('/')[1];
-  const getCategory = categoryList => slug => categoryList.map(
-    category => (category.slug === slug ? category.name : null),
+
+  const getCategory = categoryList => id => categoryList.map(
+    category => (category.id === parseInt(id) ? category.name : null),
+  );
+  const getAuthor = authorList => id => authorList.map(
+    author => (author.id === parseInt(id) ? author.name : null),
   );
   const getTitle = (name) => {
     switch (name) {
       case 'search':
         return `「${props.params.keyword}」の検索結果`;
       case 'category': {
-        const getCategoryid = getCategory(props.category);
-        const categoryName = getCategoryid(props.params.category).find(i => i != null);
+        const getCategoryName = getCategory(props.category);
+        const categoryName = getCategoryName(props.params.category).find(i => i != null);
         return `「${categoryName}」カテゴリの記事一覧`;
       }
       case 'tag':
         return `「${props.params.tag}」タグの記事一覧`;
+      case 'author':
+        const getAuthorName = getAuthor(props.author);
+        const authorName = getAuthorName(props.params.author)
+        return `${authorName}の記事一覧`;
       default:
-        return '';
+        return '記事一覧';
     }
   };
   const total = (props.resetList && props.routingKey !== '') ? '' : `全 ${props.total} 件`;
 
   return (
-    <div>
+    <div className="index__title">
       <h2>{getTitle(pathname)}</h2>
       <p>{total}</p>
     </div>

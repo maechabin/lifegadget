@@ -14,7 +14,6 @@ const Article = (props) => {
     const markup = converter.makeHtml(props.article[contentType].rendered.toString());
     return { __html: markup };
   }
-
   const article = (props.article.id !== Number(props.params.id)) ? '' : (
     <div>
       <ArticleBreadcrumb {...props} />
