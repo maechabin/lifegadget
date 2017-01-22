@@ -29,11 +29,14 @@ const IndexTitle = (props) => {
         return '記事一覧';
     }
   };
-  const total = (props.resetList && props.routingKey !== '') ? '' : `全 ${props.total} 件`;
+
+  const title = (props.resetList && props.routingKey !== '') ? '' : getTitle(pathname);
+  const page = props.params.page ? props.params.page : '1';
+  const total = (props.resetList && props.routingKey !== '') ? '' : `全 ${props.total} 件 - ${page}ページ目`;
 
   return (
     <div className="index__title">
-      <h2>{getTitle(pathname)}</h2>
+      <h2>{title}</h2>
       <p>{total}</p>
     </div>
   );
@@ -48,6 +51,7 @@ IndexTitle.propTypes = {
     author: React.PropTypes.string,
     category: React.PropTypes.string,
     keyword: React.PropTypes.string,
+    page: React.PropTypes.string,
     tag: React.PropTypes.string,
   }),
   resetList: React.PropTypes.bool,

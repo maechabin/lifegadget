@@ -68103,7 +68103,10 @@ var IndexTitle = function IndexTitle(props) {
         return '記事一覧';
     }
   };
-  var total = props.resetList && props.routingKey !== '' ? '' : '\u5168 ' + props.total + ' \u4EF6';
+
+  var title = props.resetList && props.routingKey !== '' ? '' : getTitle(pathname);
+  var page = props.params.page ? props.params.page : '1';
+  var total = props.resetList && props.routingKey !== '' ? '' : '\u5168 ' + props.total + ' \u4EF6 - ' + page + '\u30DA\u30FC\u30B8\u76EE';
 
   return _react2.default.createElement(
     'div',
@@ -68111,7 +68114,7 @@ var IndexTitle = function IndexTitle(props) {
     _react2.default.createElement(
       'h2',
       null,
-      getTitle(pathname)
+      title
     ),
     _react2.default.createElement(
       'p',
@@ -68130,6 +68133,7 @@ IndexTitle.propTypes = {
     author: _react2.default.PropTypes.string,
     category: _react2.default.PropTypes.string,
     keyword: _react2.default.PropTypes.string,
+    page: _react2.default.PropTypes.string,
     tag: _react2.default.PropTypes.string
   }),
   resetList: _react2.default.PropTypes.bool,
