@@ -1,6 +1,6 @@
 import React from 'react';
-import Showdown from 'showdown';
 
+import ArticleContent from './ArticleContent.jsx';
 import ArticleBreadcrumb from './ArticleBreadcrumb.jsx';
 import ArticleCategory from './ArticleCategory.jsx';
 import ArticleDate from './ArticleDate.jsx';
@@ -9,24 +9,19 @@ import ArticleTitle from './ArticleTitle.jsx';
 import ArticleUser from './ArticleUser.jsx';
 
 const Article = (props) => {
-  function rawMarkup(contentType) {
-    const converter = new Showdown.Converter();
-    const markup = converter.makeHtml(props.article[contentType].rendered.toString());
-    return { __html: markup };
-  }
   const article = (props.article.id !== Number(props.params.id)) ? '' : (
-    <div>
+    <section>
       <ArticleBreadcrumb {...props} />
-      <ArticleTitle {...props} />
       <ArticleDate {...props} />
       <ArticleUser {...props} nameOnly />
+      <ArticleTitle {...props} />
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
-      <div dangerouslySetInnerHTML={rawMarkup('content')} />
+      <ArticleContent {...props} />
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
       <ArticleUser {...props} nameOnly={false} />
-    </div>
+    </section>
   );
 
   return (

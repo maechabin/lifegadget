@@ -44,7 +44,6 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 // Google Analytics
 history.listen(location => {
-  console.log(location.pathname);
   ga('send', 'pageview', location.pathname);
 });
 

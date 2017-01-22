@@ -1,4 +1,4 @@
-import { FETCH_ARTICLE, GET_TAG_NAME } from '../actions/archiveAction';
+import { FETCH_ARTICLE, GET_TAGS } from '../actions/archiveAction';
 
 export const archiveReducer = (state = {}, action) => {
   switch (action.type) {
@@ -9,7 +9,7 @@ export const archiveReducer = (state = {}, action) => {
         tags: [],
         gettedTag: false,
       });
-    case GET_TAG_NAME:
+    case GET_TAGS:
       return Object.assign({}, state, {
         tags: action.payload,
         gettedTag: true,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import { fetchArticleAsync, getTagNameAsync } from '../actions/archiveAction';
+import { fetchArticleAsync, getTagsAsync } from '../actions/archiveAction';
 import config from '../../config';
 
 // view files
@@ -68,7 +68,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch(fetchArticleAsync(callback, id));
     },
     handleGet(array) {
-      return dispatch(getTagNameAsync(array));
+      return dispatch(getTagsAsync(array));
     },
   };
 }

@@ -3,6 +3,7 @@ import {
   RESET_LIST,
   SAVE_ROUTING_KEY,
   SET_CURRENT_PAGE_NUMBER,
+  GET_TAG_NAME,
 } from '../actions/indexAction';
 
 export const indexReducer = (state = {}, action) => {
@@ -25,6 +26,10 @@ export const indexReducer = (state = {}, action) => {
     case SET_CURRENT_PAGE_NUMBER:
       return Object.assign({}, state, {
         currentPage: action.payload,
+      });
+    case GET_TAG_NAME:
+      return Object.assign({}, state, {
+        tagName: action.payload,
       });
     default:
       return state;

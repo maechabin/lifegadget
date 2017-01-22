@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import { searchArticleAsync, resetList, saveRoutingKey, getTagNameAsync } from '../actions/indexAction';
 import config from '../../config';
 
 // view files
@@ -27,9 +27,13 @@ class Tag extends React.Component {
     });
   }
 
+  componentWillMount() {
+    return this.props.handleInit1(this.props.params.tag);
+  }
+
   componentDidMount() {
     return [
-      this.props.handleInit(this.props.routingKey),
+      this.props.handleInit2(this.props.routingKey),
       this.props.handleFetch(this.props.params.tag, Tag.fetchData, this.props.params.page),
     ];
   }
@@ -40,7 +44,8 @@ class Tag extends React.Component {
         this.props.handleFetch(
           this.props.params.tag,
           Tag.fetchData,
-          nextProps.params.page),
+          nextProps.params.page,
+        ),
       ];
     }
     return false;
@@ -58,7 +63,8 @@ Tag.propTypes = {
     page: React.PropTypes.string,
   }),
   routingKey: React.PropTypes.string,
-  handleInit: React.PropTypes.func,
+  handleInit1: React.PropTypes.func,
+  handleInit2: React.PropTypes.func,
   handleFetch: React.PropTypes.func,
 };
 
@@ -67,6 +73,7 @@ function mapStateToProps(state) {
   return {
     index: state.index.index,
     resetList: state.index.resetList,
+    tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
@@ -78,7 +85,12 @@ function mapDispatchToProps(dispatch) {
     handleFetch(tag, callback, page) {
       return dispatch(searchArticleAsync(callback, tag, page));
     },
-    handleInit(key) {
+    handleInit1(tag) {
+      return [getTagNameAsync(tag)].map(
+        action => dispatch(action),
+      );
+    },
+    handleInit2(key) {
       return [resetList(), saveRoutingKey(key)].map(
         action => dispatch(action),
       );

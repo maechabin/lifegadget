@@ -1,14 +1,13 @@
 import React from 'react';
 
 const IndexTitle = (props) => {
-  console.log(props);
   const pathname = props.location.pathname.split('/')[1];
 
   const getCategory = categoryList => id => categoryList.map(
-    category => (category.id === parseInt(id) ? category.name : null),
+    category => (category.id === parseInt(id, 10) ? category.name : null),
   );
   const getAuthor = authorList => id => authorList.map(
-    author => (author.id === parseInt(id) ? author.name : null),
+    author => (author.id === parseInt(id, 10) ? author.name : null),
   );
   const getTitle = (name) => {
     switch (name) {
@@ -20,11 +19,12 @@ const IndexTitle = (props) => {
         return `「${categoryName}」カテゴリの記事一覧`;
       }
       case 'tag':
-        return `「${props.params.tag}」タグの記事一覧`;
-      case 'author':
+        return `「${props.tagName}」タグの記事一覧`;
+      case 'author': {
         const getAuthorName = getAuthor(props.author);
-        const authorName = getAuthorName(props.params.author)
+        const authorName = getAuthorName(props.params.author);
         return `${authorName}の記事一覧`;
+      }
       default:
         return '記事一覧';
     }
@@ -39,17 +39,20 @@ const IndexTitle = (props) => {
   );
 };
 IndexTitle.propTypes = {
+  author: React.PropTypes.string,
   category: React.PropTypes.arrayOf(React.PropTypes.object),
   location: React.PropTypes.shape({
     pathname: React.PropTypes.string,
   }),
   params: React.PropTypes.shape({
+    author: React.PropTypes.string,
     category: React.PropTypes.string,
     keyword: React.PropTypes.string,
     tag: React.PropTypes.string,
   }),
   resetList: React.PropTypes.bool,
   routingKey: React.PropTypes.string,
+  tagName: React.PropTypes.string,
   total: React.PropTypes.number,
 };
 

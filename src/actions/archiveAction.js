@@ -20,15 +20,15 @@ export function fetchArticleAsync(callback, id) {
 
 
 // TagIDからTag名取得
-export const GET_TAG_NAME = 'GET_TAG_NAME';
-export function getTagName(payload) {
+export const GET_TAGS = 'GET_TAGS';
+export function getTags(payload) {
   return {
-    type: GET_TAG_NAME,
+    type: GET_TAGS,
     payload,
   };
 }
 
-export function getTagNameAsync(array) {
+export function getTagsAsync(array) {
   return (dispatch) => {
     const tags = array.map(
       id => fetch(`${config.blogUrl}/wp-json/wp/v2/tags/${id}`, {
@@ -50,7 +50,7 @@ export function getTagNameAsync(array) {
     );
     Promise.all(tags).then(
       (res) => {
-        dispatch(getTagName(res));
+        dispatch(getTags(res));
       },
     );
   };

@@ -7,7 +7,7 @@ const ArticleDate = (props) => {
   }
 
   return (
-    <p>
+    <p className="article__date">
       <time>{formatDate(props.article.date)}</time>
     </p>
   );

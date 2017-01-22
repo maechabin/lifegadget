@@ -112,24 +112,31 @@ a {
 
 .article {
   max-width: 728px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 32px 0; }
+  width: calc(100% - 32px);
+  margin: 32px auto;
+  padding: 0 16px; }
   .article h2 {
     font-size: 40px; }
-  .article h3 {
-    background-color: #0B4475;
-    color: #fff;
-    padding: 8px 16px;
-    margin: 16px auto;
-    font-size: 32px; }
-  .article h4 {
-    font-size: 24px; }
-  .article p {
-    text-align: justify;
-    font-size: 18px;
-    line-height: 2;
-    margin-bottom: 32px; }
+  .article__content {
+    margin: 56px 0; }
+    .article__content h3 {
+      background-color: #0B4475;
+      color: #fff;
+      padding: 8px 16px;
+      margin: 16px auto;
+      font-size: 32px; }
+    .article__content h4 {
+      font-size: 24px; }
+    .article__content h5 {
+      font-size: 16px; }
+    .article__content p,
+    .article__content ul,
+    .article__content ol,
+    .article__content dl {
+      text-align: justify;
+      font-size: 18px;
+      line-height: 2;
+      margin-bottom: 32px; }
   .article__category {
     display: inline-block; }
     .article__category span {
@@ -138,6 +145,8 @@ a {
     display: inline-block; }
     .article__tag span {
       margin-right: 8px; }
+  .article__date {
+    margin-bottom: 8px; }
   .article__user {
     max-width: 100%; }
     .article__user section {
@@ -155,7 +164,7 @@ a {
       margin-bottom: 0; }
 
 .breadcrumb {
-  margin-bottom: 32px; }
+  margin-bottom: 24px; }
   .breadcrumb li {
     display: inline;
     margin-right: 8px; }

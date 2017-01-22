@@ -66045,11 +66045,11 @@ function extend() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GET_TAG_NAME = exports.FETCH_ARTICLE = undefined;
+exports.GET_TAGS = exports.FETCH_ARTICLE = undefined;
 exports.fetchArticle = fetchArticle;
 exports.fetchArticleAsync = fetchArticleAsync;
-exports.getTagName = getTagName;
-exports.getTagNameAsync = getTagNameAsync;
+exports.getTags = getTags;
+exports.getTagsAsync = getTagsAsync;
 
 var _nodeFetch = require('node-fetch');
 
@@ -66079,15 +66079,15 @@ function fetchArticleAsync(callback, id) {
 }
 
 // TagIDからTag名取得
-var GET_TAG_NAME = exports.GET_TAG_NAME = 'GET_TAG_NAME';
-function getTagName(payload) {
+var GET_TAGS = exports.GET_TAGS = 'GET_TAGS';
+function getTags(payload) {
   return {
-    type: GET_TAG_NAME,
+    type: GET_TAGS,
     payload: payload
   };
 }
 
-function getTagNameAsync(array) {
+function getTagsAsync(array) {
   return function (dispatch) {
     var tags = array.map(function (id) {
       return (0, _nodeFetch2.default)(_config2.default.blogUrl + '/wp-json/wp/v2/tags/' + id, {
@@ -66106,7 +66106,7 @@ function getTagNameAsync(array) {
       });
     });
     Promise.all(tags).then(function (res) {
-      dispatch(getTagName(res));
+      dispatch(getTags(res));
     });
   };
 }
@@ -66117,19 +66117,22 @@ function getTagNameAsync(array) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FETCH_INDEX = exports.SAVE_MEDIA = exports.SET_CURRENT_PAGE_NUMBER = exports.SAVE_ROUTING_KEY = exports.RESET_LIST = undefined;
+exports.FETCH_INDEX = exports.GET_TAG_NAME = exports.SAVE_MEDIA = exports.SET_CURRENT_PAGE_NUMBER = exports.SAVE_ROUTING_KEY = exports.RESET_LIST = undefined;
 exports.resetList = resetList;
 exports.saveRoutingKey = saveRoutingKey;
 exports.setCurrentPageNumber = setCurrentPageNumber;
-exports.saveMedia = saveMedia;
 exports.saveMediaAsync = saveMediaAsync;
-exports.fetchIndex = fetchIndex;
+exports.getTagNameAsync = getTagNameAsync;
 exports.fetchIndexAsync = fetchIndexAsync;
 exports.searchArticleAsync = searchArticleAsync;
 
 var _nodeFetch = require('node-fetch');
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+var _config = require('../../config');
+
+var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66180,6 +66183,31 @@ function saveMediaAsync(url) {
   });
 }
 
+var GET_TAG_NAME = exports.GET_TAG_NAME = 'GET_TAG_NAME';
+function getTagName(payload) {
+  return {
+    type: GET_TAG_NAME,
+    payload: payload
+  };
+}
+function getTagNameAsync(tag) {
+  return function (dispatch) {
+    return (0, _nodeFetch2.default)(_config2.default.blogUrl + '/wp-json/wp/v2/tags?include=' + tag + '&context=embed', {
+      method: 'get',
+      mode: 'cors'
+    }).then(function (res) {
+      if (res.status === 200) {
+        return res.json();
+      }
+      return console.dir(res);
+    }).then(function (res) {
+      if (typeof res[0].name === 'string') {
+        return dispatch(getTagName(res[0].name));
+      }
+    });
+  };
+}
+
 // Action creator
 var FETCH_INDEX = exports.FETCH_INDEX = 'FETCH_INDEX';
 function fetchIndex(payload) {
@@ -66220,7 +66248,6 @@ function searchArticleAsync(callback, keyword, page) {
           }
           return false;
         })).then(function (res4) {
-          console.log(res);
           return res2.map(function (obj, i) {
             return Object.assign({}, obj, res4[i]);
           });
@@ -66232,7 +66259,7 @@ function searchArticleAsync(callback, keyword, page) {
   };
 }
 
-},{"node-fetch":84}],367:[function(require,module,exports){
+},{"../../config":1,"node-fetch":84}],367:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -66384,7 +66411,6 @@ var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHi
 
 // Google Analytics
 history.listen(function (location) {
-  console.log(location.pathname);
   ga('send', 'pageview', location.pathname);
 });
 
@@ -66514,7 +66540,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch((0, _archiveAction.fetchArticleAsync)(callback, id));
     },
     handleGet: function handleGet(array) {
-      return dispatch((0, _archiveAction.getTagNameAsync)(array));
+      return dispatch((0, _archiveAction.getTagsAsync)(array));
     }
   };
 }
@@ -66652,7 +66678,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Author);
 
-},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":388,"node-fetch":84,"react":315,"react-redux":238}],371:[function(require,module,exports){
+},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":389,"node-fetch":84,"react":315,"react-redux":238}],371:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -66783,7 +66809,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Category);
 
-},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":388,"node-fetch":84,"react":315,"react-redux":238}],372:[function(require,module,exports){
+},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":389,"node-fetch":84,"react":315,"react-redux":238}],372:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -66914,7 +66940,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Index);
 
-},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":388,"node-fetch":84,"react":315,"react-redux":238}],373:[function(require,module,exports){
+},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":389,"node-fetch":84,"react":315,"react-redux":238}],373:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67009,7 +67035,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Root);
 
-},{"../../config":1,"../actions/rootAction":367,"../views/root/Footer.jsx":392,"../views/root/Header.jsx":393,"../views/root/Sidebar.jsx":395,"react":315,"react-redux":238}],374:[function(require,module,exports){
+},{"../../config":1,"../actions/rootAction":367,"../views/root/Footer.jsx":393,"../views/root/Header.jsx":394,"../views/root/Sidebar.jsx":396,"react":315,"react-redux":238}],374:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67143,7 +67169,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Search);
 
-},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":388,"node-fetch":84,"react":315,"react-redux":238}],375:[function(require,module,exports){
+},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":389,"node-fetch":84,"react":315,"react-redux":238}],375:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67193,9 +67219,14 @@ var Tag = function (_React$Component) {
   }
 
   _createClass(Tag, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      return this.props.handleInit1(this.props.params.tag);
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      return [this.props.handleInit(this.props.routingKey), this.props.handleFetch(this.props.params.tag, Tag.fetchData, this.props.params.page)];
+      return [this.props.handleInit2(this.props.routingKey), this.props.handleFetch(this.props.params.tag, Tag.fetchData, this.props.params.page)];
     }
   }, {
     key: 'componentWillUpdate',
@@ -67242,7 +67273,8 @@ Tag.propTypes = {
     page: _react2.default.PropTypes.string
   }),
   routingKey: _react2.default.PropTypes.string,
-  handleInit: _react2.default.PropTypes.func,
+  handleInit1: _react2.default.PropTypes.func,
+  handleInit2: _react2.default.PropTypes.func,
   handleFetch: _react2.default.PropTypes.func
 };
 
@@ -67251,6 +67283,7 @@ function mapStateToProps(state) {
   return {
     index: state.index.index,
     resetList: state.index.resetList,
+    tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
@@ -67262,7 +67295,12 @@ function mapDispatchToProps(dispatch) {
     handleFetch: function handleFetch(tag, callback, page) {
       return dispatch((0, _indexAction.searchArticleAsync)(callback, tag, page));
     },
-    handleInit: function handleInit(key) {
+    handleInit1: function handleInit1(tag) {
+      return [(0, _indexAction.getTagNameAsync)(tag)].map(function (action) {
+        return dispatch(action);
+      });
+    },
+    handleInit2: function handleInit2(key) {
       return [(0, _indexAction.resetList)(), (0, _indexAction.saveRoutingKey)(key)].map(function (action) {
         return dispatch(action);
       });
@@ -67272,7 +67310,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Tag);
 
-},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":388,"node-fetch":84,"react":315,"react-redux":238}],376:[function(require,module,exports){
+},{"../../config":1,"../actions/indexAction":366,"../views/index/IndexComp.jsx":389,"node-fetch":84,"react":315,"react-redux":238}],376:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67294,7 +67332,7 @@ var archiveReducer = exports.archiveReducer = function archiveReducer() {
         tags: [],
         gettedTag: false
       });
-    case _archiveAction.GET_TAG_NAME:
+    case _archiveAction.GET_TAGS:
       return Object.assign({}, state, {
         tags: action.payload,
         gettedTag: true
@@ -67337,6 +67375,10 @@ var indexReducer = exports.indexReducer = function indexReducer() {
     case _indexAction.SET_CURRENT_PAGE_NUMBER:
       return Object.assign({}, state, {
         currentPage: action.payload
+      });
+    case _indexAction.GET_TAG_NAME:
+      return Object.assign({}, state, {
+        tagName: action.payload
       });
     default:
       return state;
@@ -67467,9 +67509,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _showdown = require('showdown');
+var _ArticleContent = require('./ArticleContent.jsx');
 
-var _showdown2 = _interopRequireDefault(_showdown);
+var _ArticleContent2 = _interopRequireDefault(_ArticleContent);
 
 var _ArticleBreadcrumb = require('./ArticleBreadcrumb.jsx');
 
@@ -67498,21 +67540,16 @@ var _ArticleUser2 = _interopRequireDefault(_ArticleUser);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Article = function Article(props) {
-  function rawMarkup(contentType) {
-    var converter = new _showdown2.default.Converter();
-    var markup = converter.makeHtml(props.article[contentType].rendered.toString());
-    return { __html: markup };
-  }
   var article = props.article.id !== Number(props.params.id) ? '' : _react2.default.createElement(
-    'div',
+    'section',
     null,
     _react2.default.createElement(_ArticleBreadcrumb2.default, props),
-    _react2.default.createElement(_ArticleTitle2.default, props),
     _react2.default.createElement(_ArticleDate2.default, props),
     _react2.default.createElement(_ArticleUser2.default, _extends({}, props, { nameOnly: true })),
+    _react2.default.createElement(_ArticleTitle2.default, props),
     _react2.default.createElement(_ArticleCategory2.default, props),
     _react2.default.createElement(_ArticleTag2.default, props),
-    _react2.default.createElement('div', { dangerouslySetInnerHTML: rawMarkup('content') }),
+    _react2.default.createElement(_ArticleContent2.default, props),
     _react2.default.createElement(_ArticleCategory2.default, props),
     _react2.default.createElement(_ArticleTag2.default, props),
     _react2.default.createElement(_ArticleUser2.default, _extends({}, props, { nameOnly: false }))
@@ -67535,7 +67572,7 @@ Article.propTypes = {
 
 exports.default = Article;
 
-},{"./ArticleBreadcrumb.jsx":382,"./ArticleCategory.jsx":383,"./ArticleDate.jsx":384,"./ArticleTag.jsx":385,"./ArticleTitle.jsx":386,"./ArticleUser.jsx":387,"react":315,"showdown":345}],382:[function(require,module,exports){
+},{"./ArticleBreadcrumb.jsx":382,"./ArticleCategory.jsx":383,"./ArticleContent.jsx":384,"./ArticleDate.jsx":385,"./ArticleTag.jsx":386,"./ArticleTitle.jsx":387,"./ArticleUser.jsx":388,"react":315}],382:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67687,6 +67724,40 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _showdown = require('showdown');
+
+var _showdown2 = _interopRequireDefault(_showdown);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ArticleContent = function ArticleContent(props) {
+  function rawMarkup(contentType) {
+    var converter = new _showdown2.default.Converter();
+    var markup = converter.makeHtml(props.article[contentType].rendered.toString());
+    return { __html: markup };
+  }
+
+  return _react2.default.createElement('div', { className: 'article__content', dangerouslySetInnerHTML: rawMarkup('content') });
+};
+ArticleContent.propTypes = {
+  article: _react2.default.PropTypes.shape({
+    content: _react2.default.PropTypes.object
+  })
+};
+
+exports.default = ArticleContent;
+
+},{"react":315,"showdown":345}],385:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ArticleDate = function ArticleDate(props) {
@@ -67697,7 +67768,7 @@ var ArticleDate = function ArticleDate(props) {
 
   return _react2.default.createElement(
     'p',
-    null,
+    { className: 'article__date' },
     _react2.default.createElement(
       'time',
       null,
@@ -67713,7 +67784,7 @@ ArticleDate.propTypes = {
 
 exports.default = ArticleDate;
 
-},{"react":315}],385:[function(require,module,exports){
+},{"react":315}],386:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67757,7 +67828,7 @@ ArticleTag.propTypes = {
 
 exports.default = ArticleTag;
 
-},{"react":315,"react-router":284}],386:[function(require,module,exports){
+},{"react":315,"react-router":284}],387:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67787,7 +67858,7 @@ ArticleTitle.propTypes = {
 
 exports.default = ArticleTitle;
 
-},{"react":315}],387:[function(require,module,exports){
+},{"react":315}],388:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67866,7 +67937,7 @@ ArticleUser.propTypes = {
 
 exports.default = ArticleUser;
 
-},{"react":315,"react-router":284}],388:[function(require,module,exports){
+},{"react":315,"react-router":284}],389:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67903,7 +67974,7 @@ var IndexComp = function IndexComp(props) {
 
 exports.default = IndexComp;
 
-},{"./IndexList.jsx":389,"./IndexTitle.jsx":390,"./Pagination.jsx":391,"react":315}],389:[function(require,module,exports){
+},{"./IndexList.jsx":390,"./IndexTitle.jsx":391,"./Pagination.jsx":392,"react":315}],390:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67978,7 +68049,7 @@ IndexList.propTypes = {
 
 exports.default = IndexList;
 
-},{"react":315,"react-router":284,"showdown":345}],390:[function(require,module,exports){
+},{"react":315,"react-router":284,"showdown":345}],391:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -67992,20 +68063,19 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var IndexTitle = function IndexTitle(props) {
-  console.log(props);
   var pathname = props.location.pathname.split('/')[1];
 
   var getCategory = function getCategory(categoryList) {
     return function (id) {
       return categoryList.map(function (category) {
-        return category.id === parseInt(id) ? category.name : null;
+        return category.id === parseInt(id, 10) ? category.name : null;
       });
     };
   };
   var getAuthor = function getAuthor(authorList) {
     return function (id) {
       return authorList.map(function (author) {
-        return author.id === parseInt(id) ? author.name : null;
+        return author.id === parseInt(id, 10) ? author.name : null;
       });
     };
   };
@@ -68022,11 +68092,13 @@ var IndexTitle = function IndexTitle(props) {
           return '\u300C' + categoryName + '\u300D\u30AB\u30C6\u30B4\u30EA\u306E\u8A18\u4E8B\u4E00\u89A7';
         }
       case 'tag':
-        return '\u300C' + props.params.tag + '\u300D\u30BF\u30B0\u306E\u8A18\u4E8B\u4E00\u89A7';
+        return '\u300C' + props.tagName + '\u300D\u30BF\u30B0\u306E\u8A18\u4E8B\u4E00\u89A7';
       case 'author':
-        var getAuthorName = getAuthor(props.author);
-        var authorName = getAuthorName(props.params.author);
-        return authorName + '\u306E\u8A18\u4E8B\u4E00\u89A7';
+        {
+          var getAuthorName = getAuthor(props.author);
+          var authorName = getAuthorName(props.params.author);
+          return authorName + '\u306E\u8A18\u4E8B\u4E00\u89A7';
+        }
       default:
         return '記事一覧';
     }
@@ -68049,23 +68121,26 @@ var IndexTitle = function IndexTitle(props) {
   );
 };
 IndexTitle.propTypes = {
+  author: _react2.default.PropTypes.string,
   category: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object),
   location: _react2.default.PropTypes.shape({
     pathname: _react2.default.PropTypes.string
   }),
   params: _react2.default.PropTypes.shape({
+    author: _react2.default.PropTypes.string,
     category: _react2.default.PropTypes.string,
     keyword: _react2.default.PropTypes.string,
     tag: _react2.default.PropTypes.string
   }),
   resetList: _react2.default.PropTypes.bool,
   routingKey: _react2.default.PropTypes.string,
+  tagName: _react2.default.PropTypes.string,
   total: _react2.default.PropTypes.number
 };
 
 exports.default = IndexTitle;
 
-},{"react":315}],391:[function(require,module,exports){
+},{"react":315}],392:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68209,7 +68284,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"react":315,"react-router":284}],392:[function(require,module,exports){
+},{"react":315,"react-router":284}],393:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68241,7 +68316,7 @@ var Footer = function Footer(props) {
 
 exports.default = Footer;
 
-},{"../../../config":1,"react":315}],393:[function(require,module,exports){
+},{"../../../config":1,"react":315}],394:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68289,7 +68364,7 @@ var Header = function Header(props) {
 
 exports.default = Header;
 
-},{"./SearchForm.jsx":394,"react":315,"react-router":284}],394:[function(require,module,exports){
+},{"./SearchForm.jsx":395,"react":315,"react-router":284}],395:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68337,7 +68412,7 @@ SearchForm.propTypes = {
 
 exports.default = SearchForm;
 
-},{"react":315}],395:[function(require,module,exports){
+},{"react":315}],396:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

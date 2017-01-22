@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import config from '../../config';
 
 export const RESET_LIST = 'RESET_LISET';
 export function resetList() {
@@ -25,7 +26,7 @@ export function setCurrentPageNumber(payload) {
 
 // 任意のIDのアイキャッチ画像の取得、保存
 export const SAVE_MEDIA = 'SAVE_MEDIA';
-export function saveMedia(payload) {
+function saveMedia(payload) {
   return {
     type: SAVE_MEDIA,
     payload,
@@ -49,9 +50,36 @@ export function saveMediaAsync(url) {
   );
 }
 
+export const GET_TAG_NAME = 'GET_TAG_NAME';
+function getTagName(payload) {
+  return {
+    type: GET_TAG_NAME,
+    payload,
+  };
+}
+export function getTagNameAsync(tag) {
+  return (dispatch) => {
+    return fetch(`${config.blogUrl}/wp-json/wp/v2/tags?include=${tag}&context=embed`, {
+      method: 'get',
+      mode: 'cors',
+    }).then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      return console.dir(res);
+    }).then(
+      res => {
+        if (typeof res[0].name === 'string') {
+          return dispatch(getTagName(res[0].name));
+        }
+      },
+    );
+  };
+}
+
 // Action creator
 export const FETCH_INDEX = 'FETCH_INDEX';
-export function fetchIndex(payload) {
+function fetchIndex(payload) {
   return {
     type: FETCH_INDEX,
     payload,
@@ -93,7 +121,6 @@ export function searchArticleAsync(callback, keyword, page) {
             return false;
           },
         )).then(res4 => {
-          console.log(res);
           return res2.map((obj, i) => {
             return Object.assign({}, obj, res4[i]);
           });
