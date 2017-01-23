@@ -42,7 +42,7 @@ const IndexTitle = (props) => {
   );
 };
 IndexTitle.propTypes = {
-  author: React.PropTypes.string,
+  author: React.PropTypes.arrayOf(React.PropTypes.object),
   category: React.PropTypes.arrayOf(React.PropTypes.object),
   location: React.PropTypes.shape({
     pathname: React.PropTypes.string,
