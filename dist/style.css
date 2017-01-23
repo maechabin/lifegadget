@@ -8,7 +8,8 @@ table, th, td, embed, object {
   vertical-align: baseline; }
 
 img {
-  max-width: 100%; }
+  max-width: 100%;
+  height: auto; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 游ゴシック, "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, "Noto Sans Japanese", "Noto Sans CJK JP", sans-serif;
@@ -86,6 +87,8 @@ a {
     display: flex;
     flex-flow: row wrap;
     justify-content: center; }
+    .index__list__loading {
+      text-align: center; }
     .index__list li {
       border-radius: 2px;
       box-sizing: border-box;
@@ -117,6 +120,8 @@ a {
   padding: 0 16px; }
   .article h2 {
     font-size: 40px; }
+  .article__loading {
+    text-align: center; }
   .article__content {
     margin: 56px 0; }
     .article__content h3 {
@@ -187,3 +192,18 @@ a {
   background-color: #0B4475; }
   .footer address {
     display: inline; }
+
+.widget__category-button {
+  margin: 32px auto;
+  text-align: center; }
+  .widget__category-button li {
+    margin: 0 8px;
+    display: inline-block; }
+    .widget__category-button li a {
+      font-weight: bold;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #262829;
+      box-sizing: border-box;
+      padding: 16px; }

@@ -9,7 +9,11 @@ import ArticleTitle from './ArticleTitle.jsx';
 import ArticleUser from './ArticleUser.jsx';
 
 const Article = (props) => {
-  const article = (props.article.id !== Number(props.params.id)) ? '' : (
+  const article = (props.article.id !== Number(props.params.id)) ? (
+    <div className="article__loading">
+      <img src="/assets/image/loading.svg" alt="loading..." />
+    </div>
+  ) : (
     <section>
       <ArticleBreadcrumb {...props} />
       <ArticleDate {...props} />

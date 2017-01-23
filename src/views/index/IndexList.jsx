@@ -13,7 +13,11 @@ const IndexList = (props) => {
     return `${dividedDate[0]}年${dividedDate[1]}月${dividedDate[2]}日`;
   }
 
-  const list = (props.resetList && props.routingKey !== '') ? '' : props.index.map(
+  const list = (props.resetList && props.routingKey !== '') ? (
+    <div className="list__loading">
+      <img src="/assets/image/loading.svg" alt="loading..." />
+    </div>
+  ) : props.index.map(
     (item) => {
       const eyecatch = (item.source_url) ? <img src={item.source_url} alt={item.title.rendered} /> : '';
       return (

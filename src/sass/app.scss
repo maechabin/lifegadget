@@ -10,6 +10,7 @@ table, th, td, embed, object {
 }
 img {
   max-width: 100%;
+  height: auto;
 }
 
 body {
@@ -104,6 +105,9 @@ a {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    &__loading {
+      text-align: center;
+    }
     li {
       border-radius: 2px;
       box-sizing: border-box;
@@ -146,6 +150,9 @@ a {
   padding: 0 16px;
   h2 {
     font-size: 40px;
+  }
+  &__loading {
+    text-align: center;
   }
   &__content {
     margin: 56px 0;
@@ -238,5 +245,25 @@ a {
   background-color: $_theme-color;
   address {
     display: inline;
+  }
+}
+
+.widget {
+  &__category-button {
+    margin: 32px auto;
+    text-align: center;
+    li{
+      margin: 0 8px;
+      display: inline-block;
+      a {
+        font-weight: bold;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #262829;
+        box-sizing: border-box;
+        padding: 16px;
+      }
+    }
   }
 }

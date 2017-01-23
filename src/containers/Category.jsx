@@ -47,6 +47,14 @@ class Category extends React.Component {
           nextProps.params.page),
       ];
     }
+    if (nextProps.pathname !== this.props.pathname) {
+      return [
+        this.props.handleFetch(
+          nextProps.params.category,
+          Category.fetchData,
+          nextProps.params.page),
+      ];
+    }
     return false;
   }
 
