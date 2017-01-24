@@ -25,6 +25,7 @@ export default function renderFullPage(html, finalState) {
         <title>${title}</title>
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
       </head>
 
       <body>

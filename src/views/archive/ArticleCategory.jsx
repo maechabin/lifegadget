@@ -21,7 +21,9 @@ const ArticleCategory = (props) => {
   );
 
   return (
-    <div className="article__category">{category}</div>
+    <div className="article__category">
+      <i className="fa fa-folder"></i> {category}
+    </div>
   );
 };
 ArticleCategory.propTypes = {

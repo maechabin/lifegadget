@@ -3,7 +3,7 @@ import React from 'react';
 import IndexTitle from './IndexTitle.jsx';
 import IndexList from './IndexList.jsx';
 import Pagination from './Pagination.jsx';
-import CategoryButton from '../../widget/CategoryButton.jsx'
+import CategoryButton from '../../widgets/CategoryButton.jsx';
 
 const IndexComp = props => (
   <main className="index">

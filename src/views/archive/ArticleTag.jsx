@@ -10,7 +10,9 @@ const ArticleTag = (props) => {
     ),
   );
   return (
-    <div className="article__tag">{tag}</div>
+    <div className="article__tag">
+      <i className="fa fa-tag"></i> {tag}
+    </div>
   );
 };
 ArticleTag.propTypes = {

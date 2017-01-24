@@ -7,6 +7,7 @@ import ArticleDate from './ArticleDate.jsx';
 import ArticleTag from './ArticleTag.jsx';
 import ArticleTitle from './ArticleTitle.jsx';
 import ArticleUser from './ArticleUser.jsx';
+import CategoryButton from '../../widgets/CategoryButton.jsx';
 
 const Article = (props) => {
   const article = (props.article.id !== Number(props.params.id)) ? (
@@ -25,6 +26,7 @@ const Article = (props) => {
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
       <ArticleUser {...props} nameOnly={false} />
+      <CategoryButton />
     </section>
   );
 

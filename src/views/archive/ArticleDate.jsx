@@ -8,7 +8,7 @@ const ArticleDate = (props) => {
 
   return (
     <p className="article__date">
-      <time>{formatDate(props.article.date)}</time>
+      <i className="fa fa-calendar"></i> <time>{formatDate(props.article.date)}</time>
     </p>
   );
 };

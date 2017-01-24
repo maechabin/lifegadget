@@ -15,15 +15,15 @@ const ArticleBreadcrumb = (props) => {
     <ul is itemscope itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
       <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to="/">
-          <span is itemprop="name">ホーム</span>
+          <i className="fa fa-home"></i> <span is itemprop="name">ホーム</span>
         </Link>
       </li>
       <li>
-        <span>&gt;</span>
+        <span><i className="fa fa-chevron-right"></i></span>
       </li>
       <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to={`/category/${props.category[category[0]].id}`}>
-          <span is itemprop="name">{props.category[category[0]].name}</span>
+          <i className="fa fa-folder"></i> <span is itemprop="name">{props.category[category[0]].name}</span>
         </Link>
       </li>
     </ul>
