@@ -8,8 +8,8 @@ const ArticleUser = (props) => {
   );
   const userId = getUser(props.user)(props.article.author);
   const id = userId.find(id => id != null);
-  const user = (props.nameOnly) ? (
-    <p className="article__user_name">
+  const user = props.nameOnly ? (
+    <p>
       <i className="fa fa-user"></i> <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
     </p>
   ) : (
@@ -25,7 +25,7 @@ const ArticleUser = (props) => {
     </section>
   );
   return (
-    <div className="article__user">
+    <div className={props.nameOnly ? 'article__user_name' : 'article__user'}>
       {user}
     </div>
   );

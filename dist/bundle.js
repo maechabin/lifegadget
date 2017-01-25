@@ -4,15 +4,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {
+
+var _blogTitle$blogSubTit;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+exports.default = (_blogTitle$blogSubTit = {
   blogTitle: 'LifeGadget',
   blogSubTitle: '生活をサポートする記事メディア',
   blogTitleTag: 'LifeGadget（ライフガジェット）',
-  blogUrl: 'http://localhost:8080/wordpress',
-  blogLogoImage: '/assets/image/lifegadget_white.png',
-  perPage: 12,
-  analyticsCode: 'UA-15725660-16'
-};
+  blogUrl: 'http://lifegadget.me'
+}, _defineProperty(_blogTitle$blogSubTit, 'blogUrl', 'http://localhost:8080/wordpress'), _defineProperty(_blogTitle$blogSubTit, 'perPage', 12), _defineProperty(_blogTitle$blogSubTit, 'analyticsCode', 'UA-15725660-16'), _blogTitle$blogSubTit);
 
 },{}],2:[function(require,module,exports){
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
@@ -67427,8 +67429,8 @@ var Article = function Article(props) {
     null,
     _react2.default.createElement(_ArticleBreadcrumb2.default, props),
     _react2.default.createElement(_ArticleDate2.default, props),
-    _react2.default.createElement(_ArticleUser2.default, _extends({}, props, { nameOnly: true })),
     _react2.default.createElement(_ArticleTitle2.default, props),
+    _react2.default.createElement(_ArticleUser2.default, _extends({}, props, { nameOnly: true })),
     _react2.default.createElement(_ArticleCategory2.default, props),
     _react2.default.createElement(_ArticleTag2.default, props),
     _react2.default.createElement(_ArticleContent2.default, props),
@@ -67781,7 +67783,7 @@ var ArticleUser = function ArticleUser(props) {
   });
   var user = props.nameOnly ? _react2.default.createElement(
     'p',
-    { className: 'article__user_name' },
+    null,
     _react2.default.createElement('i', { className: 'fa fa-user' }),
     ' ',
     _react2.default.createElement(
@@ -67819,7 +67821,7 @@ var ArticleUser = function ArticleUser(props) {
   );
   return _react2.default.createElement(
     'div',
-    { className: 'article__user' },
+    { className: props.nameOnly ? 'article__user_name' : 'article__user' },
     user
   );
 };
@@ -67921,24 +67923,26 @@ var IndexList = function IndexList(props) {
         eyecatch
       ),
       _react2.default.createElement(
-        'h3',
-        null,
-        _react2.default.createElement(
-          _reactRouter.Link,
-          { to: '/archives/' + item.id },
-          item.title.rendered
-        )
-      ),
-      _react2.default.createElement(
         'p',
-        null,
+        { className: 'index__list_date' },
+        _react2.default.createElement('i', { className: 'fa fa-calendar' }),
+        ' ',
         _react2.default.createElement(
           'time',
           null,
           formatDate(item.date)
         )
       ),
-      _react2.default.createElement('div', { dangerouslySetInnerHTML: rawMarkup(item.excerpt.rendered) })
+      _react2.default.createElement(
+        'h3',
+        { className: 'index__list_title' },
+        _react2.default.createElement(
+          _reactRouter.Link,
+          { to: '/archives/' + item.id },
+          item.title.rendered
+        )
+      ),
+      _react2.default.createElement('div', { className: 'index__list_description', dangerouslySetInnerHTML: rawMarkup(item.excerpt.rendered) })
     );
   });
   return _react2.default.createElement(
@@ -68366,7 +68370,7 @@ var CategoryButton = function CategoryButton(props) {
       _react2.default.createElement(
         _reactRouter.Link,
         { to: '/' },
-        _react2.default.createElement('i', { className: 'fa fa-home' })
+        '\u65B0\u7740'
       )
     ),
     _react2.default.createElement(

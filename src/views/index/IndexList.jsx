@@ -23,11 +23,11 @@ const IndexList = (props) => {
       return (
         <li key={item.id}>
           <Link to={`/archives/${item.id}`}>{eyecatch}</Link>
-          <h3>
+          <p className="index__list_date"><i className="fa fa-calendar"></i> <time>{formatDate(item.date)}</time></p>
+          <h3 className="index__list_title">
             <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
           </h3>
-          <p><time>{formatDate(item.date)}</time></p>
-          <div dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
+          <div className="index__list_description" dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)} />
         </li>
       );
     },

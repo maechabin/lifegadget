@@ -18,8 +18,8 @@ const Article = (props) => {
     <section>
       <ArticleBreadcrumb {...props} />
       <ArticleDate {...props} />
-      <ArticleUser {...props} nameOnly />
       <ArticleTitle {...props} />
+      <ArticleUser {...props} nameOnly />
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
       <ArticleContent {...props} />
