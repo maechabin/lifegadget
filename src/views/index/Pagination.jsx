@@ -41,7 +41,7 @@ const Pagination = (props) => {
     if (paramsPage === 1) {
       return <li>前へ</li>;
     }
-    if (paramsPage > totalPages - 5) {
+    if (totalPages >= 5 && paramsPage > totalPages - 5) {
       return <li><Link to={`${path(pathname[1], props.routeParams)}${totalPages - 5}`}>前へ</Link></li>;
     }
     return <li><Link to={`${path(pathname[1], props.routeParams)}${paramsPage - 1}`}>前へ</Link></li>;
