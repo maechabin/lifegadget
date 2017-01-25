@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const ArticleUser = (props) => {
-  console.log(props);
   const getUser = userList => id => userList.map(
     (user, i) => (user.id === id ? i : null),
   );
@@ -10,7 +9,7 @@ const ArticleUser = (props) => {
   const id = userId.find(id => id != null);
   const user = props.nameOnly ? (
     <p>
-      <i className="fa fa-user"></i> <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
+      <i className="fa fa-user" /> <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
     </p>
   ) : (
     <section>

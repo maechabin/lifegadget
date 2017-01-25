@@ -11,7 +11,7 @@ const ArticleTag = (props) => {
   );
   return (
     <div className="article__tag">
-      <i className="fa fa-tag"></i> {tag}
+      <i className="fa fa-tag" /> {tag}
     </div>
   );
 };

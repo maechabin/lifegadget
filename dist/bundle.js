@@ -67609,7 +67609,7 @@ var ArticleBreadcrumb = function ArticleBreadcrumb(props) {
   var getCategory = function getCategory(categoryList) {
     return function (id) {
       return categoryList.map(function (category, i) {
-        return category.id === parseInt(id) ? i : null;
+        return category.id === parseInt(id, 10) ? i : null;
       });
     };
   };
@@ -67898,7 +67898,6 @@ var _reactRouter = require('react-router');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ArticleUser = function ArticleUser(props) {
-  console.log(props);
   var getUser = function getUser(userList) {
     return function (id) {
       return userList.map(function (user, i) {
@@ -68071,7 +68070,10 @@ var IndexList = function IndexList(props) {
           item.title.rendered
         )
       ),
-      _react2.default.createElement('div', { className: 'index__list_description', dangerouslySetInnerHTML: rawMarkup(item.excerpt.rendered) })
+      _react2.default.createElement('div', {
+        className: 'index__list_description',
+        dangerouslySetInnerHTML: rawMarkup(item.excerpt.rendered)
+      })
     );
   });
   return _react2.default.createElement(

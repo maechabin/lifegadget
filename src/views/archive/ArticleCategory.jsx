@@ -22,7 +22,7 @@ const ArticleCategory = (props) => {
 
   return (
     <div className="article__category">
-      <i className="fa fa-folder"></i> {category}
+      <i className="fa fa-folder" /> {category}
     </div>
   );
 };

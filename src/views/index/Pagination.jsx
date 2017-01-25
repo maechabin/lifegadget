@@ -17,7 +17,7 @@ const Pagination = (props) => {
       case 'tag':
         return `/tag/${routeParams.tag}/`;
       case 'author':
-        return `/author/${routeParams.author}/`
+        return `/author/${routeParams.author}/`;
       default:
         return '/';
     }
