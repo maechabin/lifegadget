@@ -13,9 +13,18 @@ export default function renderFullPage(html, finalState) {
         return `${config.blogTitleTag} - ${config.blogSubTitle}`;
     }
   }
+  function getImage(pathname) {
+    switch (pathname) {
+      case 'archives':
+        return `${finalState.archive.articleImage}`;
+      default:
+        return `${config.blogDefaultImage}`;
+    }
+  }
 
   const pathname = routing.pathname.split('/')[1];
   const title = getTitle(pathname);
+  const image = getImage(pathname);
 
   return `
     <!doctype html>
@@ -23,16 +32,30 @@ export default function renderFullPage(html, finalState) {
       <head>
         <meta charset="utf-8">
         <title>${title}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="/assets/style.css">
         <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="${title}">
+        <meta property="og:url" content="${config.blogUrl}">
+        <meta property="og:site_name" content="${config.blogTitle}">
+        <meta property="og:image" content="${image}">
+        <meta property="og:locale" content="ja_JP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="${title}">
+        <meta name="twitter:url" content="${config.blogUrl}">
+        <meta name="twitter:image" content="${image}">
+        <meta name="twitter:domain" content="${config.blogDomain}">
+        <meta name="twitter:creator" content="${config.twitter}">
+        <meta name="twitter:site" content="${config.twitter}">
       </head>
 
       <body>
         <div class="content">${html}</div>
         <script>
           console.log(${serialize(finalState)});
-          window.__PRELOADED_STATE__ = ${serialize(finalState)}
+          window.__PRELOADED_STATE__ = ${serialize(finalState)};
         </script>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -42,6 +65,8 @@ export default function renderFullPage(html, finalState) {
 
           ga('create', '${config.analyticsCode}', 'auto');
         </script>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         <script src="/assets/bundle.js"></script>
       </body>
     </html>

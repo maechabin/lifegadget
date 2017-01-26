@@ -16,7 +16,8 @@ export const indexState = {
 };
 export const archiveState = {
   article: {},
-  currentId: null,
+  articleImage: '',
+  currentId: 0,
   tags: [],
   gettedTag: false,
 };

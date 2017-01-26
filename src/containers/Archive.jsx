@@ -13,7 +13,7 @@ class Archive extends React.Component {
   }
 
   static fetchData(id) {
-    return fetch(`${config.blogUrl}/wp-json/wp/v2/posts/${id}`, {
+    return fetch(`${config.blogUrl}/wp-json/wp/v2/posts/${id}?context=view`, {
       method: 'get',
       mode: 'cors',
     }).then((res) => {
@@ -33,6 +33,16 @@ class Archive extends React.Component {
       }
       return false;
     });
+  }
+
+  componentDidUpdate() {
+    const ads = document.querySelectorAll('.adsbygoogle');
+    if (ads.length > 0) {
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch(error) {}
+    }
+    twttr.widgets.load();
   }
 
   render() {
