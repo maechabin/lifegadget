@@ -16,7 +16,7 @@ class Root extends React.Component {
         <Header {...this.props} config={config} />
         {this.props.children}
         <Sidebar />
-        <Footer />
+        <Footer config={config} />
       </div>
     );
   }

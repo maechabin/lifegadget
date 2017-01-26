@@ -269,15 +269,18 @@ a {
   text-align: center;
   box-sizing: border-box;
   padding: 32px 0;
-  background-color: $_theme-color;
+  background-color: #262829;
   address {
-    display: inline;
+    margin-left: 8px;
+    vertical-align: text-bottom;
+    display: inline-block;
   }
 }
 
 .widget {
   &__category-button {
     margin: 48px auto;
+    padding: 0;
     text-align: center;
     li {
       margin: 0 8px;
@@ -288,11 +291,27 @@ a {
         border-radius: 4px;
         text-decoration: none;
         color: #fff;
-        background-color: #262829;
+        background-color: $_theme-color;
         box-sizing: border-box;
         padding: 16px 32px;
+        box-shadow: 0 1px 1px #bdbdbd;
+        transition: 0.4s;
+        &:hover {
+          background-color: darken($_theme-color, 10%);
+        }
+        &:active {
+          background-color: darken($_theme-color, 20%);
+          box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+        }
       }
     }
+  }
+  &__adsense {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto;
   }
   @media screen and (max-width: 728px) {
     &__category-button {

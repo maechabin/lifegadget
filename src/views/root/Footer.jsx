@@ -1,9 +1,14 @@
 import React from 'react';
-import config from '../../../config';
+import { Link } from 'react-router';
 
 const Footer = props => (
   <footer className="footer">
-    &copy; 2017 <address>{config.blogTitle}</address>
+    &copy; 2017
+    <address>
+      <Link to="/">
+        <img src={props.config.blogLogoImage} alt={props.config.blogTitle} width="80" />
+      </Link>
+    </address>
   </footer>
 );
 
