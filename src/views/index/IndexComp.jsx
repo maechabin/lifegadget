@@ -3,6 +3,7 @@ import React from 'react';
 import IndexTitle from './IndexTitle.jsx';
 import IndexList from './IndexList.jsx';
 import Pagination from './Pagination.jsx';
+import config from '../../../config';
 import CategoryButton from '../../widgets/CategoryButton.jsx';
 import Adsense from '../../widgets/Adsense.jsx';
 
@@ -14,9 +15,10 @@ const IndexComp = props => (
     <Pagination {...props} />
     <CategoryButton />
     <Adsense
-      adsense={"LifeGadget_記事下_レスポンシブ"}
-      client={"ca-pub-5496880555378290"}
-      slot={"4887750292"}
+      style={{ backgroundColor: '#F5F5F5' }}
+      adsense={"LifeGadget_一覧下_レスポンシブ"}
+      client={config.adsenseCode}
+      slot={"9045421499"}
       format={"auto"}
     />
   </main>

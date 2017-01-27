@@ -7,6 +7,7 @@ import ArticleDate from './ArticleDate.jsx';
 import ArticleTag from './ArticleTag.jsx';
 import ArticleTitle from './ArticleTitle.jsx';
 import ArticleUser from './ArticleUser.jsx';
+import config from '../../../config';
 import CategoryButton from '../../widgets/CategoryButton.jsx';
 import Adsense from '../../widgets/Adsense.jsx';
 
@@ -24,9 +25,10 @@ const Article = (props) => {
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
       <Adsense
-        adsense={"LifeGadget_記事下_レスポンシブ"}
-        client={"ca-pub-5496880555378290"}
-        slot={"4887750292"}
+        style={{marginTop: '32px'}}
+        adsense={"LifeGadget_記事上_レスポンシブ"}
+        client={config.adsenseCode}
+        slot={"6091955097"}
         format={"auto"}
       />
       <ArticleContent {...props} />
@@ -36,7 +38,7 @@ const Article = (props) => {
       <CategoryButton />
       <Adsense
         adsense={"LifeGadget_記事下_レスポンシブ"}
-        client={"ca-pub-5496880555378290"}
+        client={config.adsenseCode}
         slot={"4887750292"}
         format={"auto"}
       />

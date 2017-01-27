@@ -1,4 +1,7 @@
 import express from 'express';
+import helmet from 'helmet';
+import compression from 'compression';
+
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
@@ -28,6 +31,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 // const router = express.Router();
 
+app.use(helmet());
+app.use(compression());
 app.use('/assets', express.static('dist'));
 app.use('/assets', express.static('public'));
 app.use(handleRender);

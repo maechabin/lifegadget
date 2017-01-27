@@ -58,6 +58,15 @@ class Category extends React.Component {
     return false;
   }
 
+  componentDidUpdate() {
+    const ads = document.querySelectorAll('.adsbygoogle');
+    if (ads.length > 0) {
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch(error) {}
+    }
+  }
+
   render() {
     return (
       <IndexComp {...this.props} />

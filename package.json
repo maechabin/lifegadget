@@ -9,14 +9,16 @@
     "start:production": "node ./dist/server.js",
     "watch": "watchify -t babelify ./src/client.jsx -o ./dist/bundle.js",
     "build": "browserify -t babelify ./src/client.jsx -o ./dist/bundle.js",
-    "production": "NODE_ENV=production browserify ./src/server.js -t babelify -t loose-envify | uglifyjs -c warnings=false > ./dist/server.js",
-    "production:win": "set NODE_ENV=production && browserify ./src/server.js -t babelify -t loose-envify | uglifyjs -c warnings=false > ./dist/server.js",
+    "production": "NODE_ENV=production browserify ./src/client.jsx -t babelify -t loose-envify | uglifyjs -c warnings=false > ./dist/server.js",
+    "production:win": "set NODE_ENV=production && browserify ./src/client.jsx -t babelify -t loose-envify | uglifyjs -c warnings=false > ./dist/bundle.js",
     "sass": "node-sass -w ./src/sass/app.scss ./dist/style.css --output-style compressed"
   },
   "author": "Lifegadget",
   "license": "MIT",
   "dependencies": {
+    "compression": "^1.6.2",
     "express": "^4.14.0",
+    "helmet": "^3.4.0",
     "lodash": "^4.17.3",
     "node-fetch": "^1.6.3",
     "object.values": "^1.0.4",

@@ -54,7 +54,6 @@ export default function renderFullPage(html, finalState) {
       <body>
         <div class="content">${html}</div>
         <script>
-          console.log(${serialize(finalState)});
           window.__PRELOADED_STATE__ = ${serialize(finalState)};
         </script>
         <script>
