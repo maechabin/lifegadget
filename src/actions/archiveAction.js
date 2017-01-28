@@ -1,35 +1,6 @@
 import fetch from 'node-fetch';
 import config from '../../config';
 
-// Action creator
-export const FETCH_ARTICLE = 'FETCH_ARTICLE';
-export function fetchArticle(payload) {
-  return {
-    type: FETCH_ARTICLE,
-    payload,
-  };
-}
-// redux-thunk
-
-export function fetchArticleAsync(callback, id) {
-  return (dispatch) => {
-    return callback(id).then(
-      res => dispatch(fetchArticle(res)),
-    ).then((res2) => {
-      if (res2.payload._links['wp:featuredmedia']) {
-        return getArticleImageAsync(res2.payload._links['wp:featuredmedia'][0].href);
-      }
-      return false;
-    }).then(
-      res3 => {
-        if (res3) {
-          return dispatch(getArticleImage(res3.source_url));
-        }
-      },
-    );
-  };
-}
-
 // 任意のIDのアイキャッチ画像の取得、保存
 export const GET_ARTICLE_IMAGE = 'GET_ARTICLE_IMAGE';
 function getArticleImage(payload) {
@@ -55,6 +26,47 @@ export function getArticleImageAsync(url) {
       };
     },
   );
+}
+
+export const BAD_REQUEST_ARCHIVE = 'BAD_REQUEST_ARCHIVE';
+function badRequestArchive() {
+  return {
+    type: BAD_REQUEST_ARCHIVE,
+  };
+}
+
+// Action creator
+export const FETCH_ARTICLE = 'FETCH_ARTICLE';
+export function fetchArticle(payload) {
+  return {
+    type: FETCH_ARTICLE,
+    payload,
+  };
+}
+// redux-thunk
+
+export function fetchArticleAsync(callback, id) {
+  return (dispatch) => {
+    return callback(id).then(
+      (res) => {
+        if (res === undefined) {
+          return dispatch(badRequestArchive());
+        }
+        return dispatch(fetchArticle(res));
+      },
+    ).then((res2) => {
+      if (res2.payload !== undefined && res2.payload._links['wp:featuredmedia']) {
+        return getArticleImageAsync(res2.payload._links['wp:featuredmedia'][0].href);
+      }
+      return false;
+    }).then(
+      res3 => {
+        if (res3) {
+          return dispatch(getArticleImage(res3.source_url));
+        }
+      },
+    );
+  };
 }
 
 // TagIDからTag名取得

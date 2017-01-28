@@ -10,9 +10,12 @@ import ArticleUser from './ArticleUser.jsx';
 import config from '../../../config';
 import CategoryButton from '../../widgets/CategoryButton.jsx';
 import Adsense from '../../widgets/Adsense.jsx';
+import NotFound from '../root/NotFound.jsx';
 
 const Article = (props) => {
-  const article = (props.article.id !== Number(props.params.id)) ? (
+  const article = (props.badRequest === true) ? (
+    <NotFound {...props} />
+  ) : (props.article.id !== Number(props.params.id)) ? (
     <div className="article__loading">
       <img src="/assets/image/loading.svg" alt="loading..." />
     </div>
@@ -25,11 +28,11 @@ const Article = (props) => {
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
       <Adsense
-        style={{marginTop: '32px'}}
-        adsense={"LifeGadget_記事上_レスポンシブ"}
+        style={{ marginTop: '32px' }}
+        adsense={'LifeGadget_記事上_レスポンシブ'}
         client={config.adsenseCode}
-        slot={"6091955097"}
-        format={"auto"}
+        slot={'6091955097'}
+        format={'auto'}
       />
       <ArticleContent {...props} />
       <ArticleCategory {...props} />
@@ -37,10 +40,10 @@ const Article = (props) => {
       <ArticleUser {...props} nameOnly={false} />
       <CategoryButton />
       <Adsense
-        adsense={"LifeGadget_記事下_レスポンシブ"}
+        adsense={'LifeGadget_記事下_レスポンシブ'}
         client={config.adsenseCode}
-        slot={"4887750292"}
-        format={"auto"}
+        slot={'4887750292'}
+        format={'auto'}
       />
     </section>
   );
@@ -52,6 +55,7 @@ const Article = (props) => {
   );
 };
 Article.propTypes = {
+  badRequest: React.PropTypes.bool,
   article: React.PropTypes.shape({
     id: React.PropTypes.number,
   }),

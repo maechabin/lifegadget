@@ -12,4 +12,11 @@ const Footer = props => (
   </footer>
 );
 
+Footer.propTypes = {
+  config: React.PropTypes.shape({
+    blogLogoImage: React.PropTypes.string,
+    blogTitle: React.PropTypes.string,
+  }),
+};
+
 export default Footer;

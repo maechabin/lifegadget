@@ -1,5 +1,6 @@
 import {
   FETCH_INDEX,
+  BAD_REQUEST_INDEX,
   RESET_LIST,
   SAVE_ROUTING_KEY,
   SET_CURRENT_PAGE_NUMBER,
@@ -16,12 +17,17 @@ export const indexReducer = (state = {}, action) => {
       return Object.assign({}, state, {
         resetList: true,
       });
+    case BAD_REQUEST_INDEX:
+      return Object.assign({}, state, {
+        badRequest: true,
+      });
     case FETCH_INDEX:
       return Object.assign({}, state, {
         index: action.payload.index,
         total: action.payload.page['x-wp-total'][0],
         totalPages: action.payload.page['x-wp-totalpages'][0],
         resetList: false,
+        badRequest: false,
       });
     case SET_CURRENT_PAGE_NUMBER:
       return Object.assign({}, state, {

@@ -5,6 +5,7 @@ export const rootState = {
   searchValue: '',
 };
 export const indexState = {
+  badRequest: false,
   index: [],
   routingKey: '',
   resetList: true,
@@ -15,6 +16,7 @@ export const indexState = {
   media: [],
 };
 export const archiveState = {
+  badRequest: false,
   article: {},
   articleImage: '',
   currentId: 0,

@@ -43,13 +43,13 @@ const store = configureStore(reducers, initialState, middleware());
 const history = syncHistoryWithStore(browserHistory, store);
 
 // Google Analytics
-history.listen(location => {
-  ga('send', 'pageview', location.pathname);
-});
+history.listen(
+  location => ga('send', 'pageview', location.pathname),
+);
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>{routes}</Router>
   </Provider>,
-  document.querySelector('.content')
+  document.querySelector('.content'),
 );

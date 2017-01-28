@@ -19,12 +19,22 @@ class Tag extends React.Component {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',
-    }).then((res) => {
+    })
+    .then(Tag.handleErrors)
+    .then((res) => {
       if (res.status === 200) {
         return [res.json(), res.headers._headers, tag];
       }
       return console.dir(res);
-    });
+    })
+    .catch(() => console.log('bad request'));
+  }
+
+  static handleErrors(response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response;
   }
 
   componentWillMount() {
@@ -72,6 +82,7 @@ Tag.propTypes = {
 function mapStateToProps(state) {
   return {
     index: state.index.index,
+    badRequest: state.index.badRequest,
     resetList: state.index.resetList,
     tagName: state.index.tagName,
     total: Number(state.index.total),

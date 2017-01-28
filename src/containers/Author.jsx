@@ -19,12 +19,22 @@ class Author extends React.Component {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',
-    }).then((res) => {
+    })
+    .then(Author.handleErrors)
+    .then((res) => {
       if (res.status === 200) {
         return [res.json(), res.headers._headers];
       }
       return console.dir(res);
-    });
+    })
+    .catch(() => console.log('bad request'));
+  }
+
+  static handleErrors(response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response;
   }
 
   componentDidMount() {
@@ -79,6 +89,7 @@ Author.propTypes = {
 function mapStateToProps(state) {
   return {
     index: state.index.index,
+    badRequest: state.index.badRequest,
     author: state.root.user,
     resetList: state.index.resetList,
     total: Number(state.index.total),

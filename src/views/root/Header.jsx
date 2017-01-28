@@ -20,4 +20,14 @@ const Header = (props) => {
   );
 };
 
+Header.propTypes = {
+  location: React.PropTypes.shape({
+    pathname: React.PropTypes.string,
+  }),
+  config: React.PropTypes.shape({
+    blogLogoImage: React.PropTypes.string,
+    blogTitle: React.PropTypes.string,
+  }),
+};
+
 export default Header;

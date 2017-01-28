@@ -77,7 +77,13 @@ export function getTagNameAsync(tag) {
   };
 }
 
-// Action creator
+export const BAD_REQUEST_INDEX = 'BAD_REQUEST_INDEX';
+function badRequestIndex() {
+  return {
+    type: BAD_REQUEST_INDEX,
+  };
+}
+
 export const FETCH_INDEX = 'FETCH_INDEX';
 function fetchIndex(payload) {
   return {
@@ -89,22 +95,29 @@ function fetchIndex(payload) {
 export function fetchIndexAsync(callback, page) {
   return (dispatch) => {
     return callback(page).then(
-      res => Promise.resolve(res[0]).then(
-        res2 => Promise.all(res2.map(
-          res3 => {
-            if (res3._links['wp:featuredmedia']) {
-              return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
-            }
-            return false;
-          },
-        )).then(res4 => {
-          return res2.map((obj, i) => {
-            return Object.assign({}, obj, res4[i]);
-          });
-        }).then(
-          index => dispatch(fetchIndex({ index, page: res[1] })),
-        ),
-      ),
+      res => {
+        if (res === undefined) {
+          return dispatch(badRequestIndex());
+        }
+        Promise.resolve(res[0]).then(
+          res2 => Promise.all(res2.map(
+            res3 => {
+              if (res3._links['wp:featuredmedia']) {
+                return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
+              }
+              return false;
+            },
+          ))
+          .then(
+            res4 => res2.map(
+              (obj, i) => Object.assign({}, obj, res4[i]),
+            ),
+          )
+          .then(
+            index => dispatch(fetchIndex({ index, page: res[1] })),
+          ),
+        );
+      },
     );
   };
 }
@@ -112,22 +125,29 @@ export function fetchIndexAsync(callback, page) {
 export function searchArticleAsync(callback, keyword, page) {
   return (dispatch) => {
     return callback(keyword, page).then(
-      res => Promise.resolve(res[0]).then(
-        res2 => Promise.all(res2.map(
-          res3 => {
-            if (res3._links['wp:featuredmedia']) {
-              return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
-            }
-            return false;
-          },
-        )).then(res4 => {
-          return res2.map((obj, i) => {
-            return Object.assign({}, obj, res4[i]);
-          });
-        }).then(
-          index => dispatch(fetchIndex({ index, page: res[1] })),
-        ),
-      ),
+      res => {
+        if (res === undefined) {
+          return dispatch(badRequestIndex());
+        }
+        Promise.resolve(res[0]).then(
+          res2 => Promise.all(res2.map(
+            res3 => {
+              if (res3._links['wp:featuredmedia']) {
+                return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
+              }
+              return false;
+            },
+          ))
+          .then(
+            res4 => res2.map(
+              (obj, i) => Object.assign({}, obj, res4[i]),
+            ),
+          )
+          .then(
+            index => dispatch(fetchIndex({ index, page: res[1] })),
+          ),
+        );
+      },
     );
   };
 }

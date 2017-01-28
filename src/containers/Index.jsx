@@ -17,12 +17,22 @@ class Index extends React.Component {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',
-    }).then((res) => {
+    })
+    .then(Index.handleErrors)
+    .then((res) => {
       if (res.status === 200) {
         return [res.json(), res.headers._headers];
       }
-      return console.dir(res);
-    });
+      return console.log(res);
+    })
+    .catch(() => console.log('bad request'));
+  }
+
+  static handleErrors(response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response;
   }
 
   componentDidMount() {
@@ -69,6 +79,7 @@ Index.propTypes = {
 // Connect to Redux
 function mapStateToProps(state) {
   return {
+    badRequest: state.index.badRequest,
     index: state.index.index,
     resetList: state.index.resetList,
     total: Number(state.index.total),

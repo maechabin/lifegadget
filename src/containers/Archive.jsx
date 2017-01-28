@@ -16,12 +16,22 @@ class Archive extends React.Component {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts/${id}?context=view`, {
       method: 'get',
       mode: 'cors',
-    }).then((res) => {
+    })
+    .then(Archive.handleErrors)
+    .then((res) => {
       if (res.status === 200) {
         return res.json();
       }
-      return console.dir(res);
-    });
+      return console.log(res);
+    })
+    .catch(() => console.log('bad request'));
+  }
+
+  static handleErrors(response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response;
   }
 
   componentDidMount() {
@@ -65,6 +75,7 @@ Archive.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    badRequest: state.archive.badRequest,
     category: state.root.category,
     user: state.root.user,
     article: state.archive.article,

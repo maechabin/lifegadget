@@ -8,6 +8,7 @@ import Search from './containers/Search.jsx';
 import Category from './containers/Category.jsx';
 import Tag from './containers/Tag.jsx';
 import Author from './containers/Author.jsx';
+import NotFound from './views/root/NotFound.jsx';
 
 export const routes = (
   <Route path="/" component={Root}>
@@ -23,5 +24,6 @@ export const routes = (
     <Route path="/tag/:tag/:page" component={Tag} />
     <Route path="/author/:author" component={Author} />
     <Route path="/author/:author/:page" component={Author} />
+    <Route path="*" component={NotFound} />
   </Route>
 );

@@ -3,11 +3,15 @@ import config from '../config';
 
 export default function renderFullPage(html, finalState) {
   const archive = finalState.archive.article;
+  const badRequest = finalState.archive.badRequest;
   const routing = finalState.routing.locationBeforeTransitions;
 
   function getTitle(pathname) {
     switch (pathname) {
       case 'archives':
+        if (badRequest) {
+          return '404 Not Found';
+        }
         return `${archive.title.rendered} - ${config.blogTitleTag}`;
       default:
         return `${config.blogTitleTag} - ${config.blogSubTitle}`;
