@@ -4,7 +4,7 @@ export default {
   blogTitleTag: 'LifeGadget（ライフガジェット）',
   blogDomain: 'lifegadget.me',
   // blogUrl: 'http://localhost:8080/wordpress',
-  blogUrl: 'http://lifegadget.me',
+  blogUrl: 'http://wp.lifegadget.me',
   // blogUrl: 'http://localhost:8888',
   blogLogoImage: '/assets/image/lifegadget_white.png',
   blogDefaultImage: '/assets/image/lifegadget.png',

@@ -36,6 +36,7 @@ ipアドレスで指定する場合
 /home/kusanagi/wordpressに160.16.57.166でアクセス
 kusanagi setting --fqdn 160.16.57.166 wordpress
 
+kusanagi setting --fqdn wp.lifegadget.me wordpress
 
 === FTPの設定 ===
 

@@ -9,10 +9,10 @@ export default function renderFullPage(html, finalState) {
   function getTitle(pathname) {
     switch (pathname) {
       case 'archives':
-        if (badRequest) {
-          return '404 Not Found';
+        if (archive.hasOwnProperty('title')) {
+          return `${archive.title.rendered} - ${config.blogTitleTag}`;
         }
-        return `${archive.title.rendered} - ${config.blogTitleTag}`;
+        return '404 Not Found';
       default:
         return `${config.blogTitleTag} - ${config.blogSubTitle}`;
     }
@@ -42,13 +42,11 @@ export default function renderFullPage(html, finalState) {
         <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
         <meta property="og:type" content="website">
         <meta property="og:title" content="${title}">
-        <meta property="og:url" content="${config.blogUrl}">
         <meta property="og:site_name" content="${config.blogTitle}">
         <meta property="og:image" content="${image}">
         <meta property="og:locale" content="ja_JP">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="${title}">
-        <meta name="twitter:url" content="${config.blogUrl}">
         <meta name="twitter:image" content="${image}">
         <meta name="twitter:domain" content="${config.blogDomain}">
         <meta name="twitter:creator" content="${config.twitter}">
