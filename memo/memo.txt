@@ -42,6 +42,15 @@ This is most commonly caused by white-space inserted around server-rendered mark
 <div class="content">${html}</div>
 
 
+
+== polyfill系===
+import 'whatwg-fetch'; // polyfill
+fetch.Promise = require('bluebird');
+import find from 'array.prototype.find';
+const Promise = require('es6-promise').Promise;
+=====
+
+
 =======
 カテゴリ検索
 http://localhost:8080/wordpress/wp-json/wp/v2/posts/?filter[category_name]=information

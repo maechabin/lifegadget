@@ -18,14 +18,12 @@ class Index extends React.Component {
       method: 'get',
       mode: 'cors',
     })
-    .then(Index.handleErrors)
     .then((res) => {
       if (res.status === 200) {
         return [res.json(), res.headers._headers];
       }
       return console.log(res);
     })
-    .catch(() => console.log('bad request'));
   }
 
   static handleErrors(response) {

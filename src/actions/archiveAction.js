@@ -21,6 +21,7 @@ export function getArticleImageAsync(url) {
     return console.dir(res);
   }).then(
     (res2) => {
+      console.log(res2);
       return {
         source_url: res2.source_url,
       };

@@ -45,16 +45,17 @@ export default function renderFullPage(html, finalState) {
         <meta property="og:site_name" content="${config.blogTitle}">
         <meta property="og:image" content="${image}">
         <meta property="og:locale" content="ja_JP">
-        <meta name="twitter:card" content="summary">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="${config.twitter}">
         <meta name="twitter:title" content="${title}">
-        <meta name="twitter:image" content="${image}">
+        <meta name="twitter:description" content="${title}">
+        <meta name="twitter:image:src" content="${image}">
         <meta name="twitter:domain" content="${config.blogDomain}">
         <meta name="twitter:creator" content="${config.twitter}">
-        <meta name="twitter:site" content="${config.twitter}">
       </head>
 
       <body>
-        <div class="content">${html}</div>
+        <div class="content" id="content">${html}</div>
         <script>
           window.__PRELOADED_STATE__ = ${serialize(finalState)};
         </script>
