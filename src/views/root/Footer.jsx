@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Scrollchor from 'react-scrollchor';
 
 const Footer = props => (
   <footer className="footer">
-    {/*
     <div className="footer__nav">
-      <Link to="#content">PAGE TOP</Link>
+      <Scrollchor to="#content">
+        <i className="fa fa-chevron-up" />
+        <br />
+        PAGE TOP
+      </Scrollchor>
     </div>
-    */}
     <ul className="footer__social">
       <li>
         <Link to="https://www.facebook.com/lifegadgetme/" target="_blank">

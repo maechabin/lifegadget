@@ -171,6 +171,12 @@ a {
   &__loading {
     text-align: center;
   }
+  &__meta {
+    margin-top: 8px;
+    padding: 24px 0;
+    border-top: 1px solid #424242;
+    border-bottom: 1px solid #424242;
+  }
   &__content {
     margin: 56px 0;
     h3 {
@@ -192,8 +198,7 @@ a {
     p,
     ul,
     ol,
-    dl,
-    figure {
+    dl {
       text-align: justify;
       font-size: 18px;
       line-height: 2;
@@ -212,6 +217,10 @@ a {
       background-color: #ECEFF1;
       line-height: 1.6;
       padding: 16px;
+      margin-bottom: 32px;
+    }
+    figure {
+      text-align: center;
       margin-bottom: 32px;
     }
     .item {
@@ -343,7 +352,6 @@ a {
       display: inline-block;
     }
   }
-
 }
 
 .footer {
@@ -351,7 +359,7 @@ a {
   color: #fff;
   text-align: center;
   box-sizing: border-box;
-  padding: 32px 0 32px;
+  padding: 0 0 32px;
   background-color: #262829;
   &__nav {
     a {
@@ -363,6 +371,9 @@ a {
       padding: 16px;
       background-color: lighten(#262829, 10%);
       margin-bottom: 32px;
+      i {
+        font-size: 32px;
+      }
     }
   }
   &__social {
@@ -371,6 +382,7 @@ a {
       a {
         border: 2px solid #fff;
         width: 56px;
+        line-height: 56px;
         height: 56px;
         padding: 8px;
         text-align: center;
@@ -379,6 +391,11 @@ a {
         display: block;
         color: #fff;
         font-size: 40px;
+        transition: .3s;
+        &:hover {
+          background-color: #fff;
+          color: #262829;
+        }
       }
     }
   }

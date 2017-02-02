@@ -24,9 +24,11 @@ const Article = (props) => {
       <ArticleBreadcrumb {...props} />
       <ArticleDate {...props} />
       <ArticleTitle {...props} />
-      <ArticleUser {...props} nameOnly />
-      <ArticleCategory {...props} />
-      <ArticleTag {...props} />
+      <div className="article__meta">
+        <ArticleUser {...props} nameOnly />
+        <ArticleCategory {...props} />
+        <ArticleTag {...props} />
+      </div>
       <Adsense
         style={{ marginTop: '32px' }}
         adsense={'LifeGadget_記事上_レスポンシブ'}
