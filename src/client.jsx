@@ -50,7 +50,7 @@ history.listen(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>{routes}</Router>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>{routes}</Router>
   </Provider>,
   document.querySelector('.content'),
 );
