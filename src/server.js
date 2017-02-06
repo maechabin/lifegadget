@@ -35,9 +35,9 @@ app.use(helmet());
 app.use(compression());
 app.use('/assets', express.static('dist'));
 app.use('/assets', express.static('public'));
-app.get('/robots.txt', function (req, res) {
-    res.type('text/plain');
-    res.send("User-agent: Twitterbot\nDisallow:");
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('User-agent: Twitterbot\nDisallow:');
 });
 app.use(handleRender);
 

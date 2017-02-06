@@ -3,7 +3,6 @@ import config from '../config';
 
 export default function renderFullPage(html, finalState) {
   const archive = finalState.archive.article;
-  const badRequest = finalState.archive.badRequest;
   const routing = finalState.routing.locationBeforeTransitions;
 
   function getTitle(pathname) {
@@ -39,7 +38,6 @@ export default function renderFullPage(html, finalState) {
         <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="/assets/style.css">
-        <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
         <meta property="og:type" content="website">
         <meta property="og:title" content="${title}">
         <meta property="og:site_name" content="${config.blogTitle}">

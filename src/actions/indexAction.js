@@ -25,13 +25,6 @@ export function setCurrentPageNumber(payload) {
 }
 
 // 任意のIDのアイキャッチ画像の取得、保存
-export const SAVE_MEDIA = 'SAVE_MEDIA';
-function saveMedia(payload) {
-  return {
-    type: SAVE_MEDIA,
-    payload,
-  };
-}
 export function saveMediaAsync(url) {
   return fetch(url, {
     method: 'get',

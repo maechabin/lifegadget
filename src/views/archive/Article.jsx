@@ -20,7 +20,7 @@ const Article = (props) => {
       <img src="/assets/image/loading.svg" alt="loading..." />
     </div>
   ) : (
-    <section>
+    <article className="article">
       <ArticleBreadcrumb {...props} />
       <ArticleDate {...props} />
       <ArticleTitle {...props} />
@@ -40,20 +40,21 @@ const Article = (props) => {
       <ArticleCategory {...props} />
       <ArticleTag {...props} />
       <ArticleUser {...props} nameOnly={false} />
+    </article>
+  );
+
+  return (
+    <section>
+      {article}
       <CategoryButton />
       <Adsense
+        style={{ backgroundColor: '#F5F5F5' }}
         adsense={'LifeGadget_記事下_レスポンシブ'}
         client={config.adsenseCode}
         slot={'4887750292'}
         format={'auto'}
       />
     </section>
-  );
-
-  return (
-    <article className="article">
-      {article}
-    </article>
   );
 };
 Article.propTypes = {

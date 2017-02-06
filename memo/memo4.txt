@@ -1,0 +1,14 @@
+AngularJSとREST APIでWordPressのSPA化を先取りしてみた！
+https://www.webprofessional.jp/angularjs-wordpress-rest-api/
+
+WP REST API の OAuth 認証の方法と何が起こっているのかとなぜそんなことをしているのか
+https://nskw-style.com/2016/wordpress/wp-api/oauth1.html
+
+WPRESTAPIを利用したNodeJSのWebアプリを死ぬ思いで作る
+https://takahashifumiki.com/web/programing/3683/
+
+認証 | WP REST API v2 Documentation
+http://ja.wp-api.org/guide/authentication/
+
+WP REST API　と　OAuth 2　認証をjQueryだけで実現
+http://www.kaasan.info/archives/3745
