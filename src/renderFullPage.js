@@ -21,7 +21,7 @@ export default function renderFullPage(html, finalState) {
       case 'archives':
         return `${finalState.archive.articleImage}`;
       default:
-        return `${config.blogDefaultImage}`;
+        return `${config.blogUrl}${config.blogDefaultImage}`;
     }
   }
 

@@ -33,10 +33,22 @@ class Index extends React.Component {
     return response;
   }
 
+  callAdSense() {
+    const ads = document.querySelectorAll('.adsbygoogle');
+    if (ads.length > 0) {
+      try {
+        ads.forEach(() => {
+          return (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+      } catch(error) {}
+    }
+  }
+
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
       this.props.handleFetch(Index.fetchData, this.props.params.page),
+      this.callAdSense(),
     ];
   }
 
@@ -48,15 +60,6 @@ class Index extends React.Component {
       ];
     }
     return false;
-  }
-
-  componentDidUpdate() {
-    const ads = document.querySelectorAll('.adsbygoogle');
-    if (ads.length > 0) {
-      try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      } catch(error) {}
-    }
   }
 
   render() {
