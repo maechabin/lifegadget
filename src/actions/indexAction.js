@@ -85,7 +85,7 @@ function fetchIndex(payload) {
   };
 }
 // redux-thunk
-export function fetchIndexAsync(callback, page) {
+export function fetchIndexAsync(callback, page = 1) {
   return (dispatch) => {
     return callback(page).then(
       res => {

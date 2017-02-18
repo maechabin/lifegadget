@@ -225,6 +225,19 @@ a {
       text-align: center;
       margin-bottom: 32px;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+    }
+    th {
+      background-color: #eee;
+    }
+    th,
+    td {
+      padding: 4px 8px;
+      border: 1px solid #919191;
+    }
     .item {
       border: 1px solid #bdbdbd;
       padding: 16px;

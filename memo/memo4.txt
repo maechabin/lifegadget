@@ -12,3 +12,20 @@ http://ja.wp-api.org/guide/authentication/
 
 WP REST API　と　OAuth 2　認証をjQueryだけで実現
 http://www.kaasan.info/archives/3745
+
+
+
+node.js で絶対パスや相対パスを取得する方法 npm __dirname
+https://gist.github.com/uupaa/da42698d6b2d2cbb3cca
+
+SSH root ログインとパスワード認証を禁止し、ユーザの公開鍵認証のみにする
+http://iwamocchan11.hatenadiary.jp/entry/2015/10/25/124048
+
+rootでのSSHログインを禁止 - SSHサーバーの設定
+http://webkaru.net/linux/ssh-prohibit-root-login/
+
+sshdを再起動する時は
+https://open-groove.net/linux/sshd-restart/
+
+[Node] Node標準のzlibを用いて、GzipとGunzipを行う
+http://www.yoheim.net/blog.php?q=20141002
