@@ -13,6 +13,13 @@ const IndexComp = (props) => {
     <NotFound {...props} />
   ) : (
     <section>
+      <Adsense
+        style={{ backgroundColor: '#F5F5F5' }}
+        adsense={'LifeGadget_一覧上_レスポンシブ'}
+        client={config.adsenseCode}
+        slot={'7568688296'}
+        format={'auto'}
+      />
       <CategoryButton />
       <IndexTitle {...props} />
       <IndexList {...props} />

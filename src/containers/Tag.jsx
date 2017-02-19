@@ -37,6 +37,17 @@ class Tag extends React.Component {
     return response;
   }
 
+  callAdSense() {
+    const ads = document.querySelectorAll('.adsbygoogle');
+    if (ads.length > 0) {
+      try {
+        ads.forEach(() => {
+          return (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+      } catch(error) {}
+    }
+  }
+
   componentWillMount() {
     return this.props.handleInit1(this.props.params.tag);
   }
@@ -45,6 +56,7 @@ class Tag extends React.Component {
     return [
       this.props.handleInit2(this.props.routingKey),
       this.props.handleFetch(this.props.params.tag, Tag.fetchData, this.props.params.page),
+      this.callAdSense(),
     ];
   }
 

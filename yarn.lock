@@ -678,6 +678,14 @@ babel-polyfill@^6.16.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
+babel-polyfill@^6.22.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
+  dependencies:
+    babel-runtime "^6.22.0"
+    core-js "^2.4.0"
+    regenerator-runtime "^0.10.0"
+
 babel-preset-es2015@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.18.0.tgz#b8c70df84ec948c43dcf2bf770e988eb7da88312"
@@ -1909,10 +1917,6 @@ express@^4.14.0:
     utils-merge "1.0.0"
     vary "~1.1.0"
 
-extend@^1.2.1:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/extend/-/extend-1.3.0.tgz#d1516fb0ff5624d2ebf9123ea1dac5a1994004f8"
-
 extend@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.0.tgz#5a474353b9f3353ddd8176dfd37b91c83a46f1d4"
@@ -1942,6 +1946,12 @@ fbjs@^0.8.1, fbjs@^0.8.4:
     promise "^7.1.1"
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
+
+feed@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/feed/-/feed-0.3.1.tgz#a79f111d0c57e9a9b626ebd606e259f72e6af66c"
+  dependencies:
+    xml ">= 0.0.5"
 
 figures@^1.3.5:
   version "1.7.0"
@@ -3476,6 +3486,10 @@ react-router@^3.0.0:
     loose-envify "^1.2.0"
     warning "^3.0.0"
 
+react-scrollchor@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-scrollchor/-/react-scrollchor-2.2.0.tgz#ca6b21962ca4bde85216041250b47d438a351e6c"
+
 react@^15.3.2:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
@@ -4065,7 +4079,7 @@ text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-through@^2.3.6, "through@>=2.2.7 <3", through@~2.3.4:
+through@^2.3.6, "through@>=2.2.7 <3":
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
@@ -4143,7 +4157,7 @@ ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@~2.7.3, uglify-js@2.x.x:
+uglify-js@^2.7.5, uglify-js@~2.7.3:
   version "2.7.5"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
   dependencies:
@@ -4155,16 +4169,6 @@ uglify-js@~2.7.3, uglify-js@2.x.x:
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
-
-uglifyify:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/uglifyify/-/uglifyify-3.0.4.tgz#487e080a5a7798880e68e90def9b06681fb13bd2"
-  dependencies:
-    convert-source-map "~1.1.0"
-    extend "^1.2.1"
-    minimatch "^3.0.2"
-    through "~2.3.4"
-    uglify-js "2.x.x"
 
 uid-number@~0.0.6:
   version "0.0.6"
@@ -4359,6 +4363,10 @@ write@^0.2.1:
 x-xss-protection@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/x-xss-protection/-/x-xss-protection-1.0.0.tgz#898afb93869b24661cf9c52f9ee8db8ed0764dd9"
+
+"xml@>= 0.0.5":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"

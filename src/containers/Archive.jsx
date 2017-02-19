@@ -34,24 +34,32 @@ class Archive extends React.Component {
     return response;
   }
 
+  callAdSense() {
+    const ads = document.querySelectorAll('.adsbygoogle');
+    if (ads.length > 0) {
+      try {
+        ads.forEach(() => {
+          return (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+      } catch(error) {}
+    }
+  }
+
   componentDidMount() {
     return Promise.all([
       this.props.handleFetch(this.props.params.id, Archive.fetchData),
     ]).then(() => {
       if (this.props.gettedTag === false && Object.prototype.toString.call(this.props.article.tags) === '[object Array]') {
-        return this.props.handleGet(this.props.article.tags);
+        return [
+          this.props.handleGet(this.props.article.tags),
+          this.callAdSense(),
+        ];
       }
       return false;
     });
   }
 
   componentDidUpdate() {
-    const ads = document.querySelectorAll('.adsbygoogle');
-    if (ads.length > 0) {
-      try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      } catch(error) {}
-    }
     twttr.widgets.load();
   }
 

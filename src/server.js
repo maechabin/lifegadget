@@ -25,6 +25,7 @@ import { fetchCategoryAsync, fetchUserAsync } from './actions/rootAction';
 
 import config from '../config';
 import renderFullPage from './renderFullPage';
+import makeRss from './feed';
 import { routes } from './routes.jsx';
 
 const app = express();
@@ -35,9 +36,13 @@ app.use(helmet());
 app.use(compression());
 app.use('/assets', express.static('dist'));
 app.use('/assets', express.static('public'));
+app.get('/feed', (req, res) => {
+  res.type('rss');
+  return makeRss().then(result => res.send(result));
+});
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain');
-  res.send('User-agent: Twitterbot\nDisallow:');
+  return res.send('User-agent: Twitterbot\nDisallow:');
 });
 app.use(handleRender);
 
