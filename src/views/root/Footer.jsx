@@ -22,6 +22,11 @@ const Footer = props => (
           <i className="fa fa-twitter" />
         </Link>
       </li>
+      <li>
+        <Link to="//cloud.feedly.com/#subscription/feed/http://lifegadget.me/feed" target="_blank">
+          <i className="fa fa-feed" />
+        </Link>
+      </li>
     </ul>
     &copy; 2017
     <address>

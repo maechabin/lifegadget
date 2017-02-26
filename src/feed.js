@@ -21,7 +21,7 @@ export default function makeRss() {
   });
 
   function fetchData() {
-    const params = '?context=embed&per_page=20&page=1';
+    const params = '?per_page=20&page=1';
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',
@@ -38,7 +38,7 @@ export default function makeRss() {
     res.forEach(data => {
       feed.item({
         title: data.title.rendered,
-        description: data.excerpt.rendered,
+        description: data.content.rendered,
         url: `http://lifegadget.me/archives/${data.id}`,
         guid: data.id,
         date: data.date,

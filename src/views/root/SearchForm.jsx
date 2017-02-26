@@ -15,7 +15,7 @@ const SearchForm = (props) => {
   }
   return (
     <div className="searchform">
-      <input type="text" onChange={handleChange} value={props.inputValue} />
+      <input type="text" placeholder="キーワード" onChange={handleChange} value={props.inputValue} />
       <button onClick={handleClick}>検索</button>
     </div>
   );

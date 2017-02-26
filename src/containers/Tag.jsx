@@ -48,7 +48,7 @@ class Tag extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentWillMount(nextProps) {
     return this.props.handleInit1(this.props.params.tag);
   }
 
@@ -61,10 +61,14 @@ class Tag extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) {
+    if (
+      (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) ||
+      nextProps.params.tag !== this.props.params.tag
+    ) {
       return [
+        this.props.handleInit1(nextProps.params.tag),
         this.props.handleFetch(
-          this.props.params.tag,
+          nextProps.params.tag,
           Tag.fetchData,
           nextProps.params.page,
         ),

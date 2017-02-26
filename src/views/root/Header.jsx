@@ -15,6 +15,12 @@ const Header = (props) => {
           <span>生活をサポートする記事メディア<strong>「ライフガジェット」</strong></span>
         </h1>
         <SearchForm {...props} />
+        <ul className="header__tag">
+          <li>#<Link to="/tag/7"><b>格安SIM</b></Link></li>
+          <li>#<Link to="/tag/31"><b>プログラミング</b></Link></li>
+          <li>#<Link to="/tag/39"><b>食</b></Link></li>
+          <li>#<Link to="/tag/24"><b>文房具</b></Link></li>
+        </ul>
       </div>
     </header>
   );

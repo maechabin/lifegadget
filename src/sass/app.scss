@@ -42,16 +42,26 @@ a {
   display: flex;
   align-items: center;
   &__mini {
-    height: 240px;
+    height: 256px;
   }
   &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    height: 240px;
+    height: 256px;
     width: 100%;
     text-align: center;
-    padding: 32px;
+    padding: 0 8px;
     background-color: rgba(0,0,0,.6);
     color: #fff;
+    h1 {
+      margin: {
+        left: 16px;
+        right: 16px;
+      }
+    }
     a {
       color: #fff;
       text-decoration: none;
@@ -60,11 +70,23 @@ a {
       display: block;
       font: {
         weight: normal;
-        size:16px;
+        size: 16px;
       }
     }
     strong {
       font-weight: normal;
+    }
+  }
+  &__tag {
+    font-style: italic;
+    li {
+      list-style-type: none;
+      display: inline-block;
+      margin: 16px 4px 0;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
   @media screen and (max-width: 728px) {
@@ -189,7 +211,8 @@ a {
       font-size: 32px;
     }
     h4{
-      font-size: 24px;
+      font-size: 28px;
+      margin-bottom: 8px;
     }
     h5 {
       font-size: 16px;
@@ -216,10 +239,18 @@ a {
     }
     pre {
       font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-      background-color: #ECEFF1;
+      background-color: #f7f7f7;
       line-height: 1.6;
       padding: 16px;
       margin-bottom: 32px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    code {
+      text-align: left;
+      display: block;
+      font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+      color: #333;
     }
     figure {
       text-align: center;
@@ -293,6 +324,7 @@ a {
     }
   }
   &__tag {
+    font-style: italic;
     display: inline-block;
     span {
       margin-right: 8px;
