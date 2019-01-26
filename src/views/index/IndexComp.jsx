@@ -15,9 +15,9 @@ const IndexComp = (props) => {
     <section>
       <Adsense
         style={{ backgroundColor: '#F5F5F5' }}
-        adsense={'LifeGadget_一覧上_レスポンシブ'}
+        adsense={'LifeGadget_レスポンシブ'}
         client={config.adsenseCode}
-        slot={'7568688296'}
+        slot={'8575297173'}
         format={'auto'}
       />
       <CategoryButton />
@@ -27,9 +27,9 @@ const IndexComp = (props) => {
       <CategoryButton />
       <Adsense
         style={{ backgroundColor: '#F5F5F5' }}
-        adsense={'LifeGadget_一覧下_レスポンシブ'}
+        adsense={'LifeGadget_レスポンシブ'}
         client={config.adsenseCode}
-        slot={'9045421499'}
+        slot={'8575297173'}
         format={'auto'}
       />
     </section>

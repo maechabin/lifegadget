@@ -31,9 +31,9 @@ const Article = (props) => {
       </div>
       <Adsense
         style={{ marginTop: '32px' }}
-        adsense={'LifeGadget_記事上_レスポンシブ'}
+        adsense={'LifeGadget_レスポンシブ'}
         client={config.adsenseCode}
-        slot={'6091955097'}
+        slot={'8575297173'}
         format={'auto'}
       />
       <ArticleContent {...props} />
@@ -49,9 +49,9 @@ const Article = (props) => {
       <CategoryButton />
       <Adsense
         style={{ backgroundColor: '#F5F5F5' }}
-        adsense={'LifeGadget_記事下_レスポンシブ'}
+        adsense={'LifeGadget_レスポンシブ'}
         client={config.adsenseCode}
-        slot={'4887750292'}
+        slot={'8575297173'}
         format={'auto'}
       />
     </section>

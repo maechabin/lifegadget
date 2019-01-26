@@ -64,7 +64,7 @@ http://lifegadget.me/wp-json/wp/v2/posts/?filter[tag]=wordpress
 http://lifegadget.me/wp-json/wp/v2/posts/?search=kindle
 
 記事一覧
-http://localhost:8080/wordpress/wp-json/wp/v2/posts
+http://wp.lifegadget.tokyo/wp-json/wp/v2/posts
 
 メディア取得
 http://localhost:8080/wordpress/wp-json/wp/v2/media/[id]

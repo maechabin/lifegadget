@@ -33,9 +33,6 @@ const Footer = props => (
       <Link to="/">
         <img src={props.config.blogLogoImage} alt={props.config.blogTitle} width="80" />
       </Link>
-      <span className="footer__company">
-        , <Link to="https://www.fancs.com/" target="_blank">F@N COMMUNICATIONS</Link>
-      </span>
     </address>
   </footer>
 );

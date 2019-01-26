@@ -37,6 +37,7 @@ export default function renderFullPage(html, finalState) {
         <title>${title}</title>
         <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <meta name="robots" content="noindex,nofollow">
         <link rel="stylesheet" href="/assets/style.css">
         <meta property="og:type" content="website">
         <meta property="og:title" content="${title}">

@@ -7,9 +7,9 @@ import config from '../../config';
 // view files
 import Article from '../views/archive/Article.jsx';
 
-class Archive extends React.Component {
+class Archive extends React.PureComponent {
   static handleFetch(dispatch, renderProps) {
-    return dispatch(fetchArticleAsync(this.fetchData, renderProps.params.id));
+    return dispatch(fetchArticleAsync(Archive.fetchData, renderProps.params.id));
   }
 
   static fetchData(id) {
