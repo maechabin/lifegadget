@@ -1,8 +1,8 @@
-
-＝＝＝pm2でbabel-nodeを起動させる方法
+## pm2 で babel-node を起動させる方法
 
 pm2_config.json
 
+```
 {
   "apps" : [{
     "name"        : "lifegadget",
@@ -12,16 +12,19 @@ pm2_config.json
     "exec_mode"        : "fork"
   }]
 }
+```
 
-
+```
 $ pm2 start pm2_config.json
 $ pm2 restart pm2_cofig.json
+```
 
-https://github.com/davezuko/react-redux-starter-kit/issues/680
+- https://github.com/davezuko/react-redux-starter-kit/issues/680
 
+## セキュリティ関連
 
+helmet のインストール
 
-====セキュリティ関連
-
-helmetのインストール
+```
 $ npm install --save helmet
+```
