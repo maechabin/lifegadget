@@ -94,33 +94,82 @@ $ chown t_maeda /var/www/lifegadget/
 
 ## ユーザーの追加
 
-### ユーザーの追加
+### 管理ユーザーの追加
+
+#### ユーザーの追加
 
 ```
 $ useradd t_maeda
 ```
 
-### パスワードの設定
+#### パスワードの設定
 
 ```
 $ passwd t_maeda
 ```
 
-## ユーザーに root 権限を与える
+#### ユーザーに root 権限を与える
 
-### t_maeda を wheel グループに追加
+##### t_maeda を wheel グループに追加
 
 ```
 $ usermod -G wheel t_maeda
 ```
 
-### wheel グループに所属するユーザーのみ root 権限が使えるように設定
+##### wheel グループに所属するユーザーのみ root 権限が使えるように設定
 
 ```
 vim /etc/pam.d/su
 ```
 
 - auth required pam_wheel.so use_uid の先頭の#を削除
+
+### 一般ユーザーの追加
+
+#### ユーザーの追加
+
+```
+$ useradd k_baba
+```
+
+#### 追加したユーザーのパスワード設定
+
+```
+$ passwd k_baba
+```
+
+## グループの追加
+
+```
+$ groupadd lifegadget
+```
+
+### 追加したグループの確認
+
+```
+$ cat /etc/group
+```
+
+### グループにユーザーを追加
+
+```
+$ usermod -aG t_maeda lifegadget
+$ usermod -aG lifegadget t_maeda
+$ usermod -aG lifegadget k_baba
+$ usermod -aG lifegadget kusanagi
+```
+
+### ディレクトリの所有者を追加したグループに変更
+
+```
+$ chgrp -R lifegadget kusanagi
+```
+
+### 権限変更
+
+```
+$ chmod 741 kusanagi
+```
 
 ## WP のインストール
 
@@ -135,16 +184,4 @@ vim /etc/pam.d/su
 ホスト名: localhost
 ユーザー名: kusanagi
 パスワード: LifeGa1228
-```
-
-```
-server {
-  listen 80;
-  server_name test.lifegadget.me;
-  location / {
-    proxy_pass http://localhost:3000;
-    proxy_redirect off;
-    proxy_set_header Host \$host;
-  }
-}
 ```
