@@ -23,28 +23,13 @@ import { archiveReducer } from './reducers/archiveReducer';
 // Actions
 import { fetchCategoryAsync, fetchUserAsync } from './actions/rootAction';
 
-import config from '../config';
 import renderFullPage from './renderFullPage';
 import makeRss from './feed';
-import { routes } from './routes.jsx';
+import { Routes } from './Routes.jsx';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 // const router = express.Router();
-
-app.use(helmet());
-app.use(compression());
-app.use('/assets', express.static('dist'));
-app.use('/assets', express.static('public'));
-app.get('/feed', (req, res) => {
-  res.type('rss');
-  return makeRss().then(result => res.send(result));
-});
-app.get('/robots.txt', (req, res) => {
-  res.type('text/plain');
-  return res.send('User-agent: Twitterbot\nDisallow:');
-});
-app.use(handleRender);
 
 function handleRender(req, res) {
   // 1. Reducers
@@ -64,10 +49,7 @@ function handleRender(req, res) {
 
   // 3. Middleware
   const memoryHistory = createMemoryHistory(req.url);
-  const middleware = () => applyMiddleware(
-    thunk,
-    routerMiddleware(memoryHistory),
-  );
+  const middleware = () => applyMiddleware(thunk, routerMiddleware(memoryHistory));
 
   // Make Store
   const store = configureStore(reducers, initialState, middleware());
@@ -75,7 +57,7 @@ function handleRender(req, res) {
   // History
   const history = syncHistoryWithStore(memoryHistory, store);
 
-  match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  match({ history, Routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       return res.status(500).send(error.message);
     } else if (redirectLocation) {
@@ -84,31 +66,43 @@ function handleRender(req, res) {
       // console.dir(renderProps.components[renderProps.components.length - 1]);
 
       // Promise
-      const promise1 = renderProps.components.map(
-        c => (c.handleFetch ? c.handleFetch(store.dispatch, renderProps) : Promise.resolve('no fetching')),
+      const promise1 = renderProps.components.map((component) =>
+        component.handleFetch
+          ? component.handleFetch(store.dispatch, renderProps)
+          : Promise.resolve('no fetching'),
       );
       const promise2 = fetchCategoryAsync();
       const promise3 = fetchUserAsync();
 
-      Promise.all([
-        Promise.all(promise1),
-        promise2(store.dispatch),
-        promise3(store.dispatch),
-      ]).then(() => {
-        const html = ReactDOMServer.renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>,
-        );
-        const finalState = store.getState();
-        return res.status(200).send(renderFullPage(html, finalState));
-      });
+      Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
+        () => {
+          const html = ReactDOMServer.renderToString(
+            <Provider store={store}>
+              <RouterContext {...renderProps} />
+            </Provider>,
+          );
+          const finalState = store.getState();
+          return res.status(200).send(renderFullPage(html, finalState));
+        },
+      );
     } else {
       return res.status(404).send('Not found');
     }
   });
 }
 
-app.listen(
-  port, () => console.log(`Hello app listening on port ${port}!`)
-);
+app.use(helmet());
+app.use(compression());
+app.use('/assets', express.static('dist'));
+app.use('/assets', express.static('public'));
+app.get('/feed', (req, res) => {
+  res.type('rss');
+  return makeRss().then((result) => res.send(result));
+});
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  return res.send('User-agent: Twitterbot\nDisallow:');
+});
+app.use(handleRender);
+
+app.listen(port, () => console.log(`Hello app listening on port ${port}!`));

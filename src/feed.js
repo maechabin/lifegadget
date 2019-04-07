@@ -25,8 +25,7 @@ export default function makeRss() {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',
-    })
-    .then((res) => {
+    }).then((res) => {
       if (res.status === 200) {
         return res.json();
       }
@@ -35,15 +34,15 @@ export default function makeRss() {
   }
 
   return fetchData().then((res) => {
-    res.forEach(data => {
+    res.forEach((data) =>
       feed.item({
         title: data.title.rendered,
         description: data.content.rendered,
         url: `http://lifegadget.me/archives/${data.id}`,
         guid: data.id,
         date: data.date,
-      });
-    });
+      }),
+    );
     return feed.xml();
   });
 }
