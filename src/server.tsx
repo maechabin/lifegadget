@@ -31,7 +31,7 @@ const app = express();
 const port = process.env.PORT || 3030;
 // const router = express.Router();
 
-function handleRender(req, res) {
+function handleRender(req: any, res: any) {
   // 1. Reducers
   const reducers = combineReducers({
     root: rootReducer,
