@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const ArticleUser = (props) => {
-  const getUser = userList => id => userList.map(
-    (user, i) => (user.id === id ? i : null),
-  );
+  const getUser = (userList) => (id) => userList.map((user, i) => (user.id === id ? i : null));
   const userId = getUser(props.user)(props.article.author);
-  const id = userId.find(id => id != null);
+  const id = userId.find((id) => id != null);
   const user = props.nameOnly ? (
     <p>
-      <i className="fa fa-pencil" /> <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
+      <i className="fa fa-pencil" />{' '}
+      <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
     </p>
   ) : (
     <section>
@@ -23,18 +22,7 @@ const ArticleUser = (props) => {
       <p>{props.user[id].description}</p>
     </section>
   );
-  return (
-    <div className={props.nameOnly ? 'article__user_name' : 'article__user'}>
-      {user}
-    </div>
-  );
-};
-ArticleUser.propTypes = {
-  article: React.PropTypes.shape({
-    author: React.PropTypes.number,
-  }),
-  nameOnly: React.PropTypes.bool,
-  user: React.PropTypes.arrayOf(React.PropTypes.object),
+  return <div className={props.nameOnly ? 'article__user_name' : 'article__user'}>{user}</div>;
 };
 
 export default ArticleUser;

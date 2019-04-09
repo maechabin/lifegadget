@@ -8,14 +8,7 @@ const ArticleContent = (props) => {
     return { __html: markup };
   }
 
-  return (
-    <div className="article__content" dangerouslySetInnerHTML={rawMarkup('content')} />
-  );
-};
-ArticleContent.propTypes = {
-  article: React.PropTypes.shape({
-    content: React.PropTypes.object,
-  }),
+  return <div className="article__content" dangerouslySetInnerHTML={rawMarkup('content')} />;
 };
 
 export default ArticleContent;

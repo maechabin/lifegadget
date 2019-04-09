@@ -15,18 +15,15 @@ const SearchForm = (props) => {
   }
   return (
     <div className="searchform">
-      <input type="text" placeholder="キーワード" onChange={handleChange} value={props.inputValue} />
+      <input
+        type="text"
+        placeholder="キーワード"
+        onChange={handleChange}
+        value={props.inputValue}
+      />
       <button onClick={handleClick}>検索</button>
     </div>
   );
-};
-SearchForm.propTypes = {
-  router: React.PropTypes.shape({
-    push: React.PropTypes.func,
-  }),
-  inputValue: React.PropTypes.string,
-  handleSend: React.PropTypes.func,
-  handleChange: React.PropTypes.func,
 };
 
 export default SearchForm;

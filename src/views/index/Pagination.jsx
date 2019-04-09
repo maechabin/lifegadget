@@ -24,12 +24,16 @@ const Pagination = (props) => {
   };
 
   const pagination = pager.map((page, i) => {
-    const number = (page > (totalPages - 5) + 1) ? (((totalPages - 5) + 1) - page) + i : i;
+    const number = page > totalPages - 5 + 1 ? totalPages - 5 + 1 - page + i : i;
     if (page + number > totalPages || page + number < 1) {
       return false;
     }
     if (page + number === paramsPage) {
-      return <li className="pagination__link_active" key={page + number}>{page + number}</li>;
+      return (
+        <li className="pagination__link_active" key={page + number}>
+          {page + number}
+        </li>
+      );
     }
     return (
       <li key={page + number}>
@@ -42,48 +46,40 @@ const Pagination = (props) => {
       return <li>前へ</li>;
     }
     if (totalPages >= 5 && paramsPage > totalPages - 5) {
-      return <li><Link to={`${path(pathname[1], props.routeParams)}${totalPages - 5}`}>前へ</Link></li>;
+      return (
+        <li>
+          <Link to={`${path(pathname[1], props.routeParams)}${totalPages - 5}`}>前へ</Link>
+        </li>
+      );
     }
-    return <li><Link to={`${path(pathname[1], props.routeParams)}${paramsPage - 1}`}>前へ</Link></li>;
+    return (
+      <li>
+        <Link to={`${path(pathname[1], props.routeParams)}${paramsPage - 1}`}>前へ</Link>
+      </li>
+    );
   };
   const next = () => {
     if (paramsPage >= totalPages) {
       return <li>次へ</li>;
     }
-    return <li><Link to={`${path(pathname[1], props.routeParams)}${paramsPage + 1}`}>次へ</Link></li>;
+    return (
+      <li>
+        <Link to={`${path(pathname[1], props.routeParams)}${paramsPage + 1}`}>次へ</Link>
+      </li>
+    );
   };
-  const pagenationAll = (props.resetList && props.routingKey !== '') ? '' : (
-    <ul>
-      {prev()}
-      {pagination}
-      {next()}
-    </ul>
-  );
+  const pagenationAll =
+    props.resetList && props.routingKey !== '' ? (
+      ''
+    ) : (
+      <ul>
+        {prev()}
+        {pagination}
+        {next()}
+      </ul>
+    );
 
-  return (
-    <div className="pagination">{pagenationAll}</div>
-  );
-};
-Pagination.defaultProps = {
-  params: {
-    page: 1,
-  },
-};
-Pagination.propTypes = {
-  location: React.PropTypes.shape({
-    pathname: React.PropTypes.string,
-  }),
-  params: React.PropTypes.shape({
-    page: React.PropTypes.string,
-  }),
-  resetList: React.PropTypes.bool,
-  routingKey: React.PropTypes.string,
-  routeParams: React.PropTypes.shape({
-    category: React.PropTypes.string,
-    keyword: React.PropTypes.string,
-    tag: React.PropTypes.string,
-  }),
-  totalPages: React.PropTypes.number,
+  return <div className="pagination">{pagenationAll}</div>;
 };
 
 export default Pagination;

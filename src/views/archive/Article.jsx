@@ -58,14 +58,5 @@ const Article = (props) => {
     </section>
   );
 };
-Article.propTypes = {
-  badRequest: React.PropTypes.bool,
-  article: React.PropTypes.shape({
-    id: React.PropTypes.number,
-  }),
-  params: React.PropTypes.shape({
-    id: React.PropTypes.string,
-  }),
-};
 
 export default Article;

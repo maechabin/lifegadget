@@ -12,10 +12,5 @@ const ArticleDate = (props) => {
     </p>
   );
 };
-ArticleDate.propTypes = {
-  article: React.PropTypes.shape({
-    date: React.PropTypes.string,
-  }),
-};
 
 export default ArticleDate;

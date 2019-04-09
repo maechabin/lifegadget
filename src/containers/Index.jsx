@@ -65,14 +65,6 @@ class Index extends React.PureComponent {
     return <IndexComp {...this.props} />;
   }
 }
-Index.propTypes = {
-  routingKey: React.PropTypes.string,
-  params: React.PropTypes.shape({
-    page: React.PropTypes.string,
-  }),
-  handleInit: React.PropTypes.func,
-  handleFetch: React.PropTypes.func,
-};
 
 // Connect to Redux
 function mapStateToProps(state) {

@@ -36,8 +36,5 @@ const IndexComp = (props) => {
   );
   return <main className="index">{index}</main>;
 };
-IndexComp.propTypes = {
-  badRequest: React.PropTypes.bool,
-};
 
 export default IndexComp;

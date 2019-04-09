@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Scrollchor from 'react-scrollchor';
 
-const Footer = props => (
+const Footer = (props) => (
   <footer className="footer">
     <div className="footer__nav">
       <Scrollchor to="#content">
@@ -36,12 +36,5 @@ const Footer = props => (
     </address>
   </footer>
 );
-
-Footer.propTypes = {
-  config: React.PropTypes.shape({
-    blogLogoImage: React.PropTypes.string,
-    blogTitle: React.PropTypes.string,
-  }),
-};
 
 export default Footer;

@@ -82,16 +82,6 @@ class Tag extends React.Component {
     return <IndexComp {...this.props} />;
   }
 }
-Tag.propTypes = {
-  params: React.PropTypes.shape({
-    tag: React.PropTypes.string,
-    page: React.PropTypes.string,
-  }),
-  routingKey: React.PropTypes.string,
-  handleInit1: React.PropTypes.func,
-  handleInit2: React.PropTypes.func,
-  handleFetch: React.PropTypes.func,
-};
 
 // Connect to Redux
 function mapStateToProps(state) {

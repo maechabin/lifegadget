@@ -86,16 +86,6 @@ class Category extends React.Component {
     return <IndexComp {...this.props} />;
   }
 }
-Category.propTypes = {
-  routingKey: React.PropTypes.string,
-  category: React.PropTypes.arrayOf(React.PropTypes.object),
-  params: React.PropTypes.shape({
-    category: React.PropTypes.string,
-    page: React.PropTypes.string,
-  }),
-  handleInit: React.PropTypes.func,
-  handleFetch: React.PropTypes.func,
-};
 
 function mapStateToProps(state) {
   return {

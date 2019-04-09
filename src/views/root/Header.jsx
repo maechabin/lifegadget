@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import SearchForm from './SearchForm.jsx';
 
 const Header = (props) => {
-  const headerClassName = (props.location.pathname === '/') ? 'header' : 'header header__mini';
+  const headerClassName = props.location.pathname === '/' ? 'header' : 'header header__mini';
   return (
     <header className={headerClassName}>
       <div className="header__title">
@@ -12,28 +12,40 @@ const Header = (props) => {
           <Link to="/">
             <img src={props.config.blogLogoImage} alt={props.config.blogTitle} width="404" />
           </Link>
-          <span>生活をサポートする記事メディア<strong>「ライフガジェット」</strong></span>
+          <span>
+            生活をサポートする記事メディア<strong>「ライフガジェット」</strong>
+          </span>
         </h1>
         <SearchForm {...props} />
         <ul className="header__tag">
-          <li>#<Link to="/tag/7"><b>格安SIM</b></Link></li>
-          <li>#<Link to="/tag/31"><b>プログラミング</b></Link></li>
-          <li>#<Link to="/tag/39"><b>食</b></Link></li>
-          <li>#<Link to="/tag/24"><b>文房具</b></Link></li>
+          <li>
+            #
+            <Link to="/tag/7">
+              <b>格安SIM</b>
+            </Link>
+          </li>
+          <li>
+            #
+            <Link to="/tag/31">
+              <b>プログラミング</b>
+            </Link>
+          </li>
+          <li>
+            #
+            <Link to="/tag/39">
+              <b>食</b>
+            </Link>
+          </li>
+          <li>
+            #
+            <Link to="/tag/24">
+              <b>文房具</b>
+            </Link>
+          </li>
         </ul>
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  location: React.PropTypes.shape({
-    pathname: React.PropTypes.string,
-  }),
-  config: React.PropTypes.shape({
-    blogLogoImage: React.PropTypes.string,
-    blogTitle: React.PropTypes.string,
-  }),
 };
 
 export default Header;

@@ -72,16 +72,6 @@ class Search extends React.Component {
     return <IndexComp {...this.props} />;
   }
 }
-Search.propTypes = {
-  params: React.PropTypes.shape({
-    keyword: React.PropTypes.string,
-    page: React.PropTypes.string,
-  }),
-  keyword: React.PropTypes.string,
-  routingKey: React.PropTypes.string,
-  handleInit: React.PropTypes.func,
-  handleFetch: React.PropTypes.func,
-};
 
 // Connect to Redux
 function mapStateToProps(state) {

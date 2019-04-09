@@ -67,17 +67,6 @@ class Archive extends React.PureComponent {
     return <Article {...this.props} />;
   }
 }
-Archive.propTypes = {
-  article: React.PropTypes.shape({
-    tags: React.PropTypes.array,
-  }),
-  params: React.PropTypes.shape({
-    id: React.PropTypes.string,
-  }),
-  gettedTag: React.PropTypes.bool,
-  handleFetch: React.PropTypes.func,
-  handleGet: React.PropTypes.func,
-};
 
 function mapStateToProps(state) {
   return {

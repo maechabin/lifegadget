@@ -15,10 +15,4 @@ const Adsense = (props) => {
   );
 };
 
-Adsense.propTypes = {
-  client: React.PropTypes.string,
-  slot: React.PropTypes.string,
-  format: React.PropTypes.string,
-};
-
 export default Adsense;

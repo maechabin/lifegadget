@@ -69,16 +69,6 @@ class Author extends React.Component {
     return <IndexComp {...this.props} />;
   }
 }
-Author.propTypes = {
-  routingKey: React.PropTypes.string,
-  author: React.PropTypes.arrayOf(React.PropTypes.object),
-  params: React.PropTypes.shape({
-    author: React.PropTypes.string,
-    page: React.PropTypes.string,
-  }),
-  handleInit: React.PropTypes.func,
-  handleFetch: React.PropTypes.func,
-};
 
 function mapStateToProps(state) {
   return {
