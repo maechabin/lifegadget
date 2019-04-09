@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import config from '../../config';
+import config from '../config';
 
 export const FETCH_CATEGORY = 'FETCH_CATEGORY';
 export function fetchCategory(payload) {
@@ -13,14 +13,14 @@ export function fetchCategoryAsync() {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/categories`, {
       method: 'get',
       mode: 'cors',
-    }).then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return console.dir(res);
-    }).then(
-      res => dispatch(fetchCategory(res)),
-    );
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+        return console.dir(res);
+      })
+      .then((res) => dispatch(fetchCategory(res)));
   };
 }
 
@@ -36,14 +36,14 @@ export function fetchUserAsync() {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/users`, {
       method: 'get',
       mode: 'cors',
-    }).then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return console.dir(res);
-    }).then(
-      res => dispatch(fetchUser(res)),
-    );
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+        return console.dir(res);
+      })
+      .then((res) => dispatch(fetchUser(res)));
   };
 }
 

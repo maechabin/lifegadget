@@ -1,4 +1,4 @@
-import "babel-polyfill";
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { combineReducers, applyMiddleware } from 'redux';
@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 
-import { routes } from './routes.jsx';
+import { routes } from './routes';
 import { configureStore } from './store';
 import { indexReducer } from './reducers/indexReducer';
 import { rootReducer } from './reducers/rootReducer';
@@ -32,10 +32,7 @@ const initialState = {
 };
 
 // 3. Middleware
-const middleware = () => applyMiddleware(
-  thunk,
-  routerMiddleware(browserHistory),
-);
+const middleware = () => applyMiddleware(thunk, routerMiddleware(browserHistory));
 
 // Make Store
 const store = configureStore(reducers, initialState, middleware());
@@ -44,13 +41,13 @@ const store = configureStore(reducers, initialState, middleware());
 const history = syncHistoryWithStore(browserHistory, store);
 
 // Google Analytics
-history.listen(
-  location => ga('send', 'pageview', location.pathname),
-);
+history.listen((location) => window.ga('send', 'pageview', location.pathname));
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>{routes}</Router>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+      {routes}
+    </Router>
   </Provider>,
   document.querySelector('.content'),
 );

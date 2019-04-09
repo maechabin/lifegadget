@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
 import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
-import config from '../../config';
+import config from '../config';
 
 // view files
 import IndexComp from '../views/index/IndexComp.jsx';
@@ -20,14 +20,14 @@ class Search extends React.Component {
       method: 'get',
       mode: 'cors',
     })
-    .then(Search.handleErrors)
-    .then((res) => {
-      if (res.status === 200) {
-        return [res.json(), res.headers._headers];
-      }
-      return console.dir(res);
-    })
-    .catch(() => console.log('bad request'));
+      .then(Search.handleErrors)
+      .then((res) => {
+        if (res.status === 200) {
+          return [res.json(), res.headers._headers];
+        }
+        return console.dir(res);
+      })
+      .catch(() => console.log('bad request'));
   }
 
   static handleErrors(response) {
@@ -42,9 +42,9 @@ class Search extends React.Component {
     if (ads.length > 0) {
       try {
         ads.forEach(() => {
-          return (adsbygoogle = window.adsbygoogle || []).push({});
+          return (window.adsbygoogle = window.adsbygoogle || []).push({});
         });
-      } catch(error) {}
+      } catch (error) {}
     }
   }
 
@@ -69,9 +69,7 @@ class Search extends React.Component {
   }
 
   render() {
-    return (
-      <IndexComp {...this.props} />
-    );
+    return <IndexComp {...this.props} />;
   }
 }
 Search.propTypes = {
@@ -104,9 +102,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch(searchArticleAsync(callback, keyword, page));
     },
     handleInit(key) {
-      return [resetList(), saveRoutingKey(key)].map(
-        action => dispatch(action),
-      );
+      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
 }

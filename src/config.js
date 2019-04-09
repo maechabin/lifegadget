@@ -3,7 +3,7 @@ export default {
   blogSubTitle: '生活をサポートする記事メディア',
   blogTitleTag: 'LifeGadget（ライフガジェット）',
   blogDomain: 'lifegadget.tokyo',
-  // blogUrl: 'http://localhost:8080/wordpress',
+  // blogUrl: 'http://mae.chab.in/',
   blogUrl: 'http://localhost:8888',
   blogLogoImage: '/assets/image/lifegadget_white.png',
   blogDefaultImage: '/assets/image/lifegadget.png',

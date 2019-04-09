@@ -3,13 +3,13 @@ import React from 'react';
 import IndexTitle from './IndexTitle.jsx';
 import IndexList from './IndexList.jsx';
 import Pagination from './Pagination.jsx';
-import config from '../../../config';
+import config from '../../config';
 import CategoryButton from '../../widgets/CategoryButton.jsx';
 import Adsense from '../../widgets/Adsense.jsx';
 import NotFound from '../root/NotFound.jsx';
 
 const IndexComp = (props) => {
-  const index = (props.badRequest) ? (
+  const index = props.badRequest ? (
     <NotFound {...props} />
   ) : (
     <section>
@@ -34,9 +34,7 @@ const IndexComp = (props) => {
       />
     </section>
   );
-  return (
-    <main className="index">{index}</main>
-  );
+  return <main className="index">{index}</main>;
 };
 IndexComp.propTypes = {
   badRequest: React.PropTypes.bool,

@@ -10,7 +10,7 @@ import Tag from './containers/Tag.jsx';
 import Author from './containers/Author.jsx';
 import NotFound from './views/root/NotFound.jsx';
 
-const Routes = (
+export const routes = (
   <Route path="/" component={Root}>
     <IndexRoute component={Index} />
     <Route path="/:page" component={Index} />
@@ -26,5 +26,3 @@ const Routes = (
     <Route path="*" component={NotFound} />
   </Route>
 );
-
-export default Routes;

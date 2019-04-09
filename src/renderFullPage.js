@@ -1,5 +1,5 @@
 import serialize from 'serialize-javascript';
-import config from '../config';
+import config from './config';
 
 export default function renderFullPage(html, finalState) {
   const archive = finalState.archive.article;
@@ -51,7 +51,9 @@ export default function renderFullPage(html, finalState) {
         <meta name="twitter:image:src" content="${image}">
         <meta name="twitter:domain" content="${config.blogDomain}">
         <meta name="twitter:creator" content="${config.twitter}">
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://${config.blogDomain}/feed">
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://${
+          config.blogDomain
+        }/feed">
       </head>
 
       <body>

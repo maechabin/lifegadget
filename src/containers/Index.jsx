@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
 import { fetchIndexAsync, resetList, saveRoutingKey, saveMediaAsync } from '../actions/indexAction';
-import config from '../../config';
+import config from '../config';
 
 // view files
 import IndexComp from '../views/index/IndexComp.jsx';
@@ -17,13 +17,12 @@ class Index extends React.PureComponent {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
       mode: 'cors',
-    })
-    .then((res) => {
+    }).then((res) => {
       if (res.status === 200) {
         return [res.json(), res.headers._headers];
       }
       return console.log(res);
-    })
+    });
   }
 
   static handleErrors(response) {
@@ -38,9 +37,9 @@ class Index extends React.PureComponent {
     if (ads.length > 0) {
       try {
         ads.forEach(() => {
-          return (adsbygoogle = window.adsbygoogle || []).push({});
+          return (window.adsbygoogle = window.adsbygoogle || []).push({});
         });
-      } catch(error) {}
+      } catch (error) {}
     }
   }
 
@@ -63,9 +62,7 @@ class Index extends React.PureComponent {
   }
 
   render() {
-    return (
-      <IndexComp {...this.props} />
-    );
+    return <IndexComp {...this.props} />;
   }
 }
 Index.propTypes = {
@@ -95,9 +92,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch(fetchIndexAsync(callback, page));
     },
     handleInit(key) {
-      return [resetList(), saveRoutingKey(key)].map(
-        action => dispatch(action),
-      );
+      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
     getEyeCatchImage(id) {
       return dispatch(saveMediaAsync(id));

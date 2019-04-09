@@ -2,29 +2,29 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/client.jsx',
+  entry: './src/index.jsx',
   output: {
-    path: './dist',
-    filename: 'bundle.js'
+    path: './build',
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
       {
         test: /\.js.$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
+        loader: 'babel-loader',
+      },
+    ],
   },
   /* プラグインの設定 */
   plugins: [
     /* DefinePluginの実行 */
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
     /* UglifyJsPluginの実行 */
-    new webpack.optimize.UglifyJsPlugin()
-  ]
+    new webpack.optimize.UglifyJsPlugin(),
+  ],
 };

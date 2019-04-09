@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
 import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
-import config from '../../config';
+import config from '../config';
 
 // view files
 import IndexComp from '../views/index/IndexComp.jsx';
@@ -20,14 +20,14 @@ class Category extends React.Component {
       method: 'get',
       mode: 'cors',
     })
-    .then(Category.handleErrors)
-    .then((res) => {
-      if (res.status === 200) {
-        return [res.json(), res.headers._headers];
-      }
-      return console.log(res);
-    })
-    .catch(() => console.log('bad request'));
+      .then(Category.handleErrors)
+      .then((res) => {
+        if (res.status === 200) {
+          return [res.json(), res.headers._headers];
+        }
+        return console.log(res);
+      })
+      .catch(() => console.log('bad request'));
   }
 
   static handleErrors(response) {
@@ -42,9 +42,9 @@ class Category extends React.Component {
     if (ads.length > 0) {
       try {
         ads.forEach(() => {
-          return (adsbygoogle = window.adsbygoogle || []).push({});
+          return (window.adsbygoogle = window.adsbygoogle || []).push({});
         });
-      } catch(error) {}
+      } catch (error) {}
     }
   }
 
@@ -66,7 +66,8 @@ class Category extends React.Component {
         this.props.handleFetch(
           this.props.params.category,
           Category.fetchData,
-          nextProps.params.page),
+          nextProps.params.page,
+        ),
       ];
     }
     if (nextProps.pathname !== this.props.pathname) {
@@ -74,16 +75,15 @@ class Category extends React.Component {
         this.props.handleFetch(
           nextProps.params.category,
           Category.fetchData,
-          nextProps.params.page),
+          nextProps.params.page,
+        ),
       ];
     }
     return false;
   }
 
   render() {
-    return (
-      <IndexComp {...this.props} />
-    );
+    return <IndexComp {...this.props} />;
   }
 }
 Category.propTypes = {
@@ -116,9 +116,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch(searchArticleAsync(callback, category, page));
     },
     handleInit(key) {
-      return [resetList(), saveRoutingKey(key)].map(
-        action => dispatch(action),
-      );
+      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
 }

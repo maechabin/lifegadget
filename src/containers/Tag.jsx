@@ -1,8 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import { searchArticleAsync, resetList, saveRoutingKey, getTagNameAsync } from '../actions/indexAction';
-import config from '../../config';
+import {
+  searchArticleAsync,
+  resetList,
+  saveRoutingKey,
+  getTagNameAsync,
+} from '../actions/indexAction';
+import config from '../config';
 
 // view files
 import IndexComp from '../views/index/IndexComp.jsx';
@@ -20,14 +25,14 @@ class Tag extends React.Component {
       method: 'get',
       mode: 'cors',
     })
-    .then(Tag.handleErrors)
-    .then((res) => {
-      if (res.status === 200) {
-        return [res.json(), res.headers._headers, tag];
-      }
-      return console.dir(res);
-    })
-    .catch(() => console.log('bad request'));
+      .then(Tag.handleErrors)
+      .then((res) => {
+        if (res.status === 200) {
+          return [res.json(), res.headers._headers, tag];
+        }
+        return console.dir(res);
+      })
+      .catch(() => console.log('bad request'));
   }
 
   static handleErrors(response) {
@@ -42,9 +47,9 @@ class Tag extends React.Component {
     if (ads.length > 0) {
       try {
         ads.forEach(() => {
-          return (adsbygoogle = window.adsbygoogle || []).push({});
+          return (window.adsbygoogle = window.adsbygoogle || []).push({});
         });
-      } catch(error) {}
+      } catch (error) {}
     }
   }
 
@@ -67,20 +72,14 @@ class Tag extends React.Component {
     ) {
       return [
         this.props.handleInit1(nextProps.params.tag),
-        this.props.handleFetch(
-          nextProps.params.tag,
-          Tag.fetchData,
-          nextProps.params.page,
-        ),
+        this.props.handleFetch(nextProps.params.tag, Tag.fetchData, nextProps.params.page),
       ];
     }
     return false;
   }
 
   render() {
-    return (
-      <IndexComp {...this.props} />
-    );
+    return <IndexComp {...this.props} />;
   }
 }
 Tag.propTypes = {
@@ -113,14 +112,10 @@ function mapDispatchToProps(dispatch) {
       return dispatch(searchArticleAsync(callback, tag, page));
     },
     handleInit1(tag) {
-      return [getTagNameAsync(tag)].map(
-        action => dispatch(action),
-      );
+      return [getTagNameAsync(tag)].map((action) => dispatch(action));
     },
     handleInit2(key) {
-      return [resetList(), saveRoutingKey(key)].map(
-        action => dispatch(action),
-      );
+      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
 }

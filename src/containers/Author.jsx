@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
 import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
-import config from '../../config';
+import config from '../config';
 
 // view files
 import IndexComp from '../views/index/IndexComp.jsx';
@@ -20,14 +20,14 @@ class Author extends React.Component {
       method: 'get',
       mode: 'cors',
     })
-    .then(Author.handleErrors)
-    .then((res) => {
-      if (res.status === 200) {
-        return [res.json(), res.headers._headers];
-      }
-      return console.dir(res);
-    })
-    .catch(() => console.log('bad request'));
+      .then(Author.handleErrors)
+      .then((res) => {
+        if (res.status === 200) {
+          return [res.json(), res.headers._headers];
+        }
+        return console.dir(res);
+      })
+      .catch(() => console.log('bad request'));
   }
 
   static handleErrors(response) {
@@ -42,20 +42,16 @@ class Author extends React.Component {
     if (ads.length > 0) {
       try {
         ads.forEach(() => {
-          return (adsbygoogle = window.adsbygoogle || []).push({});
+          return (window.adsbygoogle = window.adsbygoogle || []).push({});
         });
-      } catch(error) {}
+      } catch (error) {}
     }
   }
 
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(
-        this.props.params.author,
-        Author.fetchData,
-        this.props.params.page,
-      ),
+      this.props.handleFetch(this.props.params.author, Author.fetchData, this.props.params.page),
       this.callAdSense(),
     ];
   }
@@ -63,19 +59,14 @@ class Author extends React.Component {
   componentWillUpdate(nextProps) {
     if (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) {
       return [
-        this.props.handleFetch(
-          this.props.params.author,
-          Author.fetchData,
-          nextProps.params.page),
+        this.props.handleFetch(this.props.params.author, Author.fetchData, nextProps.params.page),
       ];
     }
     return false;
   }
 
   render() {
-    return (
-      <IndexComp {...this.props} />
-    );
+    return <IndexComp {...this.props} />;
   }
 }
 Author.propTypes = {
@@ -108,9 +99,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch(searchArticleAsync(callback, author, page));
     },
     handleInit(key) {
-      return [resetList(), saveRoutingKey(key)].map(
-        action => dispatch(action),
-      );
+      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
 }

@@ -1,6 +1,6 @@
 import RSS from 'rss';
 import fetch from 'node-fetch';
-import config from '../config';
+import config from './config';
 
 export default function makeRss() {
   const feed = new RSS({

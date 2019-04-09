@@ -25,7 +25,7 @@ import { fetchCategoryAsync, fetchUserAsync } from './actions/rootAction';
 
 import renderFullPage from './renderFullPage';
 import makeRss from './feed';
-import { Routes } from './Routes.jsx';
+import { routes } from './routes';
 
 const app = express();
 const port = process.env.PORT || 3030;
@@ -57,13 +57,13 @@ function handleRender(req, res) {
   // History
   const history = syncHistoryWithStore(memoryHistory, store);
 
-  match({ history, Routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       return res.status(500).send(error.message);
     } else if (redirectLocation) {
       return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      // console.dir(renderProps.components[renderProps.components.length - 1]);
+      console.dir(renderProps.components[renderProps.components.length - 1]);
 
       // Promise
       const promise1 = renderProps.components.map((component) =>
@@ -93,7 +93,7 @@ function handleRender(req, res) {
 
 app.use(helmet());
 app.use(compression());
-app.use('/assets', express.static('dist'));
+app.use('/assets', express.static('build'));
 app.use('/assets', express.static('public'));
 app.get('/feed', (req, res) => {
   res.type('rss');
