@@ -9,7 +9,7 @@ import IndexComp from '../views/index/IndexComp.jsx';
 
 class Index extends React.PureComponent {
   static handleFetch(dispatch, renderProps) {
-    return dispatch(fetchIndexAsync(Index.fetchData, renderProps.params.page));
+    return dispatch(fetchIndexAsync(Index.fetchData, renderProps.path));
   }
 
   static fetchData(page = 1) {
