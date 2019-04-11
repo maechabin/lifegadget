@@ -24,11 +24,11 @@ import NotFound from './views/root/NotFound.jsx';
 //   </Route>
 // );
 
-// type Route = {
+// export type Route = {
 //   path?: string;
 //   exact?: boolean;
-//   component: any,
-// }
+//   component: any;
+// };
 
 export const routes = [
   {

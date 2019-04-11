@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import Showdown from 'showdown';
 
 const IndexList = (props) => {
-  console.log(props);
+  // console.log(props);
   function rawMarkup(content) {
     const converter = new Showdown.Converter();
     const markup = converter.makeHtml(content.toString());
