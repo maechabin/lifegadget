@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Pagination = (props) => {
   const totalPages = Number(props.totalPages);
-  const paramsPage = Number(props.params.page) || 1;
+  const paramsPage = Number(props.match.params.page) || 1;
   const pager = new Array(5).fill(paramsPage);
 
   const pathname = props.location.pathname.split('/');

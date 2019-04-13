@@ -51,15 +51,26 @@ class Author extends React.Component {
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(this.props.params.author, Author.fetchData, this.props.params.page),
+      this.props.handleFetch(
+        this.props.match.params.author,
+        Author.fetchData,
+        this.props.match.params.page,
+      ),
       this.callAdSense(),
     ];
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) {
+    if (
+      nextprops.match.params.page !== '' &&
+      nextprops.match.params.page !== this.props.match.params.page
+    ) {
       return [
-        this.props.handleFetch(this.props.params.author, Author.fetchData, nextProps.params.page),
+        this.props.handleFetch(
+          this.props.match.params.author,
+          Author.fetchData,
+          nextprops.match.params.page,
+        ),
       ];
     }
     return false;

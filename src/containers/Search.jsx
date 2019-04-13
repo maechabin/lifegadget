@@ -51,18 +51,33 @@ class Search extends React.Component {
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(this.props.params.keyword, Search.fetchData, this.props.params.page),
+      this.props.handleFetch(
+        this.props.match.params.keyword,
+        Search.fetchData,
+        this.props.match.params.page,
+      ),
       this.callAdSense(),
     ];
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.keyword !== '' && nextProps.keyword !== this.props.params.keyword) {
-      return this.props.handleFetch(nextProps.keyword, Search.fetchData, this.props.params.page);
+    if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
+      return this.props.handleFetch(
+        nextProps.keyword,
+        Search.fetchData,
+        this.props.match.params.page,
+      );
     }
-    if (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) {
+    if (
+      nextprops.match.params.page !== '' &&
+      nextprops.match.params.page !== this.props.match.params.page
+    ) {
       return [
-        this.props.handleFetch(this.props.params.keyword, Search.fetchData, nextProps.params.page),
+        this.props.handleFetch(
+          this.props.match.params.keyword,
+          Search.fetchData,
+          nextprops.match.params.page,
+        ),
       ];
     }
     return false;

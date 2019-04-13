@@ -46,17 +46,17 @@ class Archive extends React.PureComponent {
   }
 
   componentDidMount() {
-    return Promise.all([this.props.handleFetch(this.props.params.id, Archive.fetchData)]).then(
-      () => {
-        if (
-          this.props.gettedTag === false &&
-          Object.prototype.toString.call(this.props.article.tags) === '[object Array]'
-        ) {
-          return [this.props.handleGet(this.props.article.tags), this.callAdSense()];
-        }
-        return false;
-      },
-    );
+    return Promise.all([
+      this.props.handleFetch(this.props.match.params.id, Archive.fetchData),
+    ]).then(() => {
+      if (
+        this.props.gettedTag === false &&
+        Object.prototype.toString.call(this.props.article.tags) === '[object Array]'
+      ) {
+        return [this.props.handleGet(this.props.article.tags), this.callAdSense()];
+      }
+      return false;
+    });
   }
 
   componentDidUpdate() {

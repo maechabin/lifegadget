@@ -10,17 +10,17 @@ const IndexTitle = (props) => {
   const getTitle = (name) => {
     switch (name) {
       case 'search':
-        return `「${props.params.keyword}」の検索結果`;
+        return `「${props.match.params.keyword}」の検索結果`;
       case 'category': {
         const getCategoryName = getCategory(props.category);
-        const categoryName = getCategoryName(props.params.category).find((i) => i != null);
+        const categoryName = getCategoryName(props.match.params.category).find((i) => i != null);
         return `「${categoryName}」カテゴリの記事一覧`;
       }
       case 'tag':
         return `「${props.tagName}」タグの記事一覧`;
       case 'author': {
         const getAuthorName = getAuthor(props.author);
-        const authorName = getAuthorName(props.params.author);
+        const authorName = getAuthorName(props.match.params.author);
         return `${authorName}の記事一覧`;
       }
       default:
@@ -29,7 +29,7 @@ const IndexTitle = (props) => {
   };
 
   const title = props.resetList && props.routingKey !== '' ? '' : getTitle(pathname);
-  const page = props.params.page ? props.params.page : '1';
+  const page = props.match.params && props.match.params.page ? props.match.params.page : '1';
   const total =
     props.resetList && props.routingKey !== '' ? '' : `全 ${props.total} 件 - ${page}ページ目`;
 

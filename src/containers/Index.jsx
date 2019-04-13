@@ -46,16 +46,19 @@ class Index extends React.PureComponent {
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(Index.fetchData, this.props.params.page),
+      this.props.handleFetch(Index.fetchData, this.props.match.params.page),
       this.callAdSense(),
     ];
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) {
+  componentDidUpdate(nextProps) {
+    if (
+      nextProps.match.params.page !== '' &&
+      nextProps.match.params.page !== this.props.match.params.page
+    ) {
       return [
         this.props.handleInit(this.props.routingKey),
-        this.props.handleFetch(Index.fetchData, nextProps.params.page),
+        this.props.handleFetch(Index.fetchData, nextProps.match.params.page),
       ];
     }
     return false;

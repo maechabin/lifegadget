@@ -54,25 +54,34 @@ class Tag extends React.Component {
   }
 
   componentWillMount(nextProps) {
-    return this.props.handleInit1(this.props.params.tag);
+    return this.props.handleInit1(this.props.match.params.tag);
   }
 
   componentDidMount() {
     return [
       this.props.handleInit2(this.props.routingKey),
-      this.props.handleFetch(this.props.params.tag, Tag.fetchData, this.props.params.page),
+      this.props.handleFetch(
+        this.props.match.params.tag,
+        Tag.fetchData,
+        this.props.match.params.page,
+      ),
       this.callAdSense(),
     ];
   }
 
   componentWillUpdate(nextProps) {
     if (
-      (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) ||
-      nextProps.params.tag !== this.props.params.tag
+      (nextprops.match.params.page !== '' &&
+        nextprops.match.params.page !== this.props.match.params.page) ||
+      nextprops.match.params.tag !== this.props.match.params.tag
     ) {
       return [
-        this.props.handleInit1(nextProps.params.tag),
-        this.props.handleFetch(nextProps.params.tag, Tag.fetchData, nextProps.params.page),
+        this.props.handleInit1(nextprops.match.params.tag),
+        this.props.handleFetch(
+          nextprops.match.params.tag,
+          Tag.fetchData,
+          nextprops.match.params.page,
+        ),
       ];
     }
     return false;

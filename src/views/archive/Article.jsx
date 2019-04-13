@@ -16,7 +16,7 @@ const Article = (props) => {
   const article =
     props.badRequest === true ? (
       <NotFound {...props} />
-    ) : props.article.id !== Number(props.params.id) ? (
+    ) : props.article.id !== Number(props.match.params.id) ? (
       <div className="article__loading">
         <img src="/assets/image/loading.svg" alt="loading..." />
       </div>

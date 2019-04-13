@@ -52,30 +52,33 @@ class Category extends React.Component {
     return [
       this.props.handleInit(this.props.routingKey),
       this.props.handleFetch(
-        this.props.params.category,
+        this.props.match.params.category,
         Category.fetchData,
-        this.props.params.page,
+        this.props.match.params.page,
       ),
       this.callAdSense(),
     ];
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.params.page !== '' && nextProps.params.page !== this.props.params.page) {
+    if (
+      nextprops.match.params.page !== '' &&
+      nextprops.match.params.page !== this.props.match.params.page
+    ) {
       return [
         this.props.handleFetch(
-          this.props.params.category,
+          this.props.match.params.category,
           Category.fetchData,
-          nextProps.params.page,
+          nextprops.match.params.page,
         ),
       ];
     }
     if (nextProps.pathname !== this.props.pathname) {
       return [
         this.props.handleFetch(
-          nextProps.params.category,
+          nextprops.match.params.category,
           Category.fetchData,
-          nextProps.params.page,
+          nextprops.match.params.page,
         ),
       ];
     }
