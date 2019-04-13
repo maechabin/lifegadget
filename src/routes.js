@@ -1,4 +1,4 @@
-import Root from './containers/Root.jsx';
+import Root from './containers/Root';
 import Index from './containers/Index.jsx';
 import Archive from './containers/Archive.jsx';
 import Search from './containers/Search.jsx';

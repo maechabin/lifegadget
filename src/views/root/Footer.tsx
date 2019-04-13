@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Scrollchor from 'react-scrollchor';
+// import Scrollchor from 'react-scrollchor';
 
-const Footer = (props) => (
+const Footer = (props: any) => (
   <footer className="footer">
     <div className="footer__nav">
-      <Scrollchor to="#content">
-        <i className="fa fa-chevron-up" />
-        <br />
-        PAGE TOP
-      </Scrollchor>
+      {/* <Scrollchor to="#content"> */}
+      <i className="fa fa-chevron-up" />
+      <br />
+      PAGE TOP
+      {/* </Scrollchor> */}
     </div>
     <ul className="footer__social">
       <li>
