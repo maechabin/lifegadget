@@ -5,7 +5,7 @@ import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexA
 import config from '../config';
 
 // view files
-import IndexComp from '../views/index/IndexComp';
+import IndexComp from '../components/index/IndexComp';
 
 class Search extends React.Component {
   static handleFetch(dispatch, renderProps) {

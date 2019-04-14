@@ -5,7 +5,7 @@ import { fetchArticleAsync, getTagsAsync } from '../actions/archiveAction';
 import config from '../config';
 
 // view files
-import Article from '../views/archive/Article.jsx';
+import Article from '../components/archive/Article.jsx';
 
 class Archive extends React.PureComponent {
   static handleFetch(dispatch, renderProps) {

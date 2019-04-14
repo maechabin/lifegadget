@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { changeValue, setSearchValue } from '../actions/rootAction';
 import { routingArray } from '../routes';
 
-import Layout from '../views/root/Layout';
+import Layout from '../components/root/Layout';
 
 function Root(props: any) {
   const routes = routingArray.map((route) => {

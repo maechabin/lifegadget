@@ -10,7 +10,7 @@ import {
 import config from '../config';
 
 // view files
-import IndexComp from '../views/index/IndexComp';
+import IndexComp from '../components/index/IndexComp';
 
 class Tag extends React.Component {
   static handleFetch(dispatch, renderProps) {
