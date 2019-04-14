@@ -10,7 +10,7 @@ import ArticleUser from './ArticleUser.jsx';
 import config from '../../config';
 import CategoryButton from '../../widgets/CategoryButton.jsx';
 import Adsense from '../../widgets/Adsense.jsx';
-import NotFound from '../root/NotFound.jsx';
+import NotFound from '../root/NotFound';
 
 const Article = (props) => {
   const article =

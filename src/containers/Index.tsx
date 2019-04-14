@@ -6,7 +6,7 @@ import { fetchIndexAsync, resetList, saveRoutingKey, saveMediaAsync } from '../a
 import config from '../config';
 
 // view files
-import IndexComp from '../views/index/IndexComp.jsx';
+import IndexComp from '../views/index/IndexComp';
 
 declare const window: any;
 

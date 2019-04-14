@@ -1,14 +1,14 @@
 import React from 'react';
 
-import IndexTitle from './IndexTitle.jsx';
-import IndexList from './IndexList.jsx';
-import Pagination from './Pagination.jsx';
+import IndexTitle from './IndexTitle';
+import IndexList from './IndexList';
+import Pagination from './Pagination';
 import config from '../../config';
 import CategoryButton from '../../widgets/CategoryButton.jsx';
 import Adsense from '../../widgets/Adsense.jsx';
-import NotFound from '../root/NotFound.jsx';
+import NotFound from '../root/NotFound';
 
-const IndexComp = (props) => {
+const IndexComp = (props: any) => {
   const index = props.badRequest ? (
     <NotFound {...props} />
   ) : (

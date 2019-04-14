@@ -8,7 +8,7 @@ import Search from './containers/Search.jsx';
 import Category from './containers/Category.jsx';
 import Tag from './containers/Tag.jsx';
 import Author from './containers/Author.jsx';
-import NotFound from './views/root/NotFound.jsx';
+import NotFound from './views/root/NotFound';
 
 export const routes = (
   <Route path="/" component={Root}>

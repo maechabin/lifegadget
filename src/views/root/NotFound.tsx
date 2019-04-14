@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NotFound = (props) => {
+const NotFound = (props: any) => {
   const notfound =
     props.routingKey !== undefined && props.routingKey !== null ? (
       <div className="notfound">

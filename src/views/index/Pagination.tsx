@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Pagination = (props) => {
+const Pagination = (props: any) => {
   const totalPages = Number(props.totalPages);
   const paramsPage = Number(props.match.params.page) || 1;
   const pager = new Array(5).fill(paramsPage);
 
   const pathname = props.location.pathname.split('/');
 
-  const path = (name, routeParams) => {
+  const path = (name: any, routeParams: any) => {
     switch (name) {
       case 'search':
         return `/search/${routeParams.keyword}/`;

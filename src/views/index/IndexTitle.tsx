@@ -1,19 +1,21 @@
 import React from 'react';
 
-const IndexTitle = (props) => {
+const IndexTitle = (props: any) => {
   const pathname = props.location.pathname.split('/')[1];
 
-  const getCategory = (categoryList) => (id) =>
-    categoryList.map((category) => (category.id === parseInt(id, 10) ? category.name : null));
-  const getAuthor = (authorList) => (id) =>
-    authorList.map((author) => (author.id === parseInt(id, 10) ? author.name : null));
-  const getTitle = (name) => {
+  const getCategory = (categoryList: any) => (id: any) =>
+    categoryList.map((category: any) => (category.id === parseInt(id, 10) ? category.name : null));
+  const getAuthor = (authorList: any) => (id: any) =>
+    authorList.map((author: any) => (author.id === parseInt(id, 10) ? author.name : null));
+  const getTitle = (name: any) => {
     switch (name) {
       case 'search':
         return `「${props.match.params.keyword}」の検索結果`;
       case 'category': {
         const getCategoryName = getCategory(props.category);
-        const categoryName = getCategoryName(props.match.params.category).find((i) => i != null);
+        const categoryName = getCategoryName(props.match.params.category).find(
+          (i: any) => i != null,
+        );
         return `「${categoryName}」カテゴリの記事一覧`;
       }
       case 'tag':

@@ -5,7 +5,7 @@ import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexA
 import config from '../config';
 
 // view files
-import IndexComp from '../views/index/IndexComp.jsx';
+import IndexComp from '../views/index/IndexComp';
 
 class Category extends React.Component {
   static handleFetch(dispatch, renderProps) {
