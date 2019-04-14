@@ -1,10 +1,13 @@
-export const rootState = {
+import { RootState, IndexState, ArchiveState } from './state.model';
+
+export const rootState: RootState = {
   category: [],
   user: [],
   inputValue: '',
   searchValue: '',
 };
-export const indexState = {
+
+export const indexState: IndexState = {
   badRequest: false,
   index: [],
   routingKey: '',
@@ -15,7 +18,8 @@ export const indexState = {
   currentPage: 1,
   media: [],
 };
-export const archiveState = {
+
+export const archiveState: ArchiveState = {
   badRequest: false,
   article: {},
   articleImage: '',
