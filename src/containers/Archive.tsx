@@ -5,20 +5,21 @@ import { fetchArticleAsync, getTagsAsync } from '../actions/archiveAction';
 import config from '../config';
 
 // view files
-import Article from '../components/archive/Article.jsx';
+import Article from '../components/archive/Article';
 
-class Archive extends React.PureComponent {
-  static handleFetch(dispatch, renderProps) {
+declare const window: any;
+
+class Archive extends React.PureComponent<any, any> {
+  static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(fetchArticleAsync(Archive.fetchData, renderProps.params.id));
   }
 
-  static fetchData(id) {
+  static fetchData(id: any) {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts/${id}?context=view`, {
       method: 'get',
-      mode: 'cors',
     })
       .then(Archive.handleErrors)
-      .then((res) => {
+      .then((res: any) => {
         if (res.status === 200) {
           return res.json();
         }
@@ -27,7 +28,7 @@ class Archive extends React.PureComponent {
       .catch(() => console.log('bad request'));
   }
 
-  static handleErrors(response) {
+  static handleErrors(response: any) {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -60,7 +61,7 @@ class Archive extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    window.twttr.widgets.load();
+    // window.twttr.widgets.load();
   }
 
   render() {
@@ -68,7 +69,7 @@ class Archive extends React.PureComponent {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
     badRequest: state.archive.badRequest,
     category: state.root.category,
@@ -78,12 +79,12 @@ function mapStateToProps(state) {
     gettedTag: state.archive.gettedTag,
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(id, callback) {
+    handleFetch(id: any, callback: any) {
       return dispatch(fetchArticleAsync(callback, id));
     },
-    handleGet(array) {
+    handleGet(array: any) {
       return dispatch(getTagsAsync(array));
     },
   };

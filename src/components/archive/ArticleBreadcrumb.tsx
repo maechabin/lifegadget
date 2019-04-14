@@ -2,16 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-const ArticleBreadcrumb = (props) => {
-  const getCategory = (categoryList) => (id) =>
-    categoryList.map((category, i) => (category.id === parseInt(id, 10) ? i : null));
+const ArticleBreadcrumb = (props: any): JSX.Element => {
+  const getCategory = (categoryList: any) => (id: any) =>
+    categoryList.map((category: any, i: number) => (category.id === parseInt(id, 10) ? i : null));
   const getCategoryId = getCategory(props.category);
   const category = _.isEmpty(props.article.categories)
     ? ''
-    : props.article.categories.map((id) => getCategoryId(id).find((i) => i != null));
+    : props.article.categories.map((id: any) => getCategoryId(id).find((i: any) => i != null));
 
   return (
-    <ul is itemscope itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
+    <>
+      {/*<ul is itemscope itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
       <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to="/">
           <i className="fa fa-home" />{' '}
@@ -38,7 +39,8 @@ const ArticleBreadcrumb = (props) => {
           </span>
         </Link>
       </li>
-    </ul>
+  </ul>*/}
+    </>
   );
 };
 

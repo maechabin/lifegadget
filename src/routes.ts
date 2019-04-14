@@ -1,6 +1,6 @@
 import Root from './containers/Root';
 import Index from './containers/Index';
-// import Archive from './containers/Archive.jsx';
+import Archive from './containers/Archive';
 // import Search from './containers/Search.jsx';
 // import Category from './containers/Category.jsx';
 // import Tag from './containers/Tag.jsx';
@@ -44,10 +44,10 @@ export const routingArray = [
     path: '/',
     component: Index,
   },
-  // {
-  //   path: '/archives/:id',
-  //   component: Archive,
-  // },
+  {
+    path: '/archives/:id',
+    component: Archive,
+  },
   // {
   //   path: '/search/:keyword',
   //   component: Search,

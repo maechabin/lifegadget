@@ -1,8 +1,8 @@
 import React from 'react';
 import Showdown from 'showdown';
 
-const ArticleContent = (props) => {
-  function rawMarkup(contentType) {
+const ArticleContent = (props: any) => {
+  function rawMarkup(contentType: any) {
     const converter = new Showdown.Converter();
     const markup = converter.makeHtml(props.article[contentType].rendered.toString());
     return { __html: markup };

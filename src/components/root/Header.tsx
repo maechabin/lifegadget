@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import SearchForm from './SearchForm.jsx';
+import SearchForm from './SearchForm';
 
 const Header = (props: any) => {
   // const headerClassName = props.location.pathname === '/' ? 'header' : 'header header__mini';

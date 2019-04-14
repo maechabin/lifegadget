@@ -1,11 +1,11 @@
 import React from 'react';
 
-const SearchForm = (props) => {
-  function handleChange(e) {
+const SearchForm = (props: any) => {
+  function handleChange(e: any) {
     const value = e.target.value;
     props.handleChange(value);
   }
-  function handleClick(e) {
+  function handleClick(e: any) {
     e.preventDefault();
     props.handleSend(props.inputValue);
     props.handleChange('');
