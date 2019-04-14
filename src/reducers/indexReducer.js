@@ -24,8 +24,8 @@ export const indexReducer = (state = {}, action) => {
     case FETCH_INDEX:
       return Object.assign({}, state, {
         index: action.payload.index,
-        total: action.payload.page['x-wp-total'][0],
-        totalPages: action.payload.page['x-wp-totalpages'][0],
+        // total: action.payload.page['x-wp-total'][0],
+        // totalPages: action.payload.page['x-wp-totalpages'][0],
         resetList: false,
         badRequest: false,
       });

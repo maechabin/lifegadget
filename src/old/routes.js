@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import Root from './containers/Root';
-import Index from './containers/Index.jsx';
+import Index from './containers/Index';
 import Archive from './containers/Archive.jsx';
 import Search from './containers/Search.jsx';
 import Category from './containers/Category.jsx';

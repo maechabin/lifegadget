@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
+
 import { fetchIndexAsync, resetList, saveRoutingKey, saveMediaAsync } from '../actions/indexAction';
 import config from '../config';
 
 // view files
 import IndexComp from '../views/index/IndexComp.jsx';
 
-class Index extends React.PureComponent {
-  static handleFetch(dispatch, renderProps) {
+declare const window: any;
+
+class Index extends React.PureComponent<any, any> {
+  static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(fetchIndexAsync(Index.fetchData, renderProps.path));
   }
 
@@ -16,8 +19,7 @@ class Index extends React.PureComponent {
     const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
-      mode: 'cors',
-    }).then((res) => {
+    }).then((res: any) => {
       if (res.status === 200) {
         return [res.json(), res.headers._headers];
       }
@@ -25,7 +27,7 @@ class Index extends React.PureComponent {
     });
   }
 
-  static handleErrors(response) {
+  static handleErrors(response: any) {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -51,7 +53,7 @@ class Index extends React.PureComponent {
     ];
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(nextProps: any) {
     if (
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
@@ -70,7 +72,7 @@ class Index extends React.PureComponent {
 }
 
 // Connect to Redux
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
     badRequest: state.index.badRequest,
     index: state.index.index,
@@ -78,18 +80,18 @@ function mapStateToProps(state) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    routingKey: state.routing.locationBeforeTransitions.key,
+    // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(callback, page) {
+    handleFetch(callback: any, page: any) {
       return dispatch(fetchIndexAsync(callback, page));
     },
-    handleInit(key) {
+    handleInit(key: any) {
       return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
-    getEyeCatchImage(id) {
+    getEyeCatchImage(id: any) {
       return dispatch(saveMediaAsync(id));
     },
   };
