@@ -1,18 +1,20 @@
+import { Dispatch } from 'redux';
 import fetch from 'node-fetch';
+
+import { Action, RootActionType } from './action.model';
 import config from '../config';
 
-export const FETCH_CATEGORY = 'FETCH_CATEGORY';
-export function fetchCategory(payload) {
+export function fetchCategory(payload: string[]): Action<string[]> {
   return {
-    type: FETCH_CATEGORY,
+    type: RootActionType.FETCH_CATEGORY,
     payload,
   };
 }
+
 export function fetchCategoryAsync() {
-  return (dispatch) => {
+  return async (dispatch: Dispatch) => {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/categories`, {
       method: 'get',
-      mode: 'cors',
     })
       .then((res) => {
         if (res.status === 200) {
@@ -24,20 +26,19 @@ export function fetchCategoryAsync() {
   };
 }
 
-export const FETCH_USER = 'FETCH_USER';
-export function fetchUser(payload) {
+export function fetchUser(payload: string[]): Action<string[]> {
   return {
-    type: FETCH_USER,
+    type: RootActionType.FETCH_USER,
     payload,
   };
 }
+
 export function fetchUserAsync() {
-  return (dispatch) => {
+  return async (dispatch: Dispatch) => {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/users`, {
       method: 'get',
-      mode: 'cors',
     })
-      .then((res) => {
+      .then((res: any) => {
         if (res.status === 200) {
           return res.json();
         }
@@ -47,18 +48,16 @@ export function fetchUserAsync() {
   };
 }
 
-export const CHANGE_VALUE = 'CHANGE_VALUE';
-export function changeValue(payload) {
+export function changeValue(payload: string): Action<string> {
   return {
-    type: CHANGE_VALUE,
+    type: RootActionType.CHANGE_VALUE,
     payload,
   };
 }
 
-export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
-export function setSearchValue(payload) {
+export function setSearchValue(payload: string): Action<string> {
   return {
-    type: SET_SEARCH_VALUE,
+    type: RootActionType.SET_SEARCH_VALUE,
     payload,
   };
 }
