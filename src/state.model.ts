@@ -1,3 +1,9 @@
+export interface State {
+  root: RootState;
+  index: IndexState;
+  archive: ArchiveState;
+}
+
 export interface RootState {
   category: string[];
   user: string[];
