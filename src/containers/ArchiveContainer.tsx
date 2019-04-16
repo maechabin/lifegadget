@@ -5,20 +5,20 @@ import { fetchArticleAsync, getTagsAsync } from '../actions/archiveAction';
 import config from '../config';
 
 // view files
-import Article from '../components/archive/Article';
+import Archive from '../components/archive/Archive';
 
 declare const window: any;
 
-class Archive extends React.PureComponent<any, any> {
+class ArchiveContainer extends React.PureComponent<any, any> {
   static handleFetch(dispatch: any, renderProps: any) {
-    return dispatch(fetchArticleAsync(Archive.fetchData, renderProps.params.id));
+    return dispatch(fetchArticleAsync(ArchiveContainer.fetchData, renderProps.params.id));
   }
 
   static fetchData(id: any) {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts/${id}?context=view`, {
       method: 'get',
     })
-      .then(Archive.handleErrors)
+      .then(ArchiveContainer.handleErrors)
       .then((res: any) => {
         if (res.status === 200) {
           return res.json();
@@ -48,7 +48,7 @@ class Archive extends React.PureComponent<any, any> {
 
   componentDidMount() {
     return Promise.all([
-      this.props.handleFetch(this.props.match.params.id, Archive.fetchData),
+      this.props.handleFetch(this.props.match.params.id, ArchiveContainer.fetchData),
     ]).then(() => {
       if (
         this.props.gettedTag === false &&
@@ -65,7 +65,7 @@ class Archive extends React.PureComponent<any, any> {
   }
 
   render() {
-    return <Article {...this.props} />;
+    return <Archive {...this.props} />;
   }
 }
 
@@ -93,4 +93,4 @@ function mapDispatchToProps(dispatch: any) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Archive);
+)(ArchiveContainer);

@@ -1,35 +1,30 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+
+import { fetchIndexAsync, resetList, saveRoutingKey, saveMediaAsync } from '../actions/indexAction';
 import config from '../config';
 
 // view files
-import IndexComp from '../components/index/IndexComp';
+import Index from '../components/index/Index';
 
 declare const window: any;
 
-class Author extends React.Component<any, any> {
-  static handleFetch(dispatch: any, renderProps :any) {
-    return dispatch(
-      searchArticleAsync(this.fetchData, renderProps.params.author, renderProps.params.page),
-    );
+class IndexContainer extends React.PureComponent<any, any> {
+  static handleFetch(dispatch: any, renderProps: any) {
+    return dispatch(fetchIndexAsync(IndexContainer.fetchData, renderProps.path));
   }
 
-  static fetchData(author: any, page = 1) {
-    const params = `?context=embed&author=${author}&per_page=${config.perPage}&page=${page}`;
+  static fetchData(page = 1) {
+    const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
-    })
-      .then(Author.handleErrors)
-      .then((res) => {
-        if (res.status === 200) {
-          return [res.json(), res.headers._headers];
-        }
-        return console.dir(res);
-      })
-      .catch(() => console.log('bad request'));
+    }).then((res: any) => {
+      if (res.status === 200) {
+        return [res.json(), res.headers._headers];
+      }
+      return console.log(res);
+    });
   }
 
   static handleErrors(response: any) {
@@ -53,56 +48,51 @@ class Author extends React.Component<any, any> {
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(
-        this.props.match.params.author,
-        Author.fetchData,
-        this.props.match.params.page,
-      ),
+      this.props.handleFetch(IndexContainer.fetchData, this.props.match.params.page),
       this.callAdSense(),
     ];
   }
 
-  componentWillUpdate(nextProps: any) {
+  componentDidUpdate(nextProps: any) {
     if (
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
       return [
-        this.props.handleFetch(
-          this.props.match.params.author,
-          Author.fetchData,
-          nextProps.match.params.page,
-        ),
+        this.props.handleInit(this.props.routingKey),
+        this.props.handleFetch(IndexContainer.fetchData, nextProps.match.params.page),
       ];
     }
     return false;
   }
 
   render() {
-    return <IndexComp {...this.props} />;
+    return <Index {...this.props} />;
   }
 }
 
+// Connect to Redux
 function mapStateToProps(state: any) {
   return {
-    index: state.index.index,
     badRequest: state.index.badRequest,
-    author: state.root.user,
+    index: state.index.index,
     resetList: state.index.resetList,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    pathname: state.routing.locationBeforeTransitions.pathname,
-    routingKey: state.routing.locationBeforeTransitions.key,
+    // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
 function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(author: any, callback: any, page: any) {
-      return dispatch(searchArticleAsync(callback, author, page));
+    handleFetch(callback: any, page: any) {
+      return dispatch(fetchIndexAsync(callback, page));
     },
     handleInit(key: any) {
       return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
+    },
+    getEyeCatchImage(id: any) {
+      return dispatch(saveMediaAsync(id));
     },
   };
 }
@@ -110,4 +100,4 @@ function mapDispatchToProps(dispatch: any) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Author);
+)(IndexContainer);

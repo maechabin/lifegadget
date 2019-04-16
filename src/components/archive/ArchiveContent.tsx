@@ -1,7 +1,7 @@
 import React from 'react';
 import Showdown from 'showdown';
 
-const ArticleContent = (props: any) => {
+const ArchiveContent = (props: any) => {
   function rawMarkup(contentType: any) {
     const converter = new Showdown.Converter();
     const markup = converter.makeHtml(props.article[contentType].rendered.toString());
@@ -11,4 +11,4 @@ const ArticleContent = (props: any) => {
   return <div className="article__content" dangerouslySetInnerHTML={rawMarkup('content')} />;
 };
 
-export default ArticleContent;
+export default ArchiveContent;

@@ -1,10 +1,10 @@
-import Root from './containers/Root';
-import Index from './containers/Index';
-import Archive from './containers/Archive';
-import Search from './containers/Search';
-import Category from './containers/Category';
-import Tag from './containers/Tag';
-import Author from './containers/Author';
+import Root from './containers/RootContainer';
+import Index from './containers/IndexContainer';
+import Archive from './containers/ArchiveContainer';
+import Search from './containers/SearchContainer';
+import Category from './containers/CategoryContainer';
+import Tag from './containers/TagContainer';
+import Author from './containers/AuthorContainer';
 import NotFound from './components/root/NotFound';
 
 // export const routes = (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-const ArticleBreadcrumb = (props: any): JSX.Element => {
+const ArchiveBreadcrumb = (props: any): JSX.Element => {
   const getCategory = (categoryList: any) => (id: any) =>
     categoryList.map((category: any, i: number) => (category.id === parseInt(id, 10) ? i : null));
   const getCategoryId = getCategory(props.category);
@@ -44,4 +44,4 @@ const ArticleBreadcrumb = (props: any): JSX.Element => {
   );
 };
 
-export default ArticleBreadcrumb;
+export default ArchiveBreadcrumb;

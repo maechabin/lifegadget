@@ -7,7 +7,7 @@ import { routingArray } from '../routes';
 
 import Layout from '../components/root/Layout';
 
-function Root(props: any) {
+function RootContainer(props: any) {
   const routes = routingArray.map((route) => {
     return <Route exact={true} path={route.path} component={route.component} key={route.path} />;
   });
@@ -39,4 +39,4 @@ function mapDispatchToProps(dispatch: any) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Root);
+)(RootContainer);

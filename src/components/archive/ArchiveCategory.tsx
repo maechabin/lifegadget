@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-const ArticleCategory = (props: any) => {
+const ArchiveCategory = (props: any) => {
   const getCategory = (categoryList: any) => (id: any) =>
     categoryList.map((category: any, i: number) => (category.id === id ? i : null));
   const getCategoryId = getCategory(props.category);
@@ -26,4 +26,4 @@ const ArticleCategory = (props: any) => {
   );
 };
 
-export default ArticleCategory;
+export default ArchiveCategory;

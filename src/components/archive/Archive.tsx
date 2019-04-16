@@ -1,23 +1,22 @@
 import React from 'react';
 
-import ArticleContent from './ArticleContent';
-import ArticleBreadcrumb from './ArticleBreadcrumb';
-import ArticleCategory from './ArticleCategory';
-import ArticleDate from './ArticleDate';
-import ArticleTag from './ArticleTag';
-import ArticleTitle from './ArticleTitle';
-import ArticleUser from './ArticleUser';
+import ArchiveContent from './ArchiveContent';
+import ArchiveBreadcrumb from './ArchiveBreadcrumb';
+import ArchiveCategory from './ArchiveCategory';
+import ArchiveDate from './ArchiveDate';
+import ArchiveTag from './ArchiveTag';
+import ArchiveTitle from './ArchiveTitle';
+import ArchiveUser from './ArchiveUser';
 import config from '../../config';
 import CategoryButton from '../../widgets/CategoryButton';
 import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
-const Article = (props: any) => {
+const Archive = (props: any) => {
   console.log(props);
   let article = <></>;
 
   if (props.article && !!props.article.id) {
-    console.log('aaa');
     article =
       props.badRequest === true ? (
         <NotFound {...props} />
@@ -27,13 +26,13 @@ const Article = (props: any) => {
         </div>
       ) : (
         <article className="article">
-          <ArticleBreadcrumb {...props} />
-          <ArticleDate {...props} />
-          <ArticleTitle {...props} />
+          <ArchiveBreadcrumb {...props} />
+          <ArchiveDate {...props} />
+          <ArchiveTitle {...props} />
           <div className="article__meta">
-            <ArticleUser {...props} nameOnly />
-            <ArticleCategory {...props} />
-            <ArticleTag {...props} />
+            <ArchiveUser {...props} nameOnly />
+            <ArchiveCategory {...props} />
+            <ArchiveTag {...props} />
           </div>
           <Adsense
             style={{ marginTop: '32px' }}
@@ -42,10 +41,10 @@ const Article = (props: any) => {
             slot={'8575297173'}
             format={'auto'}
           />
-          <ArticleContent {...props} />
-          <ArticleCategory {...props} />
-          <ArticleTag {...props} />
-          <ArticleUser {...props} nameOnly={false} />
+          <ArchiveContent {...props} />
+          <ArchiveCategory {...props} />
+          <ArchiveTag {...props} />
+          <ArchiveUser {...props} nameOnly={false} />
         </article>
       );
   }
@@ -65,4 +64,4 @@ const Article = (props: any) => {
   );
 };
 
-export default Article;
+export default Archive;

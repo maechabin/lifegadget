@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ArticleTag = (props: any) => {
+const ArchiveTag = (props: any) => {
   const tag =
     props.gettedTag === false && props.tags.length === 0
       ? ''
@@ -17,4 +17,4 @@ const ArticleTag = (props: any) => {
   );
 };
 
-export default ArticleTag;
+export default ArchiveTag;

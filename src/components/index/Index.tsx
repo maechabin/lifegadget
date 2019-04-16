@@ -8,7 +8,7 @@ import CategoryButton from '../../widgets/CategoryButton';
 import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
-const IndexComp = (props: any) => {
+const Index = (props: any) => {
   const index = props.badRequest ? (
     <NotFound {...props} />
   ) : (
@@ -37,4 +37,4 @@ const IndexComp = (props: any) => {
   return <main className="index">{index}</main>;
 };
 
-export default IndexComp;
+export default Index;

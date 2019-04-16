@@ -1,35 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import {
-  searchArticleAsync,
-  resetList,
-  saveRoutingKey,
-  getTagNameAsync,
-} from '../actions/indexAction';
+import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import config from '../config';
 
 // view files
-import IndexComp from '../components/index/IndexComp';
+import Index from '../components/index/Index';
 
 declare const window: any;
 
-class Tag extends React.Component<any, any> {
+class SearchContainer extends React.Component<any, any> {
   static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(
-      searchArticleAsync(this.fetchData, renderProps.params.tag, renderProps.params.page),
+      searchArticleAsync(this.fetchData, renderProps.params.keyword, renderProps.params.page),
     );
   }
 
-  static fetchData(tag: any, page = 1) {
-    const params = `?context=embed&tags=${tag}&per_page=${config.perPage}&page=${page}`;
+  static fetchData(keyword: string, page = 1) {
+    const params = `?context=embed&search=${keyword}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
     })
-      .then(Tag.handleErrors)
+      .then(SearchContainer.handleErrors)
       .then((res) => {
         if (res.status === 200) {
-          return [res.json(), res.headers._headers, tag];
+          return [res.json(), res.headers._headers];
         }
         return console.dir(res);
       })
@@ -54,19 +49,12 @@ class Tag extends React.Component<any, any> {
     }
   }
 
-  /**
-   * @fix componentWillMountの置き換え
-   */
-  // componentWillMount(nextProps: any) {
-  //   return this.props.handleInit1(this.props.match.params.tag);
-  // }
-
   componentDidMount() {
     return [
-      this.props.handleInit2(this.props.routingKey),
+      this.props.handleInit(this.props.routingKey),
       this.props.handleFetch(
-        this.props.match.params.tag,
-        Tag.fetchData,
+        this.props.match.params.keyword,
+        SearchContainer.fetchData,
         this.props.match.params.page,
       ),
       this.callAdSense(),
@@ -74,16 +62,21 @@ class Tag extends React.Component<any, any> {
   }
 
   componentWillUpdate(nextProps: any) {
+    if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
+      return this.props.handleFetch(
+        nextProps.keyword,
+        SearchContainer.fetchData,
+        this.props.match.params.page,
+      );
+    }
     if (
-      (nextProps.match.params.page !== '' &&
-        nextProps.match.params.page !== this.props.match.params.page) ||
-      nextProps.match.params.tag !== this.props.match.params.tag
+      nextProps.match.params.page !== '' &&
+      nextProps.match.params.page !== this.props.match.params.page
     ) {
       return [
-        this.props.handleInit1(nextProps.match.params.tag),
         this.props.handleFetch(
-          nextProps.match.params.tag,
-          Tag.fetchData,
+          this.props.match.params.keyword,
+          SearchContainer.fetchData,
           nextProps.match.params.page,
         ),
       ];
@@ -92,7 +85,7 @@ class Tag extends React.Component<any, any> {
   }
 
   render() {
-    return <IndexComp {...this.props} />;
+    return <Index {...this.props} />;
   }
 }
 
@@ -101,8 +94,8 @@ function mapStateToProps(state: any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
+    keyword: state.root.searchValue,
     resetList: state.index.resetList,
-    tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
@@ -111,13 +104,10 @@ function mapStateToProps(state: any) {
 }
 function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(tag: any, callback: any, page: any) {
-      return dispatch(searchArticleAsync(callback, tag, page));
+    handleFetch(keyword: string, callback: any, page: any) {
+      return dispatch(searchArticleAsync(callback, keyword, page));
     },
-    handleInit1(tag: any) {
-      return [getTagNameAsync(tag)].map((action) => dispatch(action));
-    },
-    handleInit2(key: any) {
+    handleInit(key: any) {
       return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
@@ -126,4 +116,4 @@ function mapDispatchToProps(dispatch: any) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Tag);
+)(SearchContainer);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ArticleUser = (props: any) => {
+const ArchiveUser = (props: any) => {
   const getUser = (userList: any) => (id: any) =>
     userList.map((user: any, i: number) => (user.id === id ? i : null));
   const userId = getUser(props.user)(props.article.author);
@@ -26,4 +26,4 @@ const ArticleUser = (props: any) => {
   return <div className={props.nameOnly ? 'article__user_name' : 'article__user'}>{user}</div>;
 };
 
-export default ArticleUser;
+export default ArchiveUser;

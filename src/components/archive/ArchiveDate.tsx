@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ArticleDate = (props: any) => {
+const ArchiveDate = (props: any) => {
   function formatDate(date: any) {
     const dividedDate = date.split('T')[0].split('-');
     return `${dividedDate[0]}年${dividedDate[1]}月${dividedDate[2]}日`;
@@ -13,4 +13,4 @@ const ArticleDate = (props: any) => {
   );
 };
 
-export default ArticleDate;
+export default ArchiveDate;

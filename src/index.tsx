@@ -16,7 +16,7 @@ import { archiveReducer } from './reducers/archiveReducer';
 
 import { rootState, indexState, archiveState } from './state';
 
-import Root from './containers/Root';
+import Root from './containers/RootContainer';
 
 import './sass/App.scss';
 
