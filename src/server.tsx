@@ -25,7 +25,7 @@ import { fetchCategoryAsync, fetchUserAsync } from './actions/rootAction';
 
 import renderFullPage from './renderFullPage';
 import makeRss from './feed';
-import { routes } from './routes';
+import { routingArray } from './routes';
 
 // const router = express.Router();
 
@@ -128,7 +128,7 @@ app.get('/*', (req, res) => {
   // Make Store
   const store = configureStore(reducers, initialState, middleware());
 
-  const currentRoute = routes.find((route) => !!matchPath(req.url, route)) || null;
+  const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
 
   if (currentRoute) {
     // Promise
