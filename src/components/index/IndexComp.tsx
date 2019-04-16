@@ -4,8 +4,8 @@ import IndexTitle from './IndexTitle';
 import IndexList from './IndexList';
 import Pagination from './Pagination';
 import config from '../../config';
-import CategoryButton from '../../widgets/CategoryButton.jsx';
-import Adsense from '../../widgets/Adsense.jsx';
+import CategoryButton from '../../widgets/CategoryButton';
+import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
 const IndexComp = (props: any) => {

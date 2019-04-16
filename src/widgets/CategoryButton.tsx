@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CategoryButton = (props) => {
+const CategoryButton = () => {
   return (
     <ul className="widget__category-button">
       <li>
