@@ -1,4 +1,4 @@
-@import "fontawesome";
+// @import "fontawesome";
 
 $_theme-color: #0B4475;
 
@@ -35,7 +35,7 @@ a {
   position: relative;
   box-sizing: border-box;
   background-color: $_theme-color;
-  background-image: url(./image/lifegadget_header.jpg);
+  // background-image: url(../../public/image/lifegadget_header.jpg);
   background-size: cover;
   background-position: center;
   height: 100vh;

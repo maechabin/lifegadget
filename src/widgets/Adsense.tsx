@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Adsense = (props) => {
+const Adsense = (props: any) => {
   const style = Object.assign({}, { display: 'block' }, props.style);
   return (
     <div className="widget__adsense">

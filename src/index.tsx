@@ -18,6 +18,8 @@ import { rootState, indexState, archiveState } from './state';
 
 import Root from './containers/Root';
 
+import './sass/App.scss';
+
 // 1. Reducers
 const reducers = combineReducers({
   root: rootReducer,

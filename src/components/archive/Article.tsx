@@ -8,8 +8,8 @@ import ArticleTag from './ArticleTag';
 import ArticleTitle from './ArticleTitle';
 import ArticleUser from './ArticleUser';
 import config from '../../config';
-import CategoryButton from '../../widgets/CategoryButton.jsx';
-import Adsense from '../../widgets/Adsense.jsx';
+import CategoryButton from '../../widgets/CategoryButton';
+import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
 const Article = (props: any) => {
