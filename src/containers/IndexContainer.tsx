@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import { State } from '../state.model';
 import { fetchIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import config from '../config';
+import { fetchIndex } from '../domains/wordpress';
 
 // view files
 import Index from '../components/index/Index';
@@ -13,20 +14,20 @@ declare const window: any;
 
 class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
-    return dispatch(fetchIndexAsync(IndexContainer.fetchData, renderProps.path));
+    return dispatch(fetchIndexAsync(fetchIndex, renderProps.path));
   }
 
-  static fetchData(page: number = 1) {
-    const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
-    return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-      method: 'get',
-    }).then((res: any) => {
-      if (res.status === 200) {
-        return [res.json(), res.headers._headers];
-      }
-      return console.log(res);
-    });
-  }
+  // static fetchData(page: number = 1) {
+  //   const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
+  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
+  //     method: 'get',
+  //   }).then((res: any) => {
+  //     if (res.status === 200) {
+  //       return [res.json(), res.headers._headers];
+  //     }
+  //     return console.log(res);
+  //   });
+  // }
 
   static handleErrors(response: any) {
     if (!response.ok) {
@@ -49,7 +50,7 @@ class IndexContainer extends React.PureComponent<any, never> {
   componentDidMount() {
     return [
       this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(IndexContainer.fetchData, this.props.match.params.page),
+      this.props.handleFetch(fetchIndex, this.props.match.params.page),
       this.callAdSense(),
     ];
   }
@@ -61,7 +62,7 @@ class IndexContainer extends React.PureComponent<any, never> {
     ) {
       return [
         this.props.handleInit(this.props.routingKey),
-        this.props.handleFetch(IndexContainer.fetchData, nextProps.match.params.page),
+        this.props.handleFetch(fetchIndex, nextProps.match.params.page),
       ];
     }
     return false;
