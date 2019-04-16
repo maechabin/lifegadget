@@ -1,19 +1,20 @@
+import { Dispatch } from 'redux';
 import fetch from 'node-fetch';
+
+import { Action, ArchiveActionType } from './action.model';
 import config from '../config';
 
 // 任意のIDのアイキャッチ画像の取得、保存
-export const GET_ARTICLE_IMAGE = 'GET_ARTICLE_IMAGE';
-function getArticleImage(payload) {
+function getArticleImage(payload: string): Action<string> {
   return {
-    type: GET_ARTICLE_IMAGE,
+    type: ArchiveActionType.GET_ARTICLE_IMAGE,
     payload,
   };
 }
 
-export function getArticleImageAsync(url) {
+export function getArticleImageAsync(url: string): any {
   return fetch(url, {
     method: 'get',
-    mode: 'cors',
   })
     .then((res) => {
       if (res.status === 200) {
@@ -28,39 +29,37 @@ export function getArticleImageAsync(url) {
     });
 }
 
-export const BAD_REQUEST_ARCHIVE = 'BAD_REQUEST_ARCHIVE';
-function badRequestArchive() {
+function badRequestArchive(): Action {
   return {
-    type: BAD_REQUEST_ARCHIVE,
+    type: ArchiveActionType.BAD_REQUEST_ARCHIVE,
   };
 }
 
 // Action creator
-export const FETCH_ARTICLE = 'FETCH_ARTICLE';
-export function fetchArticle(payload) {
+export function fetchArticle(payload: any): Action<any> {
   return {
-    type: FETCH_ARTICLE,
+    type: ArchiveActionType.FETCH_ARTICLE,
     payload,
   };
 }
 // redux-thunk
 
-export function fetchArticleAsync(callback, id) {
-  return (dispatch) => {
+export function fetchArticleAsync(callback: any, id: number) {
+  return async (dispatch: Dispatch) => {
     return callback(id)
-      .then((res) => {
+      .then((res: any) => {
         if (res === undefined) {
           return dispatch(badRequestArchive());
         }
         return dispatch(fetchArticle(res));
       })
-      .then((res2) => {
+      .then((res2: any) => {
         if (res2.payload !== undefined && res2.payload._links['wp:featuredmedia']) {
           return getArticleImageAsync(res2.payload._links['wp:featuredmedia'][0].href);
         }
         return false;
       })
-      .then((res3) => {
+      .then((res3: any) => {
         if (res3) {
           return dispatch(getArticleImage(res3.source_url));
         }
@@ -69,20 +68,18 @@ export function fetchArticleAsync(callback, id) {
 }
 
 // TagIDからTag名取得
-export const GET_TAGS = 'GET_TAGS';
-export function getTags(payload) {
+export function getTags(payload: any): Action<any> {
   return {
-    type: GET_TAGS,
+    type: ArchiveActionType.GET_TAGS,
     payload,
   };
 }
 
-export function getTagsAsync(array) {
-  return (dispatch) => {
-    const tags = array.map((id) =>
+export function getTagsAsync(array: number[]) {
+  return async (dispatch: Dispatch) => {
+    const tags = array.map((id: number) =>
       fetch(`${config.blogUrl}/wp-json/wp/v2/tags/${id}`, {
         method: 'get',
-        mode: 'cors',
       })
         .then((res) => {
           if (res.status === 200) {

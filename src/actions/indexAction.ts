@@ -1,34 +1,33 @@
+import { Dispatch } from 'redux';
 import fetch from 'node-fetch';
+
+import { Action, IndexActionType } from './action.model';
 import config from '../config';
 
-export const RESET_LIST = 'RESET_LISET';
 export function resetList() {
   return {
-    type: RESET_LIST,
+    type: IndexActionType.RESET_LIST,
   };
 }
 
-export const SAVE_ROUTING_KEY = 'SAVE_ROUTING_KEY';
-export function saveRoutingKey(payload) {
+export function saveRoutingKey(payload: string): Action<string> {
   return {
-    type: SAVE_ROUTING_KEY,
+    type: IndexActionType.SAVE_ROUTING_KEY,
     payload,
   };
 }
 
-export const SET_CURRENT_PAGE_NUMBER = 'SET_CURRENT_PAGE_NUMBER';
-export function setCurrentPageNumber(payload) {
+export function setCurrentPageNumber(payload: number): Action<number> {
   return {
-    type: SET_CURRENT_PAGE_NUMBER,
+    type: IndexActionType.SET_CURRENT_PAGE_NUMBER,
     payload,
   };
 }
 
 // 任意のIDのアイキャッチ画像の取得、保存
-export function saveMediaAsync(url) {
+export function saveMediaAsync(url: string): any {
   return fetch(url, {
     method: 'get',
-    mode: 'cors',
   })
     .then((res) => {
       if (res.status === 200) {
@@ -43,18 +42,17 @@ export function saveMediaAsync(url) {
     });
 }
 
-export const GET_TAG_NAME = 'GET_TAG_NAME';
-function getTagName(payload) {
+function getTagName(payload: string): Action<string> {
   return {
-    type: GET_TAG_NAME,
+    type: IndexActionType.GET_TAG_NAME,
     payload,
   };
 }
-export function getTagNameAsync(tag) {
-  return (dispatch) => {
+
+export function getTagNameAsync(tag: number) {
+  return async (dispatch: Dispatch) => {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/tags?include=${tag}&context=embed`, {
       method: 'get',
-      mode: 'cors',
     })
       .then((res) => {
         if (res.status === 200) {
@@ -70,59 +68,58 @@ export function getTagNameAsync(tag) {
   };
 }
 
-export const BAD_REQUEST_INDEX = 'BAD_REQUEST_INDEX';
-function badRequestIndex() {
+function badRequestIndex(): Action {
   return {
-    type: BAD_REQUEST_INDEX,
+    type: IndexActionType.BAD_REQUEST_INDEX,
   };
 }
 
-export const FETCH_INDEX = 'FETCH_INDEX';
-function fetchIndex(payload) {
+function fetchIndex(payload: any): Action<any> {
   return {
-    type: FETCH_INDEX,
+    type: IndexActionType.FETCH_INDEX,
     payload,
   };
 }
+
 // redux-thunk
-export function fetchIndexAsync(callback, page = 1) {
-  return (dispatch) => {
-    return callback(page).then((res) => {
+export function fetchIndexAsync(callback: any, page: number = 1) {
+  return async (dispatch: Dispatch) => {
+    return callback(page).then((res: any) => {
       if (res === undefined) {
         return dispatch(badRequestIndex());
       }
       Promise.resolve(res[0]).then((res2) =>
         Promise.all(
-          res2.map((res3) => {
+          res2.map((res3: any) => {
             if (res3._links['wp:featuredmedia']) {
               return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
             }
             return false;
           }),
         )
-          .then((res4) => res2.map((obj, i) => Object.assign({}, obj, res4[i])))
+          .then((res4) => res2.map((obj: any, i: number) => Object.assign({}, obj, res4[i])))
           .then((index) => dispatch(fetchIndex({ index, page: res[1] }))),
       );
     });
   };
 }
 
-export function searchArticleAsync(callback, keyword, page) {
-  return (dispatch) => {
-    return callback(keyword, page).then((res) => {
+export function searchArticleAsync(callback: any, keyword: string, page: number) {
+  return async (dispatch: Dispatch) => {
+    return callback(keyword, page).then((res: any) => {
       if (res === undefined) {
         return dispatch(badRequestIndex());
       }
       Promise.resolve(res[0]).then((res2) =>
         Promise.all(
-          res2.map((res3) => {
+          res2.map((res3: any) => {
             if (res3._links['wp:featuredmedia']) {
               return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
             }
             return false;
           }),
         )
-          .then((res4) => res2.map((obj, i) => Object.assign({}, obj, res4[i])))
+          .then((res4) => res2.map((obj: any, i: number) => Object.assign({}, obj, res4[i])))
           .then((index) => dispatch(fetchIndex({ index, page: res[1] }))),
       );
     });
