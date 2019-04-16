@@ -4,11 +4,11 @@ import config from '../../config';
 
 /**
  * 指定したページのIndex（記事一覧）を取得する
- * @param page ページ数
+ * @param pageNumber ページ番号
  */
-export function fetchIndex(page: number = 1) {
+export async function fetchIndex(pageNumber: number = 1) {
   /** リクエストパラメータ */
-  const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
+  const params = `?context=embed&per_page=${config.perPage}&page=${pageNumber}`;
 
   /** リクエストURL */
   const url = `${config.blogUrl}/wp-json/wp/v2/posts${params}`;

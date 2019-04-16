@@ -6,7 +6,7 @@ import config from '../../config';
  * 記事データを取得する
  * @param articleId 取得する記事のID
  */
-export function fetchArchive(articleId: number) {
+export async function fetchArchive(articleId: number) {
   /** リクエストパラメータ */
   const params = '?context=view`';
 
