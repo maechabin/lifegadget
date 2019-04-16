@@ -1,11 +1,11 @@
 import Root from './containers/Root';
 import Index from './containers/Index';
 import Archive from './containers/Archive';
-// import Search from './containers/Search.jsx';
-// import Category from './containers/Category.jsx';
-// import Tag from './containers/Tag.jsx';
-// import Author from './containers/Author.jsx';
-// import NotFound from './views/root/NotFound';
+import Search from './containers/Search';
+import Category from './containers/Category';
+import Tag from './containers/Tag';
+import Author from './containers/Author';
+import NotFound from './components/root/NotFound';
 
 // export const routes = (
 //   <Route path="/" component={Root}>

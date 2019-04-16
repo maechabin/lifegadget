@@ -1,41 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import {
-  searchArticleAsync,
-  resetList,
-  saveRoutingKey,
-  getTagNameAsync,
-} from '../actions/indexAction';
+import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import config from '../config';
 
 // view files
 import IndexComp from '../components/index/IndexComp';
 
-class Tag extends React.Component {
-  static handleFetch(dispatch, renderProps) {
+declare const window: any;
+
+class Category extends React.Component<any, any> {
+  static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(
-      searchArticleAsync(this.fetchData, renderProps.params.tag, renderProps.params.page),
+      searchArticleAsync(this.fetchData, renderProps.params.category, renderProps.params.page),
     );
   }
 
-  static fetchData(tag, page = 1) {
-    const params = `?context=embed&tags=${tag}&per_page=${config.perPage}&page=${page}`;
+  static fetchData(category: any, page = 1) {
+    const params = `?context=embed&categories=${category}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
-      mode: 'cors',
     })
-      .then(Tag.handleErrors)
+      .then(Category.handleErrors)
       .then((res) => {
         if (res.status === 200) {
-          return [res.json(), res.headers._headers, tag];
+          return [res.json(), res.headers._headers];
         }
-        return console.dir(res);
+        return console.log(res);
       })
       .catch(() => console.log('bad request'));
   }
 
-  static handleErrors(response) {
+  static handleErrors(response: any) {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -53,34 +49,37 @@ class Tag extends React.Component {
     }
   }
 
-  componentWillMount(nextProps) {
-    return this.props.handleInit1(this.props.match.params.tag);
-  }
-
   componentDidMount() {
     return [
-      this.props.handleInit2(this.props.routingKey),
+      this.props.handleInit(this.props.routingKey),
       this.props.handleFetch(
-        this.props.match.params.tag,
-        Tag.fetchData,
+        this.props.match.params.category,
+        Category.fetchData,
         this.props.match.params.page,
       ),
       this.callAdSense(),
     ];
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillUpdate(nextProps: any) {
     if (
-      (nextprops.match.params.page !== '' &&
-        nextprops.match.params.page !== this.props.match.params.page) ||
-      nextprops.match.params.tag !== this.props.match.params.tag
+      nextProps.match.params.page !== '' &&
+      nextProps.match.params.page !== this.props.match.params.page
     ) {
       return [
-        this.props.handleInit1(nextprops.match.params.tag),
         this.props.handleFetch(
-          nextprops.match.params.tag,
-          Tag.fetchData,
-          nextprops.match.params.page,
+          this.props.match.params.category,
+          Category.fetchData,
+          nextProps.match.params.page,
+        ),
+      ];
+    }
+    if (nextProps.pathname !== this.props.pathname) {
+      return [
+        this.props.handleFetch(
+          nextProps.match.params.category,
+          Category.fetchData,
+          nextProps.match.params.page,
         ),
       ];
     }
@@ -92,28 +91,25 @@ class Tag extends React.Component {
   }
 }
 
-// Connect to Redux
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
+    category: state.root.category,
     resetList: state.index.resetList,
-    tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
+    pathname: state.routing.locationBeforeTransitions.pathname,
     routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(tag, callback, page) {
-      return dispatch(searchArticleAsync(callback, tag, page));
+    handleFetch(category: any, callback: any, page: any) {
+      return dispatch(searchArticleAsync(callback, category, page));
     },
-    handleInit1(tag) {
-      return [getTagNameAsync(tag)].map((action) => dispatch(action));
-    },
-    handleInit2(key) {
+    handleInit(key: any) {
       return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
@@ -122,4 +118,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Tag);
+)(Category);

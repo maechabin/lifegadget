@@ -7,30 +7,31 @@ import config from '../config';
 // view files
 import IndexComp from '../components/index/IndexComp';
 
-class Category extends React.Component {
-  static handleFetch(dispatch, renderProps) {
+declare const window: any;
+
+class Search extends React.Component<any, any> {
+  static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(
-      searchArticleAsync(this.fetchData, renderProps.params.category, renderProps.params.page),
+      searchArticleAsync(this.fetchData, renderProps.params.keyword, renderProps.params.page),
     );
   }
 
-  static fetchData(category, page = 1) {
-    const params = `?context=embed&categories=${category}&per_page=${config.perPage}&page=${page}`;
+  static fetchData(keyword: string, page = 1) {
+    const params = `?context=embed&search=${keyword}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
-      mode: 'cors',
     })
-      .then(Category.handleErrors)
+      .then(Search.handleErrors)
       .then((res) => {
         if (res.status === 200) {
           return [res.json(), res.headers._headers];
         }
-        return console.log(res);
+        return console.dir(res);
       })
       .catch(() => console.log('bad request'));
   }
 
-  static handleErrors(response) {
+  static handleErrors(response: any) {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -52,33 +53,31 @@ class Category extends React.Component {
     return [
       this.props.handleInit(this.props.routingKey),
       this.props.handleFetch(
-        this.props.match.params.category,
-        Category.fetchData,
+        this.props.match.params.keyword,
+        Search.fetchData,
         this.props.match.params.page,
       ),
       this.callAdSense(),
     ];
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillUpdate(nextProps: any) {
+    if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
+      return this.props.handleFetch(
+        nextProps.keyword,
+        Search.fetchData,
+        this.props.match.params.page,
+      );
+    }
     if (
-      nextprops.match.params.page !== '' &&
-      nextprops.match.params.page !== this.props.match.params.page
+      nextProps.match.params.page !== '' &&
+      nextProps.match.params.page !== this.props.match.params.page
     ) {
       return [
         this.props.handleFetch(
-          this.props.match.params.category,
-          Category.fetchData,
-          nextprops.match.params.page,
-        ),
-      ];
-    }
-    if (nextProps.pathname !== this.props.pathname) {
-      return [
-        this.props.handleFetch(
-          nextprops.match.params.category,
-          Category.fetchData,
-          nextprops.match.params.page,
+          this.props.match.params.keyword,
+          Search.fetchData,
+          nextProps.match.params.page,
         ),
       ];
     }
@@ -90,25 +89,25 @@ class Category extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+// Connect to Redux
+function mapStateToProps(state: any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
-    category: state.root.category,
+    keyword: state.root.searchValue,
     resetList: state.index.resetList,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    pathname: state.routing.locationBeforeTransitions.pathname,
     routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(category, callback, page) {
-      return dispatch(searchArticleAsync(callback, category, page));
+    handleFetch(keyword: string, callback: any, page: any) {
+      return dispatch(searchArticleAsync(callback, keyword, page));
     },
-    handleInit(key) {
+    handleInit(key: any) {
       return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
@@ -117,4 +116,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Category);
+)(Search);
