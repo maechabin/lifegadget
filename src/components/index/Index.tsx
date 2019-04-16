@@ -8,7 +8,7 @@ import CategoryButton from '../../widgets/CategoryButton';
 import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
-const Index = (props: any) => {
+function Index(props: any): JSX.Element {
   const index = props.badRequest ? (
     <NotFound {...props} />
   ) : (
@@ -35,6 +35,6 @@ const Index = (props: any) => {
     </section>
   );
   return <main className="index">{index}</main>;
-};
+}
 
 export default Index;

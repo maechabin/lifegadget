@@ -1,11 +1,36 @@
 // @import "fontawesome";
 
-$_theme-color: #0B4475;
+$_theme-color: #0b4475;
 
-body, div, pre, p, blockquote, form, fieldset, input, textarea, select, option, figure,
-dl, dt, dd, ul, ol, li,
-h1, h2, h3, h4, h5, h6,
-table, th, td, embed, object {
+body,
+div,
+pre,
+p,
+blockquote,
+form,
+fieldset,
+input,
+textarea,
+select,
+option,
+figure,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+table,
+th,
+td,
+embed,
+object {
   margin: 0;
   padding: 0;
   vertical-align: baseline;
@@ -17,7 +42,9 @@ img {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 游ゴシック, "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, "Noto Sans Japanese", "Noto Sans CJK JP", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 游ゴシック, 'Yu Gothic', YuGothic,
+    'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', メイリオ, Meiryo, 'Noto Sans Japanese',
+    'Noto Sans CJK JP', sans-serif;
   color: #212121;
 }
 .more-link {
@@ -35,7 +62,7 @@ a {
   position: relative;
   box-sizing: border-box;
   background-color: $_theme-color;
-  // background-image: url(../../public/image/lifegadget_header.jpg);
+  background-image: url(../images/lifegadget_header.jpg);
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -54,7 +81,7 @@ a {
     width: 100%;
     text-align: center;
     padding: 0 8px;
-    background-color: rgba(0,0,0,.6);
+    background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     h1 {
       margin: {
@@ -102,7 +129,7 @@ a {
   margin-top: 16px;
   box-sizing: border-box;
   text-align: center;
-  input[type="text"] {
+  input[type='text'] {
     vertical-align: middle;
     font-size: 16px;
     line-height: 32px;
@@ -210,7 +237,7 @@ a {
       margin: 40px auto 24px;
       font-size: 32px;
     }
-    h4{
+    h4 {
       font-size: 28px;
       margin-bottom: 8px;
     }
@@ -234,8 +261,8 @@ a {
     }
     q {
       font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-      background-color: #ECEFF1;
-      color: #37474F;
+      background-color: #eceff1;
+      color: #37474f;
     }
     pre {
       font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
@@ -284,7 +311,7 @@ a {
         font-size: 14px;
         padding: 4px 16px;
         color: #fff;
-        background-color: rgba(255,152,0 ,.7);
+        background-color: rgba(255, 152, 0, 0.7);
         content: 'Amazonアソシエイト';
         position: absolute;
         top: 0;
@@ -439,7 +466,7 @@ a {
         display: block;
         color: #fff;
         font-size: 40px;
-        transition: .3s;
+        transition: 0.3s;
         &:hover {
           background-color: #fff;
           color: #262829;
@@ -501,7 +528,7 @@ a {
         }
         &:active {
           background-color: darken($_theme-color, 20%);
-          box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+          box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
         }
       }
     }

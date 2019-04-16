@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import SearchForm from './SearchForm';
 
-const Header = (props: any) => {
+function Header(props: any): JSX.Element {
   // const headerClassName = props.location.pathname === '/' ? 'header' : 'header header__mini';
   const headerClassName = 'header';
   return (
@@ -47,6 +47,6 @@ const Header = (props: any) => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;

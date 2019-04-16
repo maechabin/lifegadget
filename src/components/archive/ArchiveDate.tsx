@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ArchiveDate = (props: any) => {
+function ArchiveDate(props: any): JSX.Element {
   function formatDate(date: any) {
     const dividedDate = date.split('T')[0].split('-');
     return `${dividedDate[0]}年${dividedDate[1]}月${dividedDate[2]}日`;
@@ -11,6 +11,6 @@ const ArchiveDate = (props: any) => {
       <i className="fa fa-calendar" /> <time>{formatDate(props.article.date)}</time>
     </p>
   );
-};
+}
 
 export default ArchiveDate;

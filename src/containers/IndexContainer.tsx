@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
 
-import { fetchIndexAsync, resetList, saveRoutingKey, saveMediaAsync } from '../actions/indexAction';
+import { State } from '../state.model';
+import { fetchIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import config from '../config';
 
 // view files
@@ -10,12 +11,12 @@ import Index from '../components/index/Index';
 
 declare const window: any;
 
-class IndexContainer extends React.PureComponent<any, any> {
+class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(fetchIndexAsync(IndexContainer.fetchData, renderProps.path));
   }
 
-  static fetchData(page = 1) {
+  static fetchData(page: number = 1) {
     const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
@@ -72,7 +73,7 @@ class IndexContainer extends React.PureComponent<any, any> {
 }
 
 // Connect to Redux
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State) {
   return {
     badRequest: state.index.badRequest,
     index: state.index.index,
@@ -90,9 +91,6 @@ function mapDispatchToProps(dispatch: any) {
     },
     handleInit(key: any) {
       return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
-    },
-    getEyeCatchImage(id: any) {
-      return dispatch(saveMediaAsync(id));
     },
   };
 }

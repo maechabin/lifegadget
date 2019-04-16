@@ -12,7 +12,7 @@ import CategoryButton from '../../widgets/CategoryButton';
 import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
-const Archive = (props: any) => {
+function Archive(props: any): JSX.Element {
   let article = <></>;
 
   if (props.article && !!props.article.id) {
@@ -21,7 +21,7 @@ const Archive = (props: any) => {
         <NotFound {...props} />
       ) : props.article.id !== Number(props.match.params.id) ? (
         <div className="article__loading">
-          <img src="/assets/image/loading.svg" alt="loading..." />
+          <img src="../../images/loading.svg" alt="loading..." />
         </div>
       ) : (
         <article className="article">
@@ -61,6 +61,6 @@ const Archive = (props: any) => {
       />
     </section>
   );
-};
+}
 
 export default Archive;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Pagination = (props: any) => {
+function Pagination(props: any): JSX.Element {
   const totalPages = Number(props.totalPages);
   const paramsPage = Number(props.match.params.page) || 1;
   const pager = new Array(5).fill(paramsPage);
@@ -80,6 +80,6 @@ const Pagination = (props: any) => {
     );
 
   return <div className="pagination">{pagenationAll}</div>;
-};
+}
 
 export default Pagination;

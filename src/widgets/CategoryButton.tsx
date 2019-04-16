@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CategoryButton = () => {
+function CategoryButton(): JSX.Element {
   return (
     <ul className="widget__category-button">
       <li>
@@ -22,6 +22,6 @@ const CategoryButton = () => {
       </li>
     </ul>
   );
-};
+}
 
 export default CategoryButton;

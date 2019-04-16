@@ -1,12 +1,11 @@
 import React from 'react';
 
-const SearchForm = (props: any) => {
-  function handleChange(e: any) {
-    const value = e.target.value;
+function SearchForm(props: any): JSX.Element {
+  function handleChange(event: React.FormEvent<HTMLInputElement>) {
+    const value = event.currentTarget.value;
     props.handleChange(value);
   }
-  function handleClick(e: any) {
-    e.preventDefault();
+  function handleClick() {
     props.handleSend(props.inputValue);
     props.handleChange('');
     props.router.push({
@@ -24,6 +23,6 @@ const SearchForm = (props: any) => {
       <button onClick={handleClick}>検索</button>
     </div>
   );
-};
+}
 
 export default SearchForm;

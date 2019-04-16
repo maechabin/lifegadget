@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IndexTitle = (props: any) => {
+function IndexTitle(props: any): JSX.Element {
   const pathname = props.location.pathname.split('/')[1];
 
   const getCategory = (categoryList: any) => (id: any) =>
@@ -41,6 +41,6 @@ const IndexTitle = (props: any) => {
       <p>{total}</p>
     </div>
   );
-};
+}
 
 export default IndexTitle;

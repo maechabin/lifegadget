@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
+
+import { State } from '../state.model';
 import {
   searchArticleAsync,
   resetList,
@@ -14,14 +16,14 @@ import Index from '../components/index/Index';
 
 declare const window: any;
 
-class TagContainer extends React.Component<any, any> {
+class TagContainer extends React.Component<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(
       searchArticleAsync(this.fetchData, renderProps.params.tag, renderProps.params.page),
     );
   }
 
-  static fetchData(tag: any, page = 1) {
+  static fetchData(tag: number, page: number = 1) {
     const params = `?context=embed&tags=${tag}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
@@ -97,7 +99,7 @@ class TagContainer extends React.Component<any, any> {
 }
 
 // Connect to Redux
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State & any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
@@ -111,7 +113,7 @@ function mapStateToProps(state: any) {
 }
 function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(tag: any, callback: any, page: any) {
+    handleFetch(tag: any, callback: any, page: number) {
       return dispatch(searchArticleAsync(callback, tag, page));
     },
     handleInit1(tag: any) {

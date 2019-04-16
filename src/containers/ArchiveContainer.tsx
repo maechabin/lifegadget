@@ -1,6 +1,9 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
+
+import { State } from '../state.model';
 import { fetchArticleAsync, getTagsAsync } from '../actions/archiveAction';
 import config from '../config';
 
@@ -9,12 +12,12 @@ import Archive from '../components/archive/Archive';
 
 declare const window: any;
 
-class ArchiveContainer extends React.PureComponent<any, any> {
+class ArchiveContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(fetchArticleAsync(ArchiveContainer.fetchData, renderProps.params.id));
   }
 
-  static fetchData(id: any) {
+  static fetchData(id: number) {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts/${id}?context=view`, {
       method: 'get',
     })
@@ -69,7 +72,7 @@ class ArchiveContainer extends React.PureComponent<any, any> {
   }
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State) {
   return {
     badRequest: state.archive.badRequest,
     category: state.root.category,

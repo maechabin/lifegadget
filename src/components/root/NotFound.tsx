@@ -1,10 +1,10 @@
 import React from 'react';
 
-const NotFound = (props: any) => {
+function NotFound(props: any): JSX.Element {
   const notfound =
-    props.routingKey !== undefined && props.routingKey !== null ? (
+    props.routingKey != null ? (
       <div className="notfound">
-        <img src="/assets/image/loading.svg" alt="loading..." />
+        <img src="../../images/loading.svg" alt="loading..." />
       </div>
     ) : (
       <div className="notfound">
@@ -17,6 +17,6 @@ const NotFound = (props: any) => {
       </div>
     );
   return <main>{notfound}</main>;
-};
+}
 
 export default NotFound;

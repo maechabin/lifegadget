@@ -1,6 +1,9 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
+
+import { State } from '../state.model';
 import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import config from '../config';
 
@@ -9,14 +12,14 @@ import Index from '../components/index/Index';
 
 declare const window: any;
 
-class SearchContainer extends React.Component<any, any> {
+class SearchContainer extends React.Component<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     return dispatch(
       searchArticleAsync(this.fetchData, renderProps.params.keyword, renderProps.params.page),
     );
   }
 
-  static fetchData(keyword: string, page = 1) {
+  static fetchData(keyword: string, page: number = 1) {
     const params = `?context=embed&search=${keyword}&per_page=${config.perPage}&page=${page}`;
     return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
       method: 'get',
@@ -90,7 +93,7 @@ class SearchContainer extends React.Component<any, any> {
 }
 
 // Connect to Redux
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State & any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,

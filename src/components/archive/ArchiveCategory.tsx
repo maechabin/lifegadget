@@ -2,9 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-const ArchiveCategory = (props: any) => {
-  const getCategory = (categoryList: any) => (id: any) =>
-    categoryList.map((category: any, i: number) => (category.id === id ? i : null));
+function ArchiveCategory(props: any): JSX.Element {
+  function getCategory(categoryList: any[]): (id: any) => (number | null)[] {
+    return (id: any): (number | null)[] => {
+      return categoryList.map((category: any, i: number) =>
+        category.id === parseInt(id, 10) ? i : null,
+      );
+    };
+  }
   const getCategoryId = getCategory(props.category);
   const category = _.isEmpty(props.article.categories)
     ? ''
@@ -24,6 +29,6 @@ const ArchiveCategory = (props: any) => {
       <i className="fa fa-folder" /> {category}
     </div>
   );
-};
+}
 
 export default ArchiveCategory;

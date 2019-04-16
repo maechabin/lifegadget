@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Showdown from 'showdown';
 
-const IndexList = (props: any) => {
+function IndexList(props: any): JSX.Element {
   // console.log(props);
   function rawMarkup(content: any) {
     const converter = new Showdown.Converter();
@@ -17,7 +17,7 @@ const IndexList = (props: any) => {
   const list =
     props.resetList && props.routingKey !== '' ? (
       <div className="list__loading">
-        <img src="/assets/image/loading.svg" alt="loading..." />
+        <img src="../../images/loading.svg" alt="loading..." />
       </div>
     ) : (
       props.index.map((item: any) => {
@@ -44,6 +44,6 @@ const IndexList = (props: any) => {
       })
     );
   return <ul className="index__list">{list}</ul>;
-};
+}
 
 export default IndexList;

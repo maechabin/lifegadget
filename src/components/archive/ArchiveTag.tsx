@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ArchiveTag = (props: any) => {
+function ArchiveTag(props: any): JSX.Element {
   const tag =
     props.gettedTag === false && props.tags.length === 0
       ? ''
@@ -15,6 +15,6 @@ const ArchiveTag = (props: any) => {
       <i className="fa fa-tag" /> {tag}
     </div>
   );
-};
+}
 
 export default ArchiveTag;

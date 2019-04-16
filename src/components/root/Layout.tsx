@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 
-function Layout(props: any) {
+function Layout(props: any): JSX.Element {
   return (
     <>
       <Header {...props} config={config} />

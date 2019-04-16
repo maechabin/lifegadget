@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ArchiveUser = (props: any) => {
+function ArchiveUser(props: any): JSX.Element {
   const getUser = (userList: any) => (id: any) =>
     userList.map((user: any, i: number) => (user.id === id ? i : null));
   const userId = getUser(props.user)(props.article.author);
@@ -24,6 +24,6 @@ const ArchiveUser = (props: any) => {
     </section>
   );
   return <div className={props.nameOnly ? 'article__user_name' : 'article__user'}>{user}</div>;
-};
+}
 
 export default ArchiveUser;

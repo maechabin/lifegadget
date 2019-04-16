@@ -24,8 +24,11 @@ export function setCurrentPageNumber(payload: number): Action<number> {
   };
 }
 
-// 任意のIDのアイキャッチ画像の取得、保存
-export function saveMediaAsync(url: string): any {
+/**
+ * 任意のIDのアイキャッチ画像を取得して返す
+ * @param url media用URL
+ */
+export async function getEyeCatchImageUrl(url: string): Promise<{ source_url: string }> {
   return fetch(url, {
     method: 'get',
   })
@@ -35,9 +38,9 @@ export function saveMediaAsync(url: string): any {
       }
       return console.dir(res);
     })
-    .then((res2) => {
+    .then((data) => {
       return {
-        source_url: res2.source_url,
+        source_url: data.source_url,
       };
     });
 }
@@ -92,7 +95,7 @@ export function fetchIndexAsync(callback: any, page: number = 1) {
         Promise.all(
           res2.map((res3: any) => {
             if (res3._links['wp:featuredmedia']) {
-              return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
+              return getEyeCatchImageUrl(res3._links['wp:featuredmedia'][0].href);
             }
             return false;
           }),
@@ -114,7 +117,7 @@ export function searchArticleAsync(callback: any, keyword: string, page: number)
         Promise.all(
           res2.map((res3: any) => {
             if (res3._links['wp:featuredmedia']) {
-              return saveMediaAsync(res3._links['wp:featuredmedia'][0].href);
+              return getEyeCatchImageUrl(res3._links['wp:featuredmedia'][0].href);
             }
             return false;
           }),

@@ -1,13 +1,15 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import { State } from '../state.model';
 import { changeValue, setSearchValue } from '../actions/rootAction';
 import { routingArray } from '../routes';
 
 import Layout from '../components/root/Layout';
 
-function RootContainer(props: any) {
+function RootContainer(): JSX.Element {
   const routes = routingArray.map((route) => {
     return <Route exact={true} path={route.path} component={route.component} key={route.path} />;
   });
@@ -20,17 +22,17 @@ function RootContainer(props: any) {
 }
 
 // Connect to Redux
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State) {
   return {
     inputValue: state.root.inputValue,
   };
 }
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    handleChange(keyword: any) {
+    handleChange(keyword: string) {
       dispatch(changeValue(keyword));
     },
-    handleSend(keyword: any) {
+    handleSend(keyword: string) {
       dispatch(setSearchValue(keyword));
     },
   };
