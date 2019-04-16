@@ -13,7 +13,6 @@ import Adsense from '../../widgets/Adsense';
 import NotFound from '../root/NotFound';
 
 const Archive = (props: any) => {
-  console.log(props);
   let article = <></>;
 
   if (props.article && !!props.article.id) {
