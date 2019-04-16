@@ -92,19 +92,19 @@ import { routingArray } from './routes';
 const PORT = process.env.PORT || 3030;
 const app = express();
 
-// app.use(helmet());
-// app.use(compression());
-// app.use('/assets', express.static('build'));
-// app.use('/assets', express.static('public'));
-// app.get('/feed', (req, res) => {
-//   res.type('rss');
-//   return makeRss().then((result) => res.send(result));
-// });
-// app.get('/robots.txt', (req, res) => {
-//   res.type('text/plain');
-//   return res.send('User-agent: Twitterbot\nDisallow:');
-// });
-app.use(express.static('./src'));
+app.use(helmet());
+app.use(compression());
+app.use('/assets', express.static('build'));
+app.use('/assets', express.static('public'));
+app.get('/feed', (req, res) => {
+  res.type('rss');
+  return makeRss().then((result) => res.send(result));
+});
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  return res.send('User-agent: Twitterbot\nDisallow:');
+});
+app.use(express.static('./build'));
 app.get('/*', (req, res) => {
   // 1. Reducers
   const reducers = combineReducers({
@@ -128,28 +128,27 @@ app.get('/*', (req, res) => {
   // Make Store
   const store = configureStore(reducers, initialState, middleware());
 
-  const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
+  const currentRoute = routingArray.find(route => matchPath(req.url, route)) || {};
+  console.log(currentRoute);
 
-  if (currentRoute) {
-    // Promise
-    // const promise1 = currentRoute.component.handleFetch
-    //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
-    //   : Promise.resolve('no fetching');
-    const promise2 = fetchCategoryAsync();
-    const promise3 = fetchUserAsync();
+  // Promise
+  const promise1 = currentRoute.component.handleFetch
+      ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
+      : Promise.resolve('no fetching');
+  const promise2 = fetchCategoryAsync();
+  const promise3 = fetchUserAsync();
 
-    // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
-    //   () => {
-    const html = ReactDOMServer.renderToString(
-      <Provider store={store}>
-        <currentRoute.component />
-      </Provider>,
-    );
-    const finalState = store.getState();
-    return res.status(200).send(renderFullPage(html, finalState));
-    //   },
-    // );
-  }
+  Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
+    () => {
+      const html = ReactDOMServer.renderToString(
+        <StaticRouter location={req.url} context={store}>
+          <currentRoute.component />
+        </StaticRouter>,
+      );
+      const finalState = store.getState();
+      return res.status(200).send(renderFullPage(html, finalState));
+    },
+  );
 });
 
 app.listen(PORT, () => console.log(`Hello app listening on port ${PORT}!`));
