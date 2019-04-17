@@ -6,3 +6,5 @@ export * from './fetchTagIndex';
 export * from './fetchKeywordIndex';
 export * from './fetchUsers';
 export * from './fetchCategories';
+export * from './fetchTagName';
+export * from './fetchTagNames';
