@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import config from '../../config';
 
 /**
- * 指定したページのIndex（記事一覧）を取得する
+ * 記事Indexを取得する
  * @param pageNumber ページ番号
  */
 export async function fetchIndex(pageNumber: number = 1) {
