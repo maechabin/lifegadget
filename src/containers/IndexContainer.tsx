@@ -1,11 +1,9 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import fetch from 'node-fetch';
 
 import { State } from '../state.model';
-import { fetchIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
-import config from '../config';
-import { fetchIndex } from '../domains/wordpress';
+import { setIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 
 // view files
 import Index from '../components/index/Index';
@@ -14,7 +12,7 @@ declare const window: any;
 
 class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
-    return dispatch(fetchIndexAsync(fetchIndex, renderProps.path));
+    dispatch(setIndexAsync(renderProps.path));
   }
 
   // static fetchData(page: number = 1) {
@@ -29,13 +27,6 @@ class IndexContainer extends React.PureComponent<any, never> {
   //   });
   // }
 
-  static handleErrors(response: any) {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response;
-  }
-
   callAdSense() {
     const ads = document.querySelectorAll('.adsbygoogle');
     if (ads.length > 0) {
@@ -48,11 +39,10 @@ class IndexContainer extends React.PureComponent<any, never> {
   }
 
   componentDidMount() {
-    return [
-      this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(fetchIndex, this.props.match.params.page),
-      this.callAdSense(),
-    ];
+    console.log(this.props.routingKey);
+    this.props.handleInit(this.props.routingKey);
+    this.props.dispatchSetIndexAsync(this.props.match.params.page);
+    this.callAdSense();
   }
 
   componentDidUpdate(nextProps: any) {
@@ -60,12 +50,9 @@ class IndexContainer extends React.PureComponent<any, never> {
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
-      return [
-        this.props.handleInit(this.props.routingKey),
-        this.props.handleFetch(fetchIndex, nextProps.match.params.page),
-      ];
+      this.props.handleInit(this.props.routingKey);
+      this.props.dispatchSetIndexAsync(nextProps.match.params.page);
     }
-    return false;
   }
 
   render() {
@@ -75,6 +62,7 @@ class IndexContainer extends React.PureComponent<any, never> {
 
 // Connect to Redux
 function mapStateToProps(state: State) {
+  console.log(state);
   return {
     badRequest: state.index.badRequest,
     index: state.index.index,
@@ -85,13 +73,13 @@ function mapStateToProps(state: State) {
     // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    handleFetch(callback: any, page: any) {
-      return dispatch(fetchIndexAsync(callback, page));
+    dispatchSetIndexAsync(pageName: number) {
+      dispatch(setIndexAsync(pageName));
     },
     handleInit(key: any) {
-      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
+      [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
 }

@@ -1,7 +1,7 @@
 import { RootState, IndexState, ArchiveState } from './state.model';
 
 export const rootState: RootState = {
-  category: [],
+  category: {} as any,
   user: [],
   inputValue: '',
   searchValue: '',
@@ -21,7 +21,7 @@ export const indexState: IndexState = {
 
 export const archiveState: ArchiveState = {
   badRequest: false,
-  article: {},
+  article: {} as any,
   articleImage: '',
   currentId: 0,
   tags: [],

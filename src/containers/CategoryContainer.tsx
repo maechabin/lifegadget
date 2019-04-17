@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fetch from 'node-fetch';
 
 import { State } from '../state.model';
 import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
-import config from '../config';
+import { fetchCategoryIndex } from '../domains/wordpress';
 
 // view files
 import Index from '../components/index/Index';
@@ -13,32 +12,25 @@ declare const window: any;
 
 class CategoryContainer extends React.Component<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
-    return dispatch(
-      searchArticleAsync(this.fetchData, renderProps.params.category, renderProps.params.page),
+    dispatch(
+      searchArticleAsync(fetchCategoryIndex, renderProps.params.category, renderProps.params.page),
     );
   }
 
-  static fetchData(category: number, page: number = 1) {
-    const params = `?context=embed&categories=${category}&per_page=${config.perPage}&page=${page}`;
-    return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-      method: 'get',
-    })
-      .then(CategoryContainer.handleErrors)
-      .then((res) => {
-        if (res.status === 200) {
-          return [res.json(), res.headers._headers];
-        }
-        return console.log(res);
-      })
-      .catch(() => console.log('bad request'));
-  }
-
-  static handleErrors(response: any) {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response;
-  }
+  // static fetchData(category: number, page: number = 1) {
+  //   const params = `?context=embed&categories=${category}&per_page=${config.perPage}&page=${page}`;
+  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
+  //     method: 'get',
+  //   })
+  //     .then(CategoryContainer.handleErrors)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         return [res.json(), res.headers._headers];
+  //       }
+  //       return console.log(res);
+  //     })
+  //     .catch(() => console.log('bad request'));
+  // }
 
   callAdSense() {
     const ads = document.querySelectorAll('.adsbygoogle');
@@ -52,15 +44,13 @@ class CategoryContainer extends React.Component<any, never> {
   }
 
   componentDidMount() {
-    return [
-      this.props.handleInit(this.props.routingKey),
-      this.props.handleFetch(
-        this.props.match.params.category,
-        CategoryContainer.fetchData,
-        this.props.match.params.page,
-      ),
-      this.callAdSense(),
-    ];
+    this.props.handleInit(this.props.routingKey);
+    this.props.handleFetch(
+      this.props.match.params.category,
+      fetchCategoryIndex,
+      this.props.match.params.page,
+    );
+    this.callAdSense();
   }
 
   componentWillUpdate(nextProps: any) {
@@ -68,24 +58,19 @@ class CategoryContainer extends React.Component<any, never> {
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
-      return [
-        this.props.handleFetch(
-          this.props.match.params.category,
-          CategoryContainer.fetchData,
-          nextProps.match.params.page,
-        ),
-      ];
+      this.props.handleFetch(
+        this.props.match.params.category,
+        fetchCategoryIndex,
+        nextProps.match.params.page,
+      );
     }
     if (nextProps.pathname !== this.props.pathname) {
-      return [
-        this.props.handleFetch(
-          nextProps.match.params.category,
-          CategoryContainer.fetchData,
-          nextProps.match.params.page,
-        ),
-      ];
+      this.props.handleFetch(
+        nextProps.match.params.category,
+        fetchCategoryIndex,
+        nextProps.match.params.page,
+      );
     }
-    return false;
   }
 
   render() {
@@ -109,10 +94,10 @@ function mapStateToProps(state: State & any) {
 function mapDispatchToProps(dispatch: any) {
   return {
     handleFetch(category: any, callback: any, page: any) {
-      return dispatch(searchArticleAsync(callback, category, page));
+      dispatch(searchArticleAsync(callback, category, page));
     },
     handleInit(key: any) {
-      return [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
+      [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
     },
   };
 }

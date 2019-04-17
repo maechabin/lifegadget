@@ -12,7 +12,7 @@ export enum RootActionType {
 }
 
 export enum IndexActionType {
-  FETCH_INDEX,
+  SET_INDEX,
   BAD_REQUEST_INDEX,
   RESET_LIST,
   SAVE_ROUTING_KEY,

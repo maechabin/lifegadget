@@ -18,7 +18,7 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
         ...state,
         badRequest: true,
       };
-    case IndexActionType.FETCH_INDEX:
+    case IndexActionType.SET_INDEX:
       return {
         ...state,
         index: action.payload.index,
