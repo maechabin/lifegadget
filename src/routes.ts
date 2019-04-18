@@ -37,11 +37,11 @@ export const routingArray = [
   //   component: Root,
   // },
   {
-    path: '/:page',
+    path: '/',
     component: Index,
   },
   {
-    path: '/',
+    path: '/:page',
     component: Index,
   },
   {
@@ -56,14 +56,14 @@ export const routingArray = [
   //   path: '/search/:keyword/:page',
   //   component: Search,
   // },
-  // {
-  //   path: '/category/:category',
-  //   component: Category,
-  // },
-  // {
-  //   path: '/category/:category/:page',
-  //   component: Category,
-  // },
+  {
+    path: '/category/:category',
+    component: Category,
+  },
+  {
+    path: '/category/:category/:page',
+    component: Category,
+  },
   // {
   //   path: '/tag/:tag',
   //   component: Tag,

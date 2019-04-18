@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import { setIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import { fetchCategoryIndex } from '../domains/wordpress';
 
 // view files
@@ -13,7 +13,11 @@ declare const window: any;
 class CategoryContainer extends React.Component<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     dispatch(
-      searchArticleAsync(fetchCategoryIndex, renderProps.params.category, renderProps.params.page),
+      setIndexAsync({
+        fetch: fetchCategoryIndex,
+        pageNumber: renderProps.params.page,
+        keyword: renderProps.params.category,
+      }),
     );
   }
 
@@ -45,10 +49,10 @@ class CategoryContainer extends React.Component<any, never> {
 
   componentDidMount() {
     this.props.handleInit(this.props.routingKey);
-    this.props.handleFetch(
-      this.props.match.params.category,
+    this.props.dispatchSetIndexAsync(
       fetchCategoryIndex,
       this.props.match.params.page,
+      this.props.match.params.category,
     );
     this.callAdSense();
   }
@@ -58,17 +62,17 @@ class CategoryContainer extends React.Component<any, never> {
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
-      this.props.handleFetch(
-        this.props.match.params.category,
+      this.props.dispatchSetIndexAsync(
         fetchCategoryIndex,
         nextProps.match.params.page,
+        this.props.match.params.category,
       );
     }
     if (nextProps.pathname !== this.props.pathname) {
-      this.props.handleFetch(
-        nextProps.match.params.category,
+      this.props.dispatchSetIndexAsync(
         fetchCategoryIndex,
         nextProps.match.params.page,
+        nextProps.match.params.category,
       );
     }
   }
@@ -87,14 +91,18 @@ function mapStateToProps(state: State & any) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    pathname: state.routing.locationBeforeTransitions.pathname,
-    routingKey: state.routing.locationBeforeTransitions.key,
+    // pathname: state.routing.locationBeforeTransitions.pathname,
+    // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
 function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(category: any, callback: any, page: any) {
-      dispatch(searchArticleAsync(callback, category, page));
+    dispatchSetIndexAsync(
+      fetch: typeof fetchCategoryIndex,
+      pageNumber: number,
+      categoryId: string,
+    ) {
+      dispatch(setIndexAsync({ fetch, pageNumber, keyword: categoryId }));
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

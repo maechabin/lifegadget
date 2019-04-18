@@ -7,7 +7,7 @@ import config from '../../config';
  * @param authorId カテゴリーID
  * @param pageNumber ページ番号
  */
-export async function fetchCategoryIndex(categoryId: number, pageNumber: number = 1) {
+export async function fetchCategoryIndex(pageNumber: number = 1, categoryId: number) {
   /** リクエストパラメータ */
   const params = `?context=embed&categories=${categoryId}&per_page=${
     config.perPage
@@ -19,13 +19,18 @@ export async function fetchCategoryIndex(categoryId: number, pageNumber: number 
   return (
     fetch(url, {
       method: 'get',
+      mode: 'cors',
     })
       // .then(CategoryContainer.handleErrors)
       .then((res: any) => {
         if (res.status === 200) {
-          return [res.json(), res.headers._headers];
+          return {
+            index: res.json(),
+            total: res.headers.get('x-wp-total'),
+            totalPages: res.headers.get('x-wp-totalpages'),
+          };
         }
-        return console.log(res);
+        console.error(res);
       })
       .catch(() => console.log('bad request'))
   );

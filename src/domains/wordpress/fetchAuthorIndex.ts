@@ -7,7 +7,7 @@ import config from '../../config';
  * @param authorId 著者ID
  * @param pageNumber ページ番号
  */
-export async function fetchAuthorIndex(authorId: number, pageNumber: number = 1) {
+export async function fetchAuthorIndex(pageNumber: number = 1, authorId: number) {
   /** リクエストパラメータ */
   const params = `?context=embed&author=${authorId}&per_page=${config.perPage}&page=${pageNumber}`;
 
@@ -21,9 +21,13 @@ export async function fetchAuthorIndex(authorId: number, pageNumber: number = 1)
       // .then(AuthorContainer.handleErrors)
       .then((res: any) => {
         if (res.status === 200) {
-          return [res.json(), res.headers._headers];
+          return {
+            index: res.json(),
+            total: res.headers.get('x-wp-total'),
+            totalPages: res.headers.get('x-wp-totalpages'),
+          };
         }
-        return console.dir(res);
+        console.error(res);
       })
       .catch(() => console.log('bad request'))
   );

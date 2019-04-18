@@ -7,7 +7,7 @@ import config from '../../config';
  * @param keyword キーワード
  * @param pageNumber ページ番号
  */
-export async function fetchKeywordIndex(keyword: string, pageNumber: number = 1) {
+export async function fetchKeywordIndex(pageNumber: number = 1, keyword: string) {
   /** リクエストパラメータ */
   const params = `?context=embed&search=${keyword.trim()}&per_page=${
     config.perPage
@@ -23,9 +23,13 @@ export async function fetchKeywordIndex(keyword: string, pageNumber: number = 1)
       // .then(SearchContainer.handleErrors)
       .then((res: any) => {
         if (res.status === 200) {
-          return [res.json(), res.headers._headers];
+          return {
+            index: res.json(),
+            total: res.headers.get('x-wp-total'),
+            totalPages: res.headers.get('x-wp-totalpages'),
+          };
         }
-        return console.dir(res);
+        console.error(res);
       })
       .catch(() => console.log('bad request'))
   );

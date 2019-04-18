@@ -1,9 +1,8 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import { setIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import { fetchAuthorIndex } from '../domains/wordpress';
 
 // view files
@@ -14,7 +13,11 @@ declare const window: any;
 class AuthorContainer extends React.Component<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     dispatch(
-      searchArticleAsync(fetchAuthorIndex, renderProps.params.author, renderProps.params.page),
+      setIndexAsync({
+        fetch: fetchAuthorIndex,
+        pageNumber: renderProps.params.author,
+        keyword: renderProps.params.page,
+      }),
     );
   }
 
@@ -46,10 +49,10 @@ class AuthorContainer extends React.Component<any, never> {
 
   componentDidMount() {
     this.props.handleInit(this.props.routingKey);
-    this.props.handleFetch(
-      this.props.match.params.author,
+    this.props.dispatchSetIndexAsync(
       fetchAuthorIndex,
       this.props.match.params.page,
+      this.props.match.params.author,
     );
     this.callAdSense();
   }
@@ -59,10 +62,10 @@ class AuthorContainer extends React.Component<any, never> {
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
-      this.props.handleFetch(
-        this.props.match.params.author,
+      this.props.dispatchSetIndexAsync(
         fetchAuthorIndex,
         nextProps.match.params.page,
+        this.props.match.params.author,
       );
     }
   }
@@ -81,14 +84,14 @@ function mapStateToProps(state: State & any) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    pathname: state.routing.locationBeforeTransitions.pathname,
-    routingKey: state.routing.locationBeforeTransitions.key,
+    // pathname: state.routing.locationBeforeTransitions.pathname,
+    // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
 function mapDispatchToProps(dispatch: any) {
   return {
-    handleFetch(author: any, callback: any, page: any) {
-      dispatch(searchArticleAsync(callback, author, page));
+    dispatchSetIndexAsync(fetch: typeof fetchAuthorIndex, pageNumber: number, authorId: number) {
+      dispatch(setIndexAsync({ fetch, pageNumber, keyword: authorId }));
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

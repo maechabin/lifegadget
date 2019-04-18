@@ -7,7 +7,7 @@ import config from '../../config';
  * @param tagId タグID
  * @param pageNumber ページ番号
  */
-export async function fetchTagIndex(tagId: number, pageNumber: number = 1) {
+export async function fetchTagIndex(pageNumber: number = 1, tagId: number) {
   /** リクエストパラメータ */
   const params = `?context=embed&tags=${tagId}&per_page=${config.perPage}&page=${pageNumber}`;
 
@@ -21,9 +21,13 @@ export async function fetchTagIndex(tagId: number, pageNumber: number = 1) {
       // .then(TagContainer.handleErrors)
       .then((res: any) => {
         if (res.status === 200) {
-          return [res.json(), res.headers._headers, tagId];
+          return {
+            index: res.json(),
+            total: res.headers.get('x-wp-total'),
+            totalPages: res.headers.get('x-wp-totalpages'),
+          };
         }
-        return console.dir(res);
+        console.error(res);
       })
       .catch(() => console.log('bad request'))
   );

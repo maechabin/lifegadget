@@ -3,7 +3,12 @@ import fetch from 'isomorphic-fetch';
 
 import { Action, IndexActionType } from './action.model';
 import config from '../config';
-import { fetchIndex, getEyeCatchImageUrl } from '../domains/wordpress';
+import {
+  fetchIndex,
+  fetchCategoryIndex,
+  getEyeCatchImageUrl,
+  fetchAuthorIndex,
+} from '../domains/wordpress';
 import { Index } from '../state.model';
 
 export function resetList() {
@@ -76,18 +81,20 @@ function setIndex(payload: SetIndex): Action<SetIndex> {
  * @param pageNumber ページ数
  */
 export function setIndexAsync(query: {
-  fetch: typeof fetchIndex;
+  fetch: typeof fetchIndex | typeof fetchCategoryIndex | typeof fetchAuthorIndex;
   pageNumber: number;
-  keyword?: string;
+  keyword?: any;
 }) {
   return async (dispatch: Dispatch) => {
-    const response = await query.fetch(query.pageNumber);
+    const response = query.keyword
+      ? await query.fetch(query.pageNumber, query.keyword)
+      : await query.fetch(query.pageNumber, query.keyword);
 
     if (response == null) {
       dispatch(badRequestIndex());
     }
 
-    const indexes = response && (await response.index.then((index) => index));
+    const indexes = response && (await response.index.then((index: Index) => index));
     const total = response && response.total;
     const totalPages = response && response.totalPages;
 
