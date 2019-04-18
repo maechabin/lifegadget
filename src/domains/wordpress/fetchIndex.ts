@@ -15,14 +15,15 @@ export async function fetchIndex(pageNumber: number = 1) {
 
   return fetch(url, {
     method: 'get',
-  }).then((res: any) => {
-    console.log(res);
+    mode: 'cors',
+  }).then((res: Response) => {
     if (res.status === 200) {
       return {
-        indexes: res.json(),
-        headers: res.headers._headers,
+        index: res.json(),
+        total: res.headers.get('x-wp-total'),
+        totalPages: res.headers.get('x-wp-totalpages'),
       };
     }
-    return console.log(res);
+    console.error(res);
   });
 }

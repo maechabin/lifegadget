@@ -22,8 +22,8 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
       return {
         ...state,
         index: action.payload.index,
-        // total: action.payload.page['x-wp-total'][0],
-        // totalPages: action.payload.page['x-wp-totalpages'][0],
+        total: action.payload.total,
+        totalPages: action.payload.totalPages,
         resetList: false,
         badRequest: false,
       };

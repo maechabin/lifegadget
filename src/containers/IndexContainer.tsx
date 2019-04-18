@@ -39,7 +39,6 @@ class IndexContainer extends React.PureComponent<any, never> {
   }
 
   componentDidMount() {
-    console.log(this.props.routingKey);
     this.props.handleInit(this.props.routingKey);
     this.props.dispatchSetIndexAsync(this.props.match.params.page);
     this.callAdSense();
@@ -62,7 +61,6 @@ class IndexContainer extends React.PureComponent<any, never> {
 
 // Connect to Redux
 function mapStateToProps(state: State) {
-  console.log(state);
   return {
     badRequest: state.index.badRequest,
     index: state.index.index,
