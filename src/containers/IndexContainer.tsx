@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
+import { fetchIndex } from '../domains/wordpress';
 import { setIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 
 // view files
@@ -12,7 +13,7 @@ declare const window: any;
 
 class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
-    dispatch(setIndexAsync(renderProps.path));
+    dispatch(setIndexAsync({ fetch: fetchIndex, pageNumber: renderProps.path }));
   }
 
   // static fetchData(page: number = 1) {
@@ -40,7 +41,7 @@ class IndexContainer extends React.PureComponent<any, never> {
 
   componentDidMount() {
     this.props.handleInit(this.props.routingKey);
-    this.props.dispatchSetIndexAsync(this.props.match.params.page);
+    this.props.dispatchSetIndexAsync(fetchIndex, this.props.match.params.page);
     this.callAdSense();
   }
 
@@ -50,7 +51,7 @@ class IndexContainer extends React.PureComponent<any, never> {
       nextProps.match.params.page !== this.props.match.params.page
     ) {
       this.props.handleInit(this.props.routingKey);
-      this.props.dispatchSetIndexAsync(nextProps.match.params.page);
+      this.props.dispatchSetIndexAsync(fetchIndex, nextProps.match.params.page);
     }
   }
 
@@ -73,8 +74,8 @@ function mapStateToProps(state: State) {
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    dispatchSetIndexAsync(pageName: number) {
-      dispatch(setIndexAsync(pageName));
+    dispatchSetIndexAsync(fetch: typeof fetchIndex, pageNumber: number) {
+      dispatch(setIndexAsync({ fetch, pageNumber }));
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

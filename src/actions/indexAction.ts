@@ -75,9 +75,13 @@ function setIndex(payload: SetIndex): Action<SetIndex> {
  * Indexを取得して、setIndexアクションを呼ぶ
  * @param pageNumber ページ数
  */
-export function setIndexAsync(pageNumber: number = 1) {
+export function setIndexAsync(query: {
+  fetch: typeof fetchIndex;
+  pageNumber: number;
+  keyword?: string;
+}) {
   return async (dispatch: Dispatch) => {
-    const response = await fetchIndex(pageNumber);
+    const response = await query.fetch(query.pageNumber);
 
     if (response == null) {
       dispatch(badRequestIndex());
