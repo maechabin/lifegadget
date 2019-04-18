@@ -16,8 +16,12 @@ export async function fetchIndex(pageNumber: number = 1) {
   return fetch(url, {
     method: 'get',
   }).then((res: any) => {
+    console.log(res);
     if (res.status === 200) {
-      return [res.json(), res.headers._headers];
+      return {
+        indexes: res.json(),
+        headers: res.headers._headers,
+      };
     }
     return console.log(res);
   });

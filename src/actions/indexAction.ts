@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 import { Action, IndexActionType } from './action.model';
 import config from '../config';
-import { fetchIndex } from '../domains/wordpress';
+import { fetchIndex, getEyeCatchImageUrl } from '../domains/wordpress';
 import { Index } from '../state.model';
 
 export function resetList() {
@@ -24,27 +24,6 @@ export function setCurrentPageNumber(payload: number): Action<number> {
     type: IndexActionType.SET_CURRENT_PAGE_NUMBER,
     payload,
   };
-}
-
-/**
- * 任意のIDのアイキャッチ画像を取得して返す
- * @param url media用URL
- */
-export async function getEyeCatchImageUrl(url: string) {
-  fetch(url, {
-    method: 'get',
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return console.dir(res);
-    })
-    .then((data) => {
-      return {
-        source_url: data.source_url,
-      };
-    });
 }
 
 function getTagName(payload: string): Action<string> {
@@ -89,26 +68,34 @@ function setIndex(payload: any): Action<any> {
 // redux-thunk
 export function setIndexAsync(pageName: number = 1) {
   return async (dispatch: Dispatch) => {
-    fetchIndex(pageName).then((res: any) => {
-      if (res === undefined) {
-        dispatch(badRequestIndex());
-      }
-      Promise.resolve(res[0]).then((indexes: any) => {
-        Promise.all(
-          indexes.map(
-            (index: Index): void => {
-              if (index._links['wp:featuredmedia']) {
-                getEyeCatchImageUrl(index._links['wp:featuredmedia'][0].href);
-              }
-            },
-          ),
-        )
-          .then((res4) =>
-            indexes.map((index: Index, i: number) => Object.assign({}, index, res4[i])),
-          )
-          .then((index) => dispatch(setIndex({ index, page: res[1] })));
-      });
-    });
+    const response = await fetchIndex(pageName);
+
+    console.log(response);
+
+    if (response == undefined) {
+      dispatch(badRequestIndex());
+    }
+
+    // fetchIndex(pageName).then((res: any) => {
+    //   if (res === undefined) {
+    //     dispatch(badRequestIndex());
+    //   }
+    //   Promise.resolve(res[0]).then((indexes: any) => {
+    //     Promise.all(
+    //       indexes.map(
+    //         (index: Index): void => {
+    //           if (index._links['wp:featuredmedia']) {
+    //             getEyeCatchImageUrl(index._links['wp:featuredmedia'][0].href);
+    //           }
+    //         },
+    //       ),
+    //     )
+    //       .then((res4) => {
+    //         return indexes.map((index: Index, i: number) => Object.assign({}, index, res4[i]));
+    //       })
+    //       .then((index) => dispatch(setIndex({ index, page: res[1] })));
+    //   });
+    // });
   };
 }
 
