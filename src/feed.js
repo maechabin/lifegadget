@@ -1,5 +1,5 @@
 import RSS from 'rss';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import config from './config';
 
 export default function makeRss() {

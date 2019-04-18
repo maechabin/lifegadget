@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 
 import { Action, ArchiveActionType } from './action.model';
 import config from '../config';

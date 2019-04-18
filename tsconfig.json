@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "types": ["node", "node-fetch"],
+    "types": ["node", "isomorphic-fetch"],
     "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src"]
