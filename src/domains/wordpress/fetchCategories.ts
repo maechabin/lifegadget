@@ -11,11 +11,10 @@ export async function fetchCategories() {
 
   return fetch(url, {
     method: 'get',
-  })
-    .then((res: any) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return console.dir(res);
-    })
+  }).then((res: any) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+    return console.dir(res);
+  });
 }

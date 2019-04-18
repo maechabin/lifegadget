@@ -1,11 +1,13 @@
+import fetch from 'isomorphic-fetch';
+
 /**
  * 任意のIDのアイキャッチ画像を取得して返す
  * @param url wp:featuredmedia URL
  */
 export async function getEyeCatchImageUrl(url: string) {
-  console.log(url);
-  fetch(url, {
+  return fetch(url, {
     method: 'get',
+    mode: 'cors',
   })
     .then((res) => {
       if (res.status === 200) {
@@ -14,9 +16,6 @@ export async function getEyeCatchImageUrl(url: string) {
       return console.dir(res);
     })
     .then((data) => {
-      console.log(data);
-      Promise.resolve({
-        source_url: data.source_url,
-      });
+      return data.source_url;
     });
 }
