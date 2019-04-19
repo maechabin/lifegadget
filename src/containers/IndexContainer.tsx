@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../state.model';
 import { fetchIndex } from '../domains/wordpress';
-import { setIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import { fetchIndexAndDispatchSetIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 
 // view files
 import Index from '../components/index/Index';
@@ -12,8 +12,8 @@ import Index from '../components/index/Index';
 declare const window: any;
 
 class IndexContainer extends React.PureComponent<any, never> {
-  static handleFetch(dispatch: any, renderProps: any) {
-    dispatch(setIndexAsync({ fetch: fetchIndex, pageNumber: renderProps.path }));
+  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
+    dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod: fetchIndex, pageNumber: renderProps.path }));
   }
 
   // static fetchData(page: number = 1) {
@@ -74,8 +74,8 @@ function mapStateToProps(state: State) {
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    dispatchSetIndexAsync(fetch: typeof fetchIndex, pageNumber: number) {
-      dispatch(setIndexAsync({ fetch, pageNumber }));
+    dispatchSetIndexAsync(fetchMethod: typeof fetchIndex, pageNumber: number) {
+      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber }));
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { searchArticleAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import { fetchIndexAndDispatchSetIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import { fetchKeywordIndex } from '../domains/wordpress';
 
 // view files
@@ -12,9 +12,13 @@ import Index from '../components/index/Index';
 declare const window: any;
 
 class SearchContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: any, renderProps: any) {
+  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
     return dispatch(
-      searchArticleAsync(fetchKeywordIndex, renderProps.params.keyword, renderProps.params.page),
+      fetchIndexAndDispatchSetIndexAsync({
+        fetchMethod: fetchKeywordIndex,
+        pageNumber: renderProps.params.page,
+        keyword: renderProps.params.keyword,
+      }),
     );
   }
 
@@ -46,26 +50,26 @@ class SearchContainer extends React.Component<any, never> {
 
   componentDidMount() {
     this.props.handleInit(this.props.routingKey);
-    this.props.handleFetch(
-      this.props.match.params.keyword,
+    this.props.dispatchSetIndexAsync(
       fetchKeywordIndex,
       this.props.match.params.page,
+      this.props.match.params.keyword,
     );
     this.callAdSense();
   }
 
   componentWillUpdate(nextProps: any) {
     if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
-      this.props.handleFetch(nextProps.keyword, fetchKeywordIndex, this.props.match.params.page);
+      this.props.dispatchSetIndexAsync(fetchKeywordIndex, this.props.match.params.page, nextProps.keyword);
     }
     if (
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
-      this.props.handleFetch(
-        this.props.match.params.keyword,
+      this.props.dispatchSetIndexAsync(
         fetchKeywordIndex,
         nextProps.match.params.page,
+        this.props.match.params.keyword,
       );
     }
   }
@@ -85,13 +89,13 @@ function mapStateToProps(state: State & any) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    routingKey: state.routing.locationBeforeTransitions.key,
+    // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    handleFetch(keyword: string, callback: any, page: any) {
-      dispatch(searchArticleAsync(callback, keyword, page));
+    dispatchSetIndexAsync(fetchMethod: typeof fetchKeywordIndex, pageNumber: number, keyword: string) {
+      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword }));
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

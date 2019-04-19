@@ -1,8 +1,9 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { setIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import { fetchIndexAndDispatchSetIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
 import { fetchAuthorIndex } from '../domains/wordpress';
 
 // view files
@@ -11,10 +12,10 @@ import Index from '../components/index/Index';
 declare const window: any;
 
 class AuthorContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: any, renderProps: any) {
+  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
     dispatch(
-      setIndexAsync({
-        fetch: fetchAuthorIndex,
+      fetchIndexAndDispatchSetIndexAsync({
+        fetchMethod: fetchAuthorIndex,
         pageNumber: renderProps.params.author,
         keyword: renderProps.params.page,
       }),
@@ -88,10 +89,10 @@ function mapStateToProps(state: State & any) {
     // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    dispatchSetIndexAsync(fetch: typeof fetchAuthorIndex, pageNumber: number, authorId: number) {
-      dispatch(setIndexAsync({ fetch, pageNumber, keyword: authorId }));
+    dispatchSetIndexAsync(fetchMethod: typeof fetchAuthorIndex, pageNumber: number, authorId: number) {
+      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: authorId }));
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

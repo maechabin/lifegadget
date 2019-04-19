@@ -8,6 +8,8 @@ import {
   fetchCategoryIndex,
   getEyeCatchImageUrl,
   fetchAuthorIndex,
+  fetchKeywordIndex,
+  fetchTagIndex,
 } from '../domains/wordpress';
 import { Index } from '../state.model';
 
@@ -69,6 +71,12 @@ type SetIndex = {
   totalPages: string | null | undefined;
 };
 
+type SetIndexQuery = {
+  fetchMethod: typeof fetchIndex | typeof fetchCategoryIndex | typeof fetchAuthorIndex | typeof fetchKeywordIndex | typeof fetchTagIndex;
+  pageNumber: number;
+  keyword?: any;
+}
+
 function setIndex(payload: SetIndex): Action<SetIndex> {
   return {
     type: IndexActionType.SET_INDEX,
@@ -80,15 +88,9 @@ function setIndex(payload: SetIndex): Action<SetIndex> {
  * Indexを取得して、setIndexアクションを呼ぶ
  * @param pageNumber ページ数
  */
-export function setIndexAsync(query: {
-  fetch: typeof fetchIndex | typeof fetchCategoryIndex | typeof fetchAuthorIndex;
-  pageNumber: number;
-  keyword?: any;
-}) {
+export function fetchIndexAndDispatchSetIndexAsync(query: SetIndexQuery) {
   return async (dispatch: Dispatch) => {
-    const response = query.keyword
-      ? await query.fetch(query.pageNumber, query.keyword)
-      : await query.fetch(query.pageNumber, query.keyword);
+    const response = await query.fetchMethod(query.pageNumber, query.keyword ? query.keyword : null);
 
     if (response == null) {
       dispatch(badRequestIndex());
@@ -116,27 +118,5 @@ export function setIndexAsync(query: {
         totalPages,
       }),
     );
-  };
-}
-
-export function searchArticleAsync(callback: any, keyword: string, page: number) {
-  return async (dispatch: Dispatch) => {
-    return callback(keyword, page).then((res: any) => {
-      if (res === undefined) {
-        return dispatch(badRequestIndex());
-      }
-      Promise.resolve(res[0]).then((res2) =>
-        Promise.all(
-          res2.map((res3: any) => {
-            if (res3._links['wp:featuredmedia']) {
-              return getEyeCatchImageUrl(res3._links['wp:featuredmedia'][0].href);
-            }
-            return false;
-          }),
-        )
-          .then((res4) => res2.map((obj: any, i: number) => Object.assign({}, obj, res4[i])))
-          .then((index) => dispatch(setIndex({ index, total: null, totalPages: null }))),
-      );
-    });
   };
 }

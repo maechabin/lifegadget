@@ -1,9 +1,10 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
 import {
-  searchArticleAsync,
+  fetchIndexAndDispatchSetIndexAsync,
   resetList,
   saveRoutingKey,
   getTagNameAsync,
@@ -16,8 +17,12 @@ import Index from '../components/index/Index';
 declare const window: any;
 
 class TagContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: any, renderProps: any) {
-    dispatch(searchArticleAsync(fetchTagIndex, renderProps.params.tag, renderProps.params.page));
+  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
+    dispatch(fetchIndexAndDispatchSetIndexAsync({
+      fetchMethod: fetchTagIndex,
+      pageNumber: renderProps.params.page,
+      keyword: renderProps.params.tag,
+    }));
   }
 
   // static fetchData(tag: number, page: number = 1) {
@@ -55,10 +60,10 @@ class TagContainer extends React.Component<any, never> {
 
   componentDidMount() {
     this.props.handleInit2(this.props.routingKey);
-    this.props.handleFetch(
-      this.props.match.params.tag,
+    this.props.dispatchSetIndexAsync(
       fetchTagIndex,
       this.props.match.params.page,
+      this.props.match.params.tag,
     );
     this.callAdSense();
   }
@@ -70,10 +75,10 @@ class TagContainer extends React.Component<any, never> {
       nextProps.match.params.tag !== this.props.match.params.tag
     ) {
       this.props.handleInit1(nextProps.match.params.tag);
-      this.props.handleFetch(
-        nextProps.match.params.tag,
+      this.props.dispatchSetIndexAsync(
         fetchTagIndex,
         nextProps.match.params.page,
+        nextProps.match.params.tag,
       );
     }
   }
@@ -93,13 +98,13 @@ function mapStateToProps(state: State & any) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    routingKey: state.routing.locationBeforeTransitions.key,
+    // routingKey: state.routing.locationBeforeTransitions.key,
   };
 }
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    handleFetch(tag: any, callback: any, page: number) {
-      dispatch(searchArticleAsync(callback, tag, page));
+    dispatchSetIndexAsync(fetchMethod: typeof fetchTagIndex, pageNumber: number, tagId: number) {
+      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: tagId }));
     },
     handleInit1(tag: any) {
       [getTagNameAsync(tag)].map((action) => dispatch(action));
