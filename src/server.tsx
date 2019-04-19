@@ -21,7 +21,10 @@ import { indexReducer } from './reducers/indexReducer';
 import { archiveReducer } from './reducers/archiveReducer';
 
 // Actions
-import { fetchCategoryAsync, fetchUserAsync } from './actions/rootAction';
+import {
+  fetchCategoryAndDispatchSetCategoryAsync,
+  fetchUserAndDispatchSetUserAsync,
+} from './actions/rootAction';
 
 import renderFullPage from './renderFullPage';
 import makeRss from './feed';
@@ -135,8 +138,8 @@ app.get('/*', (req, res) => {
     // const promise1 = currentRoute.component.handleFetch
     //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
     //   : Promise.resolve('no fetching');
-    const promise2 = fetchCategoryAsync();
-    const promise3 = fetchUserAsync();
+    const promise2 = fetchCategoryAndDispatchSetCategoryAsync();
+    const promise3 = fetchUserAndDispatchSetUserAsync();
 
     // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
     //   () => {

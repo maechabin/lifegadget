@@ -1,64 +1,46 @@
 import { Dispatch } from 'redux';
-import fetch from 'isomorphic-fetch';
 
 import { Action, RootActionType } from './action.model';
-import config from '../config';
+import { fetchCategories, fetchUsers } from '../domains/wordpress';
 
-export function fetchCategory(payload: string[]): Action<string[]> {
+export function setCategory(payload: any[]): Action<any[]> {
   return {
-    type: RootActionType.FETCH_CATEGORY,
+    type: RootActionType.SET_CATEGORY,
     payload,
   };
 }
 
-export function fetchCategoryAsync() {
+export function fetchCategoryAndDispatchSetCategoryAsync() {
+  return async (dispatch: Dispatch<any>) => {
+    const categories = await fetchCategories();
+    dispatch(setCategory(categories));
+  };
+}
+
+export function setUser(payload: any[]): Action<string[]> {
+  return {
+    type: RootActionType.SET_USER,
+    payload,
+  };
+}
+
+export function fetchUserAndDispatchSetUserAsync() {
   return async (dispatch: Dispatch) => {
-    return fetch(`${config.blogUrl}/wp-json/wp/v2/categories`, {
-      method: 'get',
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-        return console.dir(res);
-      })
-      .then((res) => dispatch(fetchCategory(res)));
+    const users = await fetchUsers();
+    dispatch(setUser(users));
   };
 }
 
-export function fetchUser(payload: string[]): Action<string[]> {
+export function changeSearchKeyword(payload: string): Action<string> {
   return {
-    type: RootActionType.FETCH_USER,
+    type: RootActionType.CHANGE_SEARCH_KEYWORD,
     payload,
   };
 }
 
-export function fetchUserAsync() {
-  return async (dispatch: Dispatch) => {
-    return fetch(`${config.blogUrl}/wp-json/wp/v2/users`, {
-      method: 'get',
-      mode: 'cors',
-    })
-      .then((res: Response) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-        return console.dir(res);
-      })
-      .then((res) => dispatch(fetchUser(res)));
-  };
-}
-
-export function changeValue(payload: string): Action<string> {
+export function setSearchKeyword(payload: string): Action<string> {
   return {
-    type: RootActionType.CHANGE_VALUE,
-    payload,
-  };
-}
-
-export function setSearchValue(payload: string): Action<string> {
-  return {
-    type: RootActionType.SET_SEARCH_VALUE,
+    type: RootActionType.SET_SEARCH_KEYWORD,
     payload,
   };
 }

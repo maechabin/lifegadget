@@ -2,12 +2,12 @@ import React from 'react';
 
 function SearchForm(props: any): JSX.Element {
   function handleChange(event: React.FormEvent<HTMLInputElement>) {
-    const value = event.currentTarget.value;
-    props.handleChange(value);
+    const keyword = event.currentTarget.value;
+    props.dispatchChangeSearchKeyword(keyword);
   }
   function handleClick() {
-    props.handleSend(props.inputValue);
-    props.handleChange('');
+    props.dispatchSetSearchKeyword(props.inputValue);
+    props.dispatchChangeSearchKeyword('');
     props.router.push({
       pathname: `/search/${props.inputValue}`,
     });

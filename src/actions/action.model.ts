@@ -5,10 +5,10 @@ export interface Action<T = any> {
 }
 
 export enum RootActionType {
-  FETCH_CATEGORY,
-  FETCH_USER,
-  CHANGE_VALUE,
-  SET_SEARCH_VALUE,
+  CHANGE_SEARCH_KEYWORD,
+  SET_SEARCH_KEYWORD,
+  SET_CATEGORY,
+  SET_USER,
 }
 
 export enum IndexActionType {

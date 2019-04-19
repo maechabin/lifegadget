@@ -2,10 +2,22 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
+export type User = {
+  avatar_urls: any;
+  description: string;
+  id: number;
+  link: string;
+  meta: any[];
+  name: string;
+  slug: string;
+  url: string;
+  _links: any;
+};
+
 /**
  * ユーザー一覧を取得する
  */
-export async function fetchUsers() {
+export async function fetchUsers(): Promise<User[]> {
   /** リクエストURL */
   const url = `${config.blogUrl}/wp-json/wp/v2/users`;
 

@@ -73,10 +73,15 @@ type SetIndex = {
 };
 
 type SetIndexQuery = {
-  fetchMethod: typeof fetchIndex | typeof fetchCategoryIndex | typeof fetchAuthorIndex | typeof fetchKeywordIndex | typeof fetchTagIndex;
+  fetchMethod:
+    | typeof fetchIndex
+    | typeof fetchCategoryIndex
+    | typeof fetchAuthorIndex
+    | typeof fetchKeywordIndex
+    | typeof fetchTagIndex;
   pageNumber: number;
   keyword?: any;
-}
+};
 
 function setIndex(payload: SetIndex): Action<SetIndex> {
   return {
@@ -91,15 +96,18 @@ function setIndex(payload: SetIndex): Action<SetIndex> {
  */
 export function fetchIndexAndDispatchSetIndexAsync(query: SetIndexQuery) {
   return async (dispatch: Dispatch) => {
-    const response = await query.fetchMethod(query.pageNumber, query.keyword ? query.keyword : null);
+    const response = await query.fetchMethod(
+      query.pageNumber,
+      query.keyword ? query.keyword : null,
+    );
 
     if (response == null) {
-      dispatch(badRequestIndex());
+      return dispatch(badRequestIndex());
     }
 
-    const indexes = response && (await response.index.then((index: Index) => index));
-    const total = response && response.total;
-    const totalPages = response && response.totalPages;
+    const indexes = await response.index.then((index: Index[]) => index);
+    const total = response.total;
+    const totalPages = response.totalPages;
 
     /** アイキャッチ画像のURLを取得してindexにマージ */
     const newIndexes: Index[] = await Promise.all(

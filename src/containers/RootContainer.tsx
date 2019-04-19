@@ -4,12 +4,21 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { State } from '../state.model';
-import { changeValue, setSearchValue } from '../actions/rootAction';
+import {
+  changeSearchKeyword,
+  setSearchKeyword,
+  fetchCategoryAndDispatchSetCategoryAsync,
+  fetchUserAndDispatchSetUserAsync,
+} from '../actions/rootAction';
 import { routingArray } from '../routes';
 
 import Layout from '../components/root/Layout';
 
-function RootContainer(): JSX.Element {
+function RootContainer(props: any): JSX.Element {
+  React.useEffect(() => {
+    props.dispatchSetCategory();
+    props.dispatchSetUser();
+  });
   const routes = routingArray.map((route) => {
     return <Route exact={true} path={route.path} component={route.component} key={route.path} />;
   });
@@ -27,13 +36,19 @@ function mapStateToProps(state: State) {
     inputValue: state.root.inputValue,
   };
 }
-function mapDispatchToProps(dispatch: Dispatch) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    handleChange(keyword: string) {
-      dispatch(changeValue(keyword));
+    dispatchSetCategory() {
+      dispatch(fetchCategoryAndDispatchSetCategoryAsync());
     },
-    handleSend(keyword: string) {
-      dispatch(setSearchValue(keyword));
+    dispatchSetUser() {
+      dispatch(fetchUserAndDispatchSetUserAsync());
+    },
+    dispatchChangeSearchKeyword(keyword: string) {
+      dispatch(changeSearchKeyword(keyword));
+    },
+    dispatchSetSearchKeyword(keyword: string) {
+      dispatch(setSearchKeyword(keyword));
     },
   };
 }
