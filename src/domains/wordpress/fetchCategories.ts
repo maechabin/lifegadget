@@ -11,7 +11,8 @@ export async function fetchCategories() {
 
   return fetch(url, {
     method: 'get',
-  }).then((res: any) => {
+    mode: 'cors',
+  }).then((res: Response) => {
     if (res.status === 200) {
       return res.json();
     }

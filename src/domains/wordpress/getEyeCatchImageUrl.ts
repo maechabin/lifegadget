@@ -9,7 +9,7 @@ export async function getEyeCatchImageUrl(url: string) {
     method: 'get',
     mode: 'cors',
   })
-    .then((res) => {
+    .then((res: Response) => {
       if (res.status === 200) {
         return res.json();
       }

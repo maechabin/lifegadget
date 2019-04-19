@@ -11,8 +11,9 @@ export async function fetchUsers() {
 
   return fetch(url, {
     method: 'get',
+    mode: 'cors',
   })
-    .then((res: any) => {
+    .then((res: Response) => {
       if (res.status === 200) {
         return res.json();
       }

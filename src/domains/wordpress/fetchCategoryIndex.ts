@@ -22,7 +22,7 @@ export async function fetchCategoryIndex(pageNumber: number = 1, categoryId: num
       mode: 'cors',
     })
       // .then(CategoryContainer.handleErrors)
-      .then((res: any) => {
+      .then((res: Response) => {
         if (res.status === 200) {
           return {
             index: res.json(),

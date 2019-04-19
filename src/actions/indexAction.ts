@@ -44,8 +44,9 @@ export function getTagNameAsync(tag: number) {
   return async (dispatch: Dispatch) => {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/tags?include=${tag}&context=embed`, {
       method: 'get',
+      mode: 'cors',
     })
-      .then((res) => {
+      .then((res: Response) => {
         if (res.status === 200) {
           return res.json();
         }

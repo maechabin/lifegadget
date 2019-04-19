@@ -15,8 +15,9 @@ function getArticleImage(payload: string): Action<string> {
 export function getArticleImageAsync(url: string): any {
   return fetch(url, {
     method: 'get',
+    mode: 'cors',
   })
-    .then((res) => {
+    .then((res: Response) => {
       if (res.status === 200) {
         return res.json();
       }
@@ -80,8 +81,9 @@ export function getTagsAsync(array: number[]) {
     const tags = array.map((id: number) =>
       fetch(`${config.blogUrl}/wp-json/wp/v2/tags/${id}`, {
         method: 'get',
+        mode: 'cors',
       })
-        .then((res) => {
+        .then((res: Response) => {
           if (res.status === 200) {
             return res.json();
           }

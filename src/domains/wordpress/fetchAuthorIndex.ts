@@ -17,9 +17,10 @@ export async function fetchAuthorIndex(pageNumber: number = 1, authorId: number)
   return (
     fetch(url, {
       method: 'get',
+      mode: 'cors',
     })
       // .then(AuthorContainer.handleErrors)
-      .then((res: any) => {
+      .then((res: Response) => {
         if (res.status === 200) {
           return {
             index: res.json(),

@@ -8,7 +8,7 @@ import config from '../../config';
  */
 export async function fetchArchive(articleId: number) {
   /** リクエストパラメータ */
-  const params = '?context=view`';
+  const params = '?context=view';
 
   /** リクエストURL */
   const url = `${config.blogUrl}/wp-json/wp/v2/posts/${articleId}${params}`;
@@ -16,9 +16,10 @@ export async function fetchArchive(articleId: number) {
   return (
     fetch(url, {
       method: 'get',
+      mode: 'cors',
     })
       // .then(ArchiveContainer.handleErrors)
-      .then((res: any) => {
+      .then((res: Response) => {
         if (res.status === 200) {
           return res.json();
         }

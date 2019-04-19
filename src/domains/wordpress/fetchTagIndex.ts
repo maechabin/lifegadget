@@ -17,9 +17,10 @@ export async function fetchTagIndex(pageNumber: number = 1, tagId: number) {
   return (
     fetch(url, {
       method: 'get',
+      mode: 'cors',
     })
       // .then(TagContainer.handleErrors)
-      .then((res: any) => {
+      .then((res: Response) => {
         if (res.status === 200) {
           return {
             index: res.json(),

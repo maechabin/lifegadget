@@ -37,8 +37,9 @@ export function fetchUserAsync() {
   return async (dispatch: Dispatch) => {
     return fetch(`${config.blogUrl}/wp-json/wp/v2/users`, {
       method: 'get',
+      mode: 'cors',
     })
-      .then((res: any) => {
+      .then((res: Response) => {
         if (res.status === 200) {
           return res.json();
         }
