@@ -6,9 +6,9 @@ export interface State {
 
 export interface RootState {
   category: {
-    index: Index[];
-    page: any;
-  };
+    index?: Index[];
+    page?: any;
+  }[];
   user: string[];
   inputValue: string;
   searchValue: string;

@@ -16,15 +16,14 @@ function ArchiveBreadcrumb(props: any): JSX.Element {
     ? ''
     : props.article.categories.map((id: number) => getCategoryId(id).find((i: any) => i != null));
 
+  const categoryId = props.category[category[0]] ? props.category[category[0]].id : '';
+  const categoryName = props.category[category[0]] ? props.category[category[0]].name : '';
+
   return (
-    <>
-      {/*<ul is itemscope itemtype="http://schema.org/BreadcrumbList" class="breadcrumb">
-      <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <Link is itemscope itemtype="http://schema.org/Thing" itemprop="item" to="/">
-          <i className="fa fa-home" />{' '}
-          <span is itemprop="name">
-            ホーム
-          </span>
+    <ul className="breadcrumb">
+      <li>
+        <Link to="/">
+          <i className="fa fa-home" /> <span>ホーム</span>
         </Link>
       </li>
       <li>
@@ -32,21 +31,12 @@ function ArchiveBreadcrumb(props: any): JSX.Element {
           <i className="fa fa-chevron-right" />
         </span>
       </li>
-      <li is itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <Link
-          is
-          itemscope
-          itemtype="http://schema.org/Thing"
-          itemprop="item"
-          to={`/category/${props.category[category[0]].id}`}>
-          <i className="fa fa-folder" />{' '}
-          <span is itemprop="name">
-            {props.category[category[0]].name}
-          </span>
+      <li>
+        <Link to={`/category/${categoryId}`}>
+          <i className="fa fa-folder" /> <span>{categoryName}</span>
         </Link>
       </li>
-  </ul>*/}
-    </>
+    </ul>
   );
 }
 

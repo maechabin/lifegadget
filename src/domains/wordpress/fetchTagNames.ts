@@ -28,7 +28,6 @@ export async function fetchTagNames(tagIds: number[]) {
         };
       });
   });
-  Promise.all(tags).then((res) => {
-    return res;
-  });
+
+  return Promise.all(tags).then((tagName: { name: string; slug: string }[]) => tagName);
 }

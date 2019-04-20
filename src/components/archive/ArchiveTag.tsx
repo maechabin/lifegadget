@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function ArchiveTag(props: any): JSX.Element {
   const tag =
-    props.gettedTag === false && props.tags.length === 0
+    props.gettedTag === false && props.tags == null && props.tags.length === 0
       ? ''
       : props.tags.map((tags: any, i: number) => (
           <span key={tags.slug}>

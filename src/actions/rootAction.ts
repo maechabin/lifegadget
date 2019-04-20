@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { Action, RootActionType } from './action.model';
 import { fetchCategories, fetchUsers } from '../domains/wordpress';
 
-export function setCategory(payload: any[]): Action<any[]> {
+function _setCategory(payload: any[]): Action<any[]> {
   return {
     type: RootActionType.SET_CATEGORY,
     payload,
@@ -13,11 +13,11 @@ export function setCategory(payload: any[]): Action<any[]> {
 export function fetchCategoryAndDispatchSetCategoryAsync() {
   return async (dispatch: Dispatch<any>) => {
     const categories = await fetchCategories();
-    dispatch(setCategory(categories));
+    dispatch(_setCategory(categories));
   };
 }
 
-export function setUser(payload: any[]): Action<string[]> {
+function _setUser(payload: any[]): Action<string[]> {
   return {
     type: RootActionType.SET_USER,
     payload,
@@ -27,7 +27,7 @@ export function setUser(payload: any[]): Action<string[]> {
 export function fetchUserAndDispatchSetUserAsync() {
   return async (dispatch: Dispatch) => {
     const users = await fetchUsers();
-    dispatch(setUser(users));
+    dispatch(_setUser(users));
   };
 }
 

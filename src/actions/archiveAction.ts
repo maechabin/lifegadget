@@ -1,34 +1,6 @@
 import { Dispatch } from 'redux';
-import fetch from 'isomorphic-fetch';
-
 import { Action, ArchiveActionType } from './action.model';
-import config from '../config';
-
-// 任意のIDのアイキャッチ画像の取得、保存
-function getArticleImage(payload: string): Action<string> {
-  return {
-    type: ArchiveActionType.GET_ARTICLE_IMAGE,
-    payload,
-  };
-}
-
-export function getArticleImageAsync(url: string): any {
-  return fetch(url, {
-    method: 'get',
-    mode: 'cors',
-  })
-    .then((res: Response) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return console.dir(res);
-    })
-    .then((res2) => {
-      return {
-        source_url: res2.source_url,
-      };
-    });
-}
+import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
 function badRequestArchive(): Action {
   return {
@@ -37,67 +9,53 @@ function badRequestArchive(): Action {
 }
 
 // Action creator
-export function fetchArticle(payload: any): Action<any> {
+function _setArticle(payload: any): Action<any> {
   return {
-    type: ArchiveActionType.FETCH_ARTICLE,
+    type: ArchiveActionType.SET_ARTICLE,
     payload,
   };
 }
-// redux-thunk
 
-export function fetchArticleAsync(callback: any, id: number) {
+// 任意のIDのアイキャッチ画像の取得、保存
+function _setArticleImage(payload: string): Action<string> {
+  return {
+    type: ArchiveActionType.SET_ARTICLE_IMAGE,
+    payload,
+  };
+}
+
+// redux-thunk
+export function fetchArticleAndDispatchSetAsync(query: {
+  fetchMethod: typeof fetchArchive;
+  archiveId: number;
+}) {
   return async (dispatch: Dispatch) => {
-    return callback(id)
-      .then((res: any) => {
-        if (res === undefined) {
-          return dispatch(badRequestArchive());
-        }
-        return dispatch(fetchArticle(res));
-      })
-      .then((res2: any) => {
-        if (res2.payload !== undefined && res2.payload._links['wp:featuredmedia']) {
-          return getArticleImageAsync(res2.payload._links['wp:featuredmedia'][0].href);
-        }
-        return false;
-      })
-      .then((res3: any) => {
-        if (res3) {
-          return dispatch(getArticleImage(res3.source_url));
-        }
-      });
+    const response = await query.fetchMethod(query.archiveId);
+
+    if (response == null) {
+      dispatch(badRequestArchive());
+    } else {
+      dispatch(_setArticle(response));
+    }
+
+    if (response._links['wp:featuredmedia']) {
+      const source_url = await getEyeCatchImageUrl(response._links['wp:featuredmedia'][0].href);
+      dispatch(_setArticleImage(source_url));
+    }
   };
 }
 
 // TagIDからTag名取得
-export function getTags(payload: any): Action<any> {
+function _setTags(payload: any): Action<any> {
   return {
-    type: ArchiveActionType.GET_TAGS,
+    type: ArchiveActionType.SET_TAGS,
     payload,
   };
 }
 
-export function getTagsAsync(array: number[]) {
+export function fetchTagsAndDispatchSetTagsAsync(tagIds: number[]) {
   return async (dispatch: Dispatch) => {
-    const tags = array.map((id: number) =>
-      fetch(`${config.blogUrl}/wp-json/wp/v2/tags/${id}`, {
-        method: 'get',
-        mode: 'cors',
-      })
-        .then((res: Response) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          return console.dir(res);
-        })
-        .then((res) => {
-          return {
-            name: res.name,
-            slug: res.slug,
-          };
-        }),
-    );
-    Promise.all(tags).then((res) => {
-      dispatch(getTags(res));
-    });
+    const tags = await fetchTagNames(tagIds);
+    dispatch(_setTags(tags));
   };
 }

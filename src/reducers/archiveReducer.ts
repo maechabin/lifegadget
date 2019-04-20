@@ -3,7 +3,7 @@ import { Action, ArchiveActionType } from '../actions/action.model';
 
 export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action: Action) => {
   switch (action.type) {
-    case ArchiveActionType.FETCH_ARTICLE:
+    case ArchiveActionType.SET_ARTICLE:
       return {
         ...state,
         article: action.payload,
@@ -12,7 +12,12 @@ export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action:
         gettedTag: false,
         badRequest: false,
       };
-    case ArchiveActionType.GET_TAGS:
+    case ArchiveActionType.SET_ARTICLE_IMAGE:
+      return {
+        ...state,
+        articleImage: action.payload,
+      };
+    case ArchiveActionType.SET_TAGS:
       return {
         ...state,
         tags: action.payload,
@@ -22,11 +27,6 @@ export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action:
       return {
         ...state,
         badRequest: true,
-      };
-    case ArchiveActionType.GET_ARTICLE_IMAGE:
-      return {
-        ...state,
-        articleImage: action.payload,
       };
     default:
       return state;

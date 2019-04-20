@@ -3,7 +3,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { fetchArticleAsync, getTagsAsync } from '../actions/archiveAction';
+import {
+  fetchArticleAndDispatchSetAsync,
+  fetchTagsAndDispatchSetTagsAsync,
+} from '../actions/archiveAction';
 import { fetchArchive } from '../domains/wordpress';
 
 // view files
@@ -13,7 +16,12 @@ declare const window: any;
 
 class ArchiveContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
-    dispatch(fetchArticleAsync(fetchArchive, renderProps.params.id));
+    dispatch(
+      fetchArticleAndDispatchSetAsync({
+        fetchMethod: fetchArchive,
+        archiveId: renderProps.params.id,
+      }),
+    );
   }
 
   // static fetchData(id: number) {
@@ -42,15 +50,17 @@ class ArchiveContainer extends React.PureComponent<any, never> {
   }
 
   componentDidMount() {
-    Promise.all([this.props.handleFetch(this.props.match.params.id, fetchArchive)]).then(() => {
-      if (
-        this.props.gettedTag === false &&
-        Object.prototype.toString.call(this.props.article.tags) === '[object Array]'
-      ) {
-        this.props.handleGet(this.props.article.tags);
-        this.callAdSense();
-      }
-    });
+    Promise.all([this.props.dispatchSetArticle(fetchArchive, this.props.match.params.id)]).then(
+      () => {
+        if (
+          this.props.gettedTag === false &&
+          Object.prototype.toString.call(this.props.article.tags) === '[object Array]'
+        ) {
+          this.props.disaptchSetTagsAsync(this.props.article.tags);
+          this.callAdSense();
+        }
+      },
+    );
   }
 
   componentDidUpdate() {
@@ -72,13 +82,13 @@ function mapStateToProps(state: State) {
     gettedTag: state.archive.gettedTag,
   };
 }
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    handleFetch(id: any, callback: any): void {
-      dispatch(fetchArticleAsync(callback, id));
+    dispatchSetArticle(fetchMethod: typeof fetchArchive, archiveId: number): void {
+      dispatch(fetchArticleAndDispatchSetAsync({ fetchMethod, archiveId }));
     },
-    handleGet(array: any): void {
-      dispatch(getTagsAsync(array));
+    disaptchSetTagsAsync(array: any): void {
+      dispatch(fetchTagsAndDispatchSetTagsAsync(array));
     },
   };
 }

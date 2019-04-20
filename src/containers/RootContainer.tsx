@@ -20,7 +20,15 @@ function RootContainer(props: any): JSX.Element {
     props.dispatchSetUser();
   });
   const routes = routingArray.map((route) => {
-    return <Route exact={true} path={route.path} component={route.component} key={route.path} />;
+    return (
+      <Route
+        exact={true}
+        path={route.path}
+        component={route.component}
+        key={route.path}
+        {...props}
+      />
+    );
   });
 
   return (
