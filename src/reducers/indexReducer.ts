@@ -3,12 +3,12 @@ import { Action, IndexActionType } from '../actions/action.model';
 
 export const indexReducer = (state: IndexState = {} as IndexState, action: Action) => {
   switch (action.type) {
-    case IndexActionType.SAVE_ROUTING_KEY:
+    case IndexActionType.SET_ROUTING_KEY:
       return {
         ...state,
         routingKey: action.payload,
       };
-    case IndexActionType.RESET_LIST:
+    case IndexActionType.SET_IS_HIDDEN_INDEX_LIST_FOR_TRUE:
       return {
         ...state,
         isHiddenIndexList: true,
@@ -27,12 +27,7 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
         isHiddenIndexList: false,
         badRequest: false,
       };
-    case IndexActionType.SET_CURRENT_PAGE_NUMBER:
-      return {
-        ...state,
-        currentPage: action.payload,
-      };
-    case IndexActionType.GET_TAG_NAME:
+    case IndexActionType.SET_TAG_NAME:
       return {
         ...state,
         tagName: action.payload,

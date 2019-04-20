@@ -14,10 +14,9 @@ export enum RootActionType {
 export enum IndexActionType {
   SET_INDEX,
   BAD_REQUEST_INDEX,
-  RESET_LIST,
-  SAVE_ROUTING_KEY,
-  SET_CURRENT_PAGE_NUMBER,
-  GET_TAG_NAME,
+  SET_IS_HIDDEN_INDEX_LIST_FOR_TRUE,
+  SET_ROUTING_KEY,
+  SET_TAG_NAME,
 }
 
 export enum ArchiveActionType {

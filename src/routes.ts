@@ -48,14 +48,14 @@ export const routingArray = [
     path: '/archives/:id',
     component: Archive,
   },
-  // {
-  //   path: '/search/:keyword',
-  //   component: Search,
-  // },
-  // {
-  //   path: '/search/:keyword/:page',
-  //   component: Search,
-  // },
+  {
+    path: '/search/:keyword',
+    component: Search,
+  },
+  {
+    path: '/search/:keyword/:page',
+    component: Search,
+  },
   {
     path: '/category/:category',
     component: Category,
@@ -64,23 +64,23 @@ export const routingArray = [
     path: '/category/:category/:page',
     component: Category,
   },
-  // {
-  //   path: '/tag/:tag',
-  //   component: Tag,
-  // },
-  // {
-  //   path: '/tag/:tag/:page',
-  //   component: Tag,
-  // },
-  // {
-  //   path: '/author/:author',
-  //   component: Author,
-  // },
-  // {
-  //   path: '/author/:author/:page',
-  //   component: Author,
-  // },
-  // {
-  //   component: NotFound,
-  // },
+  {
+    path: '/tag/:tag',
+    component: Tag,
+  },
+  {
+    path: '/tag/:tag/:page',
+    component: Tag,
+  },
+  {
+    path: '/author/:author',
+    component: Author,
+  },
+  {
+    path: '/author/:author/:page',
+    component: Author,
+  },
+  {
+    component: NotFound,
+  },
 ];

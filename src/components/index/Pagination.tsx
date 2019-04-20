@@ -8,20 +8,20 @@ function Pagination(props: any): JSX.Element {
 
   const pathname = props.location.pathname.split('/');
 
-  const path = (name: any, routeParams: any) => {
+  function path(name: string, routeParams: any): string {
     switch (name) {
-      case 'search':
-        return `/search/${routeParams.keyword}/`;
-      case 'category':
-        return `/category/${routeParams.category}/`;
-      case 'tag':
-        return `/tag/${routeParams.tag}/`;
-      case 'author':
-        return `/author/${routeParams.author}/`;
+      // case 'search':
+      //   return `/search/${routeParams.keyword}/`;
+      // case 'category':
+      //   return `/category/${routeParams.category}/`;
+      // case 'tag':
+      //   return `/tag/${routeParams.tag}/`;
+      // case 'author':
+      //   return `/author/${routeParams.author}/`;
       default:
         return '/';
     }
-  };
+  }
 
   const pagination = pager.map((page, i) => {
     const number = page > totalPages - 5 + 1 ? totalPages - 5 + 1 - page + i : i;
@@ -69,7 +69,7 @@ function Pagination(props: any): JSX.Element {
     );
   };
   const pagenationAll =
-    props.resetList && props.routingKey !== '' ? (
+    props.isHiddenIndexList && props.routingKey !== '' ? (
       ''
     ) : (
       <ul>

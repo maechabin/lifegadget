@@ -1,8 +1,6 @@
 import { Dispatch } from 'redux';
-import fetch from 'isomorphic-fetch';
 
 import { Action, IndexActionType } from './action.model';
-import config from '../config';
 import {
   fetchIndex,
   fetchCategoryIndex,
@@ -10,53 +8,34 @@ import {
   fetchAuthorIndex,
   fetchKeywordIndex,
   fetchTagIndex,
+  fetchTagName,
 } from '../domains/wordpress';
 import { Index } from '../state.model';
 
-export function resetList() {
+export function setIsHiddenIndexListForTrue() {
   return {
-    type: IndexActionType.RESET_LIST,
+    type: IndexActionType.SET_IS_HIDDEN_INDEX_LIST_FOR_TRUE,
   };
 }
 
-export function saveRoutingKey(payload: string): Action<string> {
+export function setRoutingKey(payload: string): Action<string> {
   return {
-    type: IndexActionType.SAVE_ROUTING_KEY,
+    type: IndexActionType.SET_ROUTING_KEY,
     payload,
   };
 }
 
-export function setCurrentPageNumber(payload: number): Action<number> {
+function _setTagName(payload: string): Action<string> {
   return {
-    type: IndexActionType.SET_CURRENT_PAGE_NUMBER,
+    type: IndexActionType.SET_TAG_NAME,
     payload,
   };
 }
 
-function getTagName(payload: string): Action<string> {
-  return {
-    type: IndexActionType.GET_TAG_NAME,
-    payload,
-  };
-}
-
-export function getTagNameAsync(tag: number) {
+export function fetchTagNameAndDispatchSetTanNameAsync(tagId: number) {
   return async (dispatch: Dispatch) => {
-    return fetch(`${config.blogUrl}/wp-json/wp/v2/tags?include=${tag}&context=embed`, {
-      method: 'get',
-      mode: 'cors',
-    })
-      .then((res: Response) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-        return console.dir(res);
-      })
-      .then((res) => {
-        if (typeof res[0].name === 'string') {
-          return dispatch(getTagName(res[0].name));
-        }
-      });
+    const tagName = await fetchTagName(tagId);
+    dispatch(_setTagName(tagName));
   };
 }
 
@@ -83,7 +62,11 @@ type SetIndexQuery = {
   keyword?: any;
 };
 
-function setIndex(payload: SetIndex): Action<SetIndex> {
+/**
+ * IndexをStateに保存する
+ * @param payload Index情報
+ */
+function _setIndex(payload: SetIndex): Action<SetIndex> {
   return {
     type: IndexActionType.SET_INDEX,
     payload,
@@ -121,7 +104,7 @@ export function fetchIndexAndDispatchSetIndexAsync(query: SetIndexQuery) {
     );
 
     dispatch(
-      setIndex({
+      _setIndex({
         index: newIndexes,
         total,
         totalPages,

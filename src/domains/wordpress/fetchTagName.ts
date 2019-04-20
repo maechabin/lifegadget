@@ -2,11 +2,20 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
+export type WP_Tag = {
+  id: number;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: string;
+  _links: any;
+};
+
 /**
  * タグ名を取得する
  * @param tagIds 名前を取得したいタグID
  */
-export async function fetchTagName(tagId: number) {
+export async function fetchTagName(tagId: number): Promise<string> {
   /** リクエストパラメータ */
   const params = `?include=${tagId}&context=embed`;
 
@@ -23,9 +32,7 @@ export async function fetchTagName(tagId: number) {
       }
       return console.dir(res);
     })
-    .then((res: any) => {
-      if (typeof res[0].name === 'string') {
-        return res[0].name;
-      }
+    .then((res: WP_Tag[]) => {
+      return res[0].name;
     });
 }

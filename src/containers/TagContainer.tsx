@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { State } from '../state.model';
 import {
   fetchIndexAndDispatchSetIndexAsync,
-  resetList,
-  saveRoutingKey,
-  getTagNameAsync,
+  setIsHiddenIndexListForTrue,
+  setRoutingKey,
+  fetchTagNameAndDispatchSetTanNameAsync,
 } from '../actions/indexAction';
 import { fetchTagIndex } from '../domains/wordpress';
 
@@ -56,12 +56,12 @@ class TagContainer extends React.Component<any, never> {
   /**
    * @fix componentWillMountの置き換え
    */
-  // componentWillMount(nextProps: any) {
-  //   return this.props.handleInit1(this.props.match.params.tag);
-  // }
+  componentWillMount() {
+    return this.props.dispatchFetchTagNameAndDispatchSetTanNameAsync(this.props.match.params.tag);
+  }
 
   componentDidMount() {
-    this.props.handleInit2(this.props.routingKey);
+    this.props.dispatchActions(this.props.routingKey);
     this.props.dispatchSetIndexAsync(
       fetchTagIndex,
       this.props.match.params.page,
@@ -76,7 +76,7 @@ class TagContainer extends React.Component<any, never> {
         nextProps.match.params.page !== this.props.match.params.page) ||
       nextProps.match.params.tag !== this.props.match.params.tag
     ) {
-      this.props.handleInit1(nextProps.match.params.tag);
+      this.props.dispatchFetchTagNameAndDispatchSetTanNameAsync(nextProps.match.params.tag);
       this.props.dispatchSetIndexAsync(
         fetchTagIndex,
         nextProps.match.params.page,
@@ -95,7 +95,7 @@ function mapStateToProps(state: State & any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
-    isHiddenIndexListList: state.index.isHiddenIndexList,
+    isHiddenIndexList: state.index.isHiddenIndexList,
     tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
@@ -108,11 +108,11 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
     dispatchSetIndexAsync(fetchMethod: typeof fetchTagIndex, pageNumber: number, tagId: number) {
       dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: tagId }));
     },
-    handleInit1(tag: any) {
-      [getTagNameAsync(tag)].map((action) => dispatch(action));
+    dispatchFetchTagNameAndDispatchSetTanNameAsync(tag: any) {
+      dispatch(fetchTagNameAndDispatchSetTanNameAsync(tag));
     },
-    handleInit2(key: any) {
-      [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
+    dispatchActions(key: any) {
+      [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
     },
   };
 }

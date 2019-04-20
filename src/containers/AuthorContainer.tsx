@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { State } from '../state.model';
 import {
   fetchIndexAndDispatchSetIndexAsync,
-  resetList,
-  saveRoutingKey,
+  setIsHiddenIndexListForTrue,
+  setRoutingKey,
 } from '../actions/indexAction';
 import { fetchAuthorIndex } from '../domains/wordpress';
 
@@ -53,7 +53,7 @@ class AuthorContainer extends React.Component<any, never> {
   }
 
   componentDidMount() {
-    this.props.handleInit(this.props.routingKey);
+    this.props.dispatchActions(this.props.routingKey);
     this.props.dispatchSetIndexAsync(
       fetchAuthorIndex,
       this.props.match.params.page,
@@ -102,8 +102,8 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
     ) {
       dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: authorId }));
     },
-    handleInit(key: any) {
-      [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
+    dispatchActions(key: any) {
+      [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
     },
   };
 }

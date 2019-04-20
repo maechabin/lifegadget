@@ -6,8 +6,8 @@ import { State } from '../state.model';
 import { fetchIndex } from '../domains/wordpress';
 import {
   fetchIndexAndDispatchSetIndexAsync,
-  resetList,
-  saveRoutingKey,
+  setIsHiddenIndexListForTrue,
+  setRoutingKey,
 } from '../actions/indexAction';
 
 // view files
@@ -46,7 +46,7 @@ class IndexContainer extends React.PureComponent<any, never> {
   }
 
   componentDidMount() {
-    this.props.handleInit(this.props.routingKey);
+    this.props.dispatchActions(this.props.routingKey);
     this.props.dispatchSetIndexAsync(fetchIndex, this.props.match.params.page);
     this.callAdSense();
   }
@@ -56,7 +56,7 @@ class IndexContainer extends React.PureComponent<any, never> {
       nextProps.match.params.page !== '' &&
       nextProps.match.params.page !== this.props.match.params.page
     ) {
-      this.props.handleInit(this.props.routingKey);
+      this.props.dispatchActions(this.props.routingKey);
       this.props.dispatchSetIndexAsync(fetchIndex, nextProps.match.params.page);
     }
   }
@@ -83,8 +83,8 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
     dispatchSetIndexAsync(fetchMethod: typeof fetchIndex, pageNumber: number) {
       dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber }));
     },
-    handleInit(key: any) {
-      [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));
+    dispatchActions(key: any) {
+      [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
     },
   };
 }
