@@ -88,7 +88,7 @@ class SearchContainer extends React.Component<any, never> {
 }
 
 // Connect to Redux
-function mapStateToProps(state: State & any) {
+function mapStateToProps(state: State) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
@@ -97,7 +97,7 @@ function mapStateToProps(state: State & any) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    // routingKey: state.routing.locationBeforeTransitions.key,
+    routingKey: state.router.location.key,
   };
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {

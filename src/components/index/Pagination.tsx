@@ -10,14 +10,14 @@ function Pagination(props: any): JSX.Element {
 
   function path(name: string, routeParams: any): string {
     switch (name) {
-      // case 'search':
-      //   return `/search/${routeParams.keyword}/`;
-      // case 'category':
-      //   return `/category/${routeParams.category}/`;
-      // case 'tag':
-      //   return `/tag/${routeParams.tag}/`;
-      // case 'author':
-      //   return `/author/${routeParams.author}/`;
+      case 'search':
+        return `/search/${routeParams.keyword}/`;
+      case 'category':
+        return `/category/${routeParams.category}/`;
+      case 'tag':
+        return `/tag/${routeParams.tag}/`;
+      case 'author':
+        return `/author/${routeParams.author}/`;
       default:
         return '/';
     }

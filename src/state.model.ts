@@ -1,7 +1,10 @@
+import { RouterState } from 'connected-react-router';
+
 export interface State {
   root: RootState;
   index: IndexState;
   archive: ArchiveState;
+  router: RouterState;
 }
 
 export interface RootState {

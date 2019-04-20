@@ -5,8 +5,8 @@ import { combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-// import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { History, createBrowserHistory } from 'history';
 
 import { routingArray } from './routes';
 import { configureStore } from './store';
@@ -20,13 +20,17 @@ import Root from './containers/RootContainer';
 
 import './sass/App.scss';
 
+// History
+const history = createBrowserHistory();
+
 // 1. Reducers
-const reducers = combineReducers({
-  root: rootReducer,
-  index: indexReducer,
-  archive: archiveReducer,
-  // routing: routerReducer,
-});
+const reducers = (history: History) =>
+  combineReducers({
+    root: rootReducer,
+    index: indexReducer,
+    archive: archiveReducer,
+    router: connectRouter(history),
+  });
 
 // 2. States
 // const rootState = window.__PRELOADED_STATE__.root;
@@ -44,23 +48,18 @@ const initialState = {
 };
 
 // 3. Middleware
-const middleware = () => applyMiddleware(thunk);
+const middleware = () => applyMiddleware(routerMiddleware(history), thunk);
 
 // Make Store
-const store = configureStore(reducers, initialState, middleware());
-
-// History
-// const history = syncHistoryWithStore(browserHistory, store);
-const history = createBrowserHistory();
+const store = configureStore(reducers(history), initialState, middleware());
 
 // Google Analytics
 // history.listen((location) => window.ga('send', 'pageview', location.pathname));
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* </Provider><Router history={history} onUpdate={() => window.scrollTo(0, 0)}> */}
     <Router>
-      <Route path="/" component={Root} />
+      <Route path="/" component={Root} history={history} />
     </Router>
   </Provider>,
   document.querySelector('.content'),

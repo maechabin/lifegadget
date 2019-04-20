@@ -87,7 +87,7 @@ class CategoryContainer extends React.Component<any, never> {
   }
 }
 
-function mapStateToProps(state: State & any) {
+function mapStateToProps(state: State) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
@@ -96,8 +96,8 @@ function mapStateToProps(state: State & any) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    // pathname: state.routing.locationBeforeTransitions.pathname,
-    // routingKey: state.routing.locationBeforeTransitions.key,
+    pathname: state.router.location.pathname,
+    routingKey: state.router.location.key,
   };
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {

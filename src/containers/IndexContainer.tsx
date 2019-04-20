@@ -75,7 +75,7 @@ function mapStateToProps(state: State) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    // routingKey: state.routing.locationBeforeTransitions.key,
+    routingKey: state.router.location.key,
   };
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
