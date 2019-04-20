@@ -3,7 +3,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { fetchIndexAndDispatchSetIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import {
+  fetchIndexAndDispatchSetIndexAsync,
+  resetList,
+  saveRoutingKey,
+} from '../actions/indexAction';
 import { fetchCategoryIndex } from '../domains/wordpress';
 
 // view files
@@ -88,7 +92,7 @@ function mapStateToProps(state: State & any) {
     index: state.index.index,
     badRequest: state.index.badRequest,
     category: state.root.category,
-    resetList: state.index.resetList,
+    isHiddenIndexList: state.index.isHiddenIndexList,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
@@ -103,7 +107,9 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
       pageNumber: number,
       categoryId: string,
     ) {
-      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: categoryId }));
+      dispatch(
+        fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: categoryId }),
+      );
     },
     handleInit(key: any) {
       [resetList(), saveRoutingKey(key)].map((action) => dispatch(action));

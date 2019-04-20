@@ -11,7 +11,7 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
     case IndexActionType.RESET_LIST:
       return {
         ...state,
-        resetList: true,
+        isHiddenIndexList: true,
       };
     case IndexActionType.BAD_REQUEST_INDEX:
       return {
@@ -24,7 +24,7 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
         index: action.payload.index,
         total: action.payload.total,
         totalPages: action.payload.totalPages,
-        resetList: false,
+        isHiddenIndexList: false,
         badRequest: false,
       };
     case IndexActionType.SET_CURRENT_PAGE_NUMBER:

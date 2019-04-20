@@ -18,11 +18,13 @@ declare const window: any;
 
 class TagContainer extends React.Component<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(fetchIndexAndDispatchSetIndexAsync({
-      fetchMethod: fetchTagIndex,
-      pageNumber: renderProps.params.page,
-      keyword: renderProps.params.tag,
-    }));
+    dispatch(
+      fetchIndexAndDispatchSetIndexAsync({
+        fetchMethod: fetchTagIndex,
+        pageNumber: renderProps.params.page,
+        keyword: renderProps.params.tag,
+      }),
+    );
   }
 
   // static fetchData(tag: number, page: number = 1) {
@@ -93,7 +95,7 @@ function mapStateToProps(state: State & any) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
-    resetList: state.index.resetList,
+    isHiddenIndexListList: state.index.isHiddenIndexList,
     tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),

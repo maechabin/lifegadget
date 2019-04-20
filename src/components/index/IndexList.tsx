@@ -15,7 +15,7 @@ function IndexList(props: any): JSX.Element {
   }
 
   const list =
-    props.resetList && props.routingKey !== '' ? (
+    props.isHiddenIndexList && props.routingKey !== '' ? (
       <div className="list__loading">
         <img src="../../images/loading.svg" alt="loading..." />
       </div>

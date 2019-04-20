@@ -18,7 +18,7 @@ export interface IndexState {
   badRequest: boolean;
   index: Index[];
   routingKey: string;
-  resetList: boolean;
+  isHiddenIndexList: boolean;
   tagName: string;
   total: number;
   totalPages: number;

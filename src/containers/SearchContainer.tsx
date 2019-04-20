@@ -3,7 +3,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { fetchIndexAndDispatchSetIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import {
+  fetchIndexAndDispatchSetIndexAsync,
+  resetList,
+  saveRoutingKey,
+} from '../actions/indexAction';
 import { fetchKeywordIndex } from '../domains/wordpress';
 
 // view files
@@ -60,7 +64,11 @@ class SearchContainer extends React.Component<any, never> {
 
   componentWillUpdate(nextProps: any) {
     if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
-      this.props.dispatchSetIndexAsync(fetchKeywordIndex, this.props.match.params.page, nextProps.keyword);
+      this.props.dispatchSetIndexAsync(
+        fetchKeywordIndex,
+        this.props.match.params.page,
+        nextProps.keyword,
+      );
     }
     if (
       nextProps.match.params.page !== '' &&
@@ -85,7 +93,7 @@ function mapStateToProps(state: State & any) {
     index: state.index.index,
     badRequest: state.index.badRequest,
     keyword: state.root.searchValue,
-    resetList: state.index.resetList,
+    isHiddenIndexList: state.index.isHiddenIndexList,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
@@ -94,7 +102,11 @@ function mapStateToProps(state: State & any) {
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    dispatchSetIndexAsync(fetchMethod: typeof fetchKeywordIndex, pageNumber: number, keyword: string) {
+    dispatchSetIndexAsync(
+      fetchMethod: typeof fetchKeywordIndex,
+      pageNumber: number,
+      keyword: string,
+    ) {
       dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword }));
     },
     handleInit(key: any) {

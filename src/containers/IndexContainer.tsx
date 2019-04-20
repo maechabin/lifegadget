@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 
 import { State } from '../state.model';
 import { fetchIndex } from '../domains/wordpress';
-import { fetchIndexAndDispatchSetIndexAsync, resetList, saveRoutingKey } from '../actions/indexAction';
+import {
+  fetchIndexAndDispatchSetIndexAsync,
+  resetList,
+  saveRoutingKey,
+} from '../actions/indexAction';
 
 // view files
 import Index from '../components/index/Index';
@@ -13,7 +17,9 @@ declare const window: any;
 
 class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod: fetchIndex, pageNumber: renderProps.path }));
+    dispatch(
+      fetchIndexAndDispatchSetIndexAsync({ fetchMethod: fetchIndex, pageNumber: renderProps.path }),
+    );
   }
 
   // static fetchData(page: number = 1) {
@@ -65,7 +71,7 @@ function mapStateToProps(state: State) {
   return {
     badRequest: state.index.badRequest,
     index: state.index.index,
-    resetList: state.index.resetList,
+    isHiddenIndexList: state.index.isHiddenIndexList,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,

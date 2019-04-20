@@ -11,7 +11,7 @@ export const indexState: IndexState = {
   badRequest: false,
   index: [],
   routingKey: '',
-  resetList: true,
+  isHiddenIndexList: true,
   tagName: '',
   total: 0,
   totalPages: 1,
