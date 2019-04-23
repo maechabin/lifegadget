@@ -7,35 +7,12 @@ import Tag from './containers/TagContainer';
 import Author from './containers/AuthorContainer';
 import NotFound from './components/root/NotFound';
 
-// export const routes = (
-//   <Route path="/" component={Root}>
-//     <IndexRoute component={Index} />
-//     <Route path="/:page" component={Index} />
-//     <Route path="/archives/:id" component={Archive} />
-//     <Route path="/search/:keyword" component={Search} />
-//     <Route path="/search/:keyword/:page" component={Search} />
-//     <Route path="/category/:category" component={Category} />
-//     <Route path="/category/:category/:page" component={Category} />
-//     <Route path="/tag/:tag" component={Tag} />
-//     <Route path="/tag/:tag/:page" component={Tag} />
-//     <Route path="/author/:author" component={Author} />
-//     <Route path="/author/:author/:page" component={Author} />
-//     <Route path="*" component={NotFound} />
-//   </Route>
-// );
+export type Route = {
+  path?: string;
+  component: any;
+};
 
-// export type Route = {
-//   path?: string;
-//   exact?: boolean;
-//   component: any;
-// };
-
-export const routingArray = [
-  // {
-  //   path: '/',
-  //   exact: true,
-  //   component: Root,
-  // },
+export const routingArray: Route[] = [
   {
     path: '/',
     component: Index,

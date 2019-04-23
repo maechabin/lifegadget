@@ -21,13 +21,7 @@ function RootContainer(props: any): JSX.Element {
   });
   const routes = routingArray.map((route) => {
     return (
-      <Route
-        exact={true}
-        path={route.path}
-        component={route.component}
-        key={route.path}
-        {...props}
-      />
+      <Route exact={true} path={route.path} component={route.component} key={props.match.path} />
     );
   });
 
