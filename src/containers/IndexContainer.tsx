@@ -13,8 +13,6 @@ import {
 // view files
 import Index from '../components/index/Index';
 
-declare const window: any;
-
 class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
     dispatch(
@@ -34,21 +32,9 @@ class IndexContainer extends React.PureComponent<any, never> {
   //   });
   // }
 
-  callAdSense() {
-    const ads = document.querySelectorAll('.adsbygoogle');
-    if (ads.length > 0) {
-      try {
-        ads.forEach(() => {
-          return (window.adsbygoogle = window.adsbygoogle || []).push({});
-        });
-      } catch (error) {}
-    }
-  }
-
   componentDidMount() {
     this.props.dispatchActions(this.props.routingKey);
     this.props.dispatchSetIndexAsync(fetchIndex, this.props.match.params.page);
-    this.callAdSense();
   }
 
   componentDidUpdate(nextProps: any) {

@@ -26,7 +26,7 @@ import {
   fetchUserAndDispatchSetUserAsync,
 } from './actions/rootAction';
 
-import renderFullPage from './renderFullPage';
+import renderFullPage from './server/renderFullPage';
 import makeRss from './feed';
 import { routingArray } from './routes';
 
@@ -143,7 +143,7 @@ app.get('/*', (req, res) => {
 
     // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
     //   () => {
-    const html = ReactDOMServer.renderToString(
+    const html = ReactDOMServer.renderToNodeStream(
       <Provider store={store}>
         <currentRoute.component />
       </Provider>,

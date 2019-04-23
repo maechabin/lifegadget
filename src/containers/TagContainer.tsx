@@ -14,8 +14,6 @@ import { fetchTagIndex } from '../domains/wordpress';
 // view files
 import Index from '../components/index/Index';
 
-declare const window: any;
-
 class TagContainer extends React.Component<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
     dispatch(
@@ -42,17 +40,6 @@ class TagContainer extends React.Component<any, never> {
   //     .catch(() => console.log('bad request'));
   // }
 
-  callAdSense() {
-    const ads = document.querySelectorAll('.adsbygoogle');
-    if (ads.length > 0) {
-      try {
-        ads.forEach(() => {
-          return (window.adsbygoogle = window.adsbygoogle || []).push({});
-        });
-      } catch (error) {}
-    }
-  }
-
   /**
    * @fix componentWillMountの置き換え
    */
@@ -67,7 +54,6 @@ class TagContainer extends React.Component<any, never> {
       this.props.match.params.page,
       this.props.match.params.tag,
     );
-    this.callAdSense();
   }
 
   componentWillUpdate(nextProps: any) {

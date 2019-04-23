@@ -13,8 +13,6 @@ import { fetchAuthorIndex } from '../domains/wordpress';
 // view files
 import Index from '../components/index/Index';
 
-declare const window: any;
-
 class AuthorContainer extends React.Component<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
     dispatch(
@@ -41,17 +39,6 @@ class AuthorContainer extends React.Component<any, never> {
   //     .catch(() => console.log('bad request'));
   // }
 
-  callAdSense() {
-    const ads = document.querySelectorAll('.adsbygoogle');
-    if (ads.length > 0) {
-      try {
-        ads.forEach(() => {
-          return (window.adsbygoogle = window.adsbygoogle || []).push({});
-        });
-      } catch (error) {}
-    }
-  }
-
   componentDidMount() {
     this.props.dispatchActions(this.props.routingKey);
     this.props.dispatchSetIndexAsync(
@@ -59,7 +46,6 @@ class AuthorContainer extends React.Component<any, never> {
       this.props.match.params.page,
       this.props.match.params.author,
     );
-    this.callAdSense();
   }
 
   componentWillUpdate(nextProps: any) {

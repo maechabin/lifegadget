@@ -1,5 +1,6 @@
 import { RouterState } from 'connected-react-router';
 
+/** Stateモデル */
 export interface State {
   root: RootState;
   index: IndexState;
@@ -7,6 +8,7 @@ export interface State {
   router: RouterState;
 }
 
+/** RootStateモデル */
 export interface RootState {
   category: {
     index?: Index[];
@@ -17,6 +19,7 @@ export interface RootState {
   searchValue: string;
 }
 
+/** IndexStateモデル */
 export interface IndexState {
   badRequest: boolean;
   index: Index[];
@@ -29,20 +32,7 @@ export interface IndexState {
   media: string[];
 }
 
-export interface ArchiveState {
-  badRequest: boolean;
-  article: {
-    index: Index[];
-    page: any;
-  };
-  articleImage: string;
-  currentId: number;
-  tags: string[];
-  gettedTag: boolean;
-}
-
-export interface Article {}
-
+/** 記事一覧 */
 export interface Index {
   author: number;
   date: string;
@@ -61,3 +51,19 @@ export interface Index {
   type: string;
   _links: any;
 }
+
+/** ArchiveStateモデル */
+export interface ArchiveState {
+  badRequest: boolean;
+  article: Article;
+  articleImage: string;
+  currentId: number;
+  tags: string[];
+  gettedTag: boolean;
+}
+
+/** 記事 */
+export interface Article {
+  index: Index[];
+  page: any;
+};

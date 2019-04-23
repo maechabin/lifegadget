@@ -1,5 +1,5 @@
 import serialize from 'serialize-javascript';
-import config from './config';
+import config from '../config';
 
 export default function renderFullPage(html, finalState) {
   const archive = finalState.archive.article;
