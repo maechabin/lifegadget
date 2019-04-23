@@ -9,7 +9,7 @@ import Adsense from '../../shared/Adsense';
 import NotFound from '../../shared/NotFound';
 
 function Index(props: any): JSX.Element {
-  const index = props.badRequest ? (
+  const index = props.hasError ? (
     <NotFound {...props} />
   ) : (
     <section>

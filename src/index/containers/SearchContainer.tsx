@@ -30,7 +30,7 @@ function SearchContainer(props: any): JSX.Element {
 function mapStateToProps(state: State) {
   return {
     index: state.index.index,
-    badRequest: state.index.badRequest,
+    hasError: state.index.hasError,
     keyword: state.root.searchValue,
     isHiddenIndexList: state.index.isHiddenIndexList,
     total: Number(state.index.total),

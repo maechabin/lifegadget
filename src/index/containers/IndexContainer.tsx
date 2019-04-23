@@ -25,7 +25,7 @@ function IndexContainer(props: any): JSX.Element {
 // Connect to Redux
 function mapStateToProps(state: State) {
   return {
-    badRequest: state.index.badRequest,
+    hasError: state.index.hasError,
     index: state.index.index,
     isHiddenIndexList: state.index.isHiddenIndexList,
     total: Number(state.index.total),

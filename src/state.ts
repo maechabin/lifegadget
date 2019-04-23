@@ -8,7 +8,7 @@ export const rootState: RootState = {
 };
 
 export const indexState: IndexState = {
-  badRequest: false,
+  hasError: false,
   index: [],
   routingKey: '',
   isHiddenIndexList: true,
@@ -20,7 +20,7 @@ export const indexState: IndexState = {
 };
 
 export const archiveState: ArchiveState = {
-  badRequest: false,
+  hasError: false,
   article: {} as any,
   articleImage: '',
   currentId: 0,

@@ -10,7 +10,7 @@ export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action:
         currentId: action.payload.id,
         tags: [],
         gettedTag: false,
-        badRequest: false,
+        hasError: false,
       };
     case ArchiveActionType.SET_ARTICLE_IMAGE:
       return {
@@ -23,10 +23,10 @@ export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action:
         tags: action.payload,
         gettedTag: true,
       };
-    case ArchiveActionType.BAD_REQUEST_ARCHIVE:
+    case ArchiveActionType.SET_HAS_ARCHIVE_ERROR_TO_TRUE:
       return {
         ...state,
-        badRequest: true,
+        hasError: true,
       };
     default:
       return state;

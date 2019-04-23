@@ -29,7 +29,7 @@ function CategoryContainer(props: any): JSX.Element {
 function mapStateToProps(state: State) {
   return {
     index: state.index.index,
-    badRequest: state.index.badRequest,
+    hasError: state.index.hasError,
     category: state.root.category,
     isHiddenIndexList: state.index.isHiddenIndexList,
     total: Number(state.index.total),

@@ -2,9 +2,9 @@ import { Dispatch } from 'redux';
 import { Action, ArchiveActionType } from '../action.model';
 import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
-function badRequestArchive(): Action {
+function _setHasArchiveErrorToTrue(): Action {
   return {
-    type: ArchiveActionType.BAD_REQUEST_ARCHIVE,
+    type: ArchiveActionType.SET_HAS_ARCHIVE_ERROR_TO_TRUE,
   };
 }
 
@@ -33,7 +33,7 @@ export function fetchArticleAndDispatchSetAsync(query: {
     const response = await query.fetchMethod(query.archiveId);
 
     if (response == null) {
-      dispatch(badRequestArchive());
+      dispatch(_setHasArchiveErrorToTrue());
     } else {
       dispatch(_setArticle(response));
     }

@@ -13,10 +13,10 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
         ...state,
         isHiddenIndexList: true,
       };
-    case IndexActionType.BAD_REQUEST_INDEX:
+    case IndexActionType.SET_HAS_INDEX_ERROR_TO_TRUE:
       return {
         ...state,
-        badRequest: true,
+        hasError: true,
       };
     case IndexActionType.SET_INDEX:
       return {
@@ -25,7 +25,7 @@ export const indexReducer = (state: IndexState = {} as IndexState, action: Actio
         total: action.payload.total,
         totalPages: action.payload.totalPages,
         isHiddenIndexList: false,
-        badRequest: false,
+        hasError: false,
       };
     case IndexActionType.SET_TAG_NAME:
       return {

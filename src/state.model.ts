@@ -21,7 +21,7 @@ export interface RootState {
 
 /** IndexStateモデル */
 export interface IndexState {
-  badRequest: boolean;
+  hasError: boolean;
   index: Index[];
   routingKey: string;
   isHiddenIndexList: boolean;
@@ -54,7 +54,7 @@ export interface Index {
 
 /** ArchiveStateモデル */
 export interface ArchiveState {
-  badRequest: boolean;
+  hasError: boolean;
   article: Article;
   articleImage: string;
   currentId: number;
@@ -66,4 +66,4 @@ export interface ArchiveState {
 export interface Article {
   index: Index[];
   page: any;
-};
+}

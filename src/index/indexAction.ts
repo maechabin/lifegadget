@@ -39,9 +39,9 @@ export function fetchTagNameAndDispatchSetTanNameAsync(tagId: number) {
   };
 }
 
-function badRequestIndex(): Action {
+function _setHasIndexErrorToTrue(): Action {
   return {
-    type: IndexActionType.BAD_REQUEST_INDEX,
+    type: IndexActionType.SET_HAS_INDEX_ERROR_TO_TRUE,
   };
 }
 
@@ -85,7 +85,7 @@ export function fetchIndexAndDispatchSetIndexAsync(query: SetIndexQuery) {
     );
 
     if (response == null) {
-      return dispatch(badRequestIndex());
+      return dispatch(_setHasIndexErrorToTrue());
     }
 
     const indexes = await response.index.then((index: Index[]) => index);

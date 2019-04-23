@@ -17,7 +17,7 @@ function Archive(props: any): JSX.Element {
 
   if (props.article && !!props.article.id) {
     article = (
-      // props.badRequest === true ? (
+      // props.hasError === true ? (
       //   <NotFound {...props} />
       // ) : props.article.id !== Number(props.match.params.id) ? (
       //   <div className="article__loading">

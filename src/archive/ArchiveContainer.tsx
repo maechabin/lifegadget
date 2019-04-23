@@ -30,7 +30,7 @@ function ArchiveContainer(props: any): JSX.Element {
 
 function mapStateToProps(state: State) {
   return {
-    badRequest: state.archive.badRequest,
+    hasError: state.archive.hasError,
     category: state.root.category,
     user: state.root.user,
     article: state.archive.article,

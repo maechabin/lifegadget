@@ -31,10 +31,10 @@ function TagContainer(props: any): JSX.Element {
 }
 
 // Connect to Redux
-function mapStateToProps(state: State & any) {
+function mapStateToProps(state: State) {
   return {
     index: state.index.index,
-    badRequest: state.index.badRequest,
+    hasError: state.index.hasError,
     isHiddenIndexList: state.index.isHiddenIndexList,
     tagName: state.index.tagName,
     total: Number(state.index.total),
