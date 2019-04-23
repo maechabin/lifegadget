@@ -13,43 +13,13 @@ import {
 // view files
 import Index from '../components/Index';
 
-class IndexContainer extends React.PureComponent<any, never> {
-  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(
-      fetchIndexAndDispatchSetIndexAsync({ fetchMethod: fetchIndex, pageNumber: renderProps.path }),
-    );
-  }
+function IndexContainer(props: any): JSX.Element {
+  React.useEffect(() => {
+    props.dispatchActions(props.routingKey);
+    props.dispatchSetIndexAsync(fetchIndex, props.match.params.page);
+  }, [props.match.params.page]);
 
-  // static fetchData(page: number = 1) {
-  //   const params = `?context=embed&per_page=${config.perPage}&page=${page}`;
-  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-  //     method: 'get',
-  //   }).then((res: any) => {
-  //     if (res.status === 200) {
-  //       return [res.json(), res.headers._headers];
-  //     }
-  //     return console.log(res);
-  //   });
-  // }
-
-  componentDidMount() {
-    this.props.dispatchActions(this.props.routingKey);
-    this.props.dispatchSetIndexAsync(fetchIndex, this.props.match.params.page);
-  }
-
-  componentDidUpdate(nextProps: any) {
-    if (
-      nextProps.match.params.page !== '' &&
-      nextProps.match.params.page !== this.props.match.params.page
-    ) {
-      this.props.dispatchActions(this.props.routingKey);
-      this.props.dispatchSetIndexAsync(fetchIndex, nextProps.match.params.page);
-    }
-  }
-
-  render() {
-    return <Index {...this.props} />;
-  }
+  return <Index {...props} />;
 }
 
 // Connect to Redux

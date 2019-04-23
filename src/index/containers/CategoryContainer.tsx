@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,64 +13,17 @@ import { fetchCategoryIndex } from '../../domains/wordpress';
 // view files
 import Index from '../components/Index';
 
-class CategoryContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(
-      fetchIndexAndDispatchSetIndexAsync({
-        fetchMethod: fetchCategoryIndex,
-        pageNumber: renderProps.params.page,
-        keyword: renderProps.params.category,
-      }),
-    );
-  }
-
-  // static fetchData(category: number, page: number = 1) {
-  //   const params = `?context=embed&categories=${category}&per_page=${config.perPage}&page=${page}`;
-  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-  //     method: 'get',
-  //   })
-  //     .then(CategoryContainer.handleErrors)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         return [res.json(), res.headers._headers];
-  //       }
-  //       return console.log(res);
-  //     })
-  //     .catch(() => console.log('bad request'));
-  // }
-
-  componentDidMount() {
-    this.props.dispatchActions(this.props.routingKey);
-    this.props.dispatchSetIndexAsync(
+function CategoryContainer(props: any): JSX.Element {
+  useEffect(() => {
+    props.dispatchActions(props.routingKey);
+    props.dispatchSetIndexAsync(
       fetchCategoryIndex,
-      this.props.match.params.page,
-      this.props.match.params.category,
+      props.match.params.page,
+      props.match.params.category,
     );
-  }
+  }, [props.match.params.page, props.match.params.category]);
 
-  componentWillUpdate(nextProps: any) {
-    if (
-      nextProps.match.params.page !== '' &&
-      nextProps.match.params.page !== this.props.match.params.page
-    ) {
-      this.props.dispatchSetIndexAsync(
-        fetchCategoryIndex,
-        nextProps.match.params.page,
-        this.props.match.params.category,
-      );
-    }
-    if (nextProps.pathname !== this.props.pathname) {
-      this.props.dispatchSetIndexAsync(
-        fetchCategoryIndex,
-        nextProps.match.params.page,
-        nextProps.match.params.category,
-      );
-    }
-  }
-
-  render() {
-    return <Index {...this.props} />;
-  }
+  return <Index {...props} />;
 }
 
 function mapStateToProps(state: State) {

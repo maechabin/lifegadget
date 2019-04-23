@@ -14,66 +14,20 @@ import { fetchTagIndex } from '../../domains/wordpress';
 // view files
 import Index from '../components/Index';
 
-class TagContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(
-      fetchIndexAndDispatchSetIndexAsync({
-        fetchMethod: fetchTagIndex,
-        pageNumber: renderProps.params.page,
-        keyword: renderProps.params.tag,
-      }),
-    );
-  }
+function TagContainer(props: any): JSX.Element {
+  React.useEffect(() => {
+    props.dispatchActions(props.routingKey);
+  }, []);
 
-  // static fetchData(tag: number, page: number = 1) {
-  //   const params = `?context=embed&tags=${tag}&per_page=${config.perPage}&page=${page}`;
-  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-  //     method: 'get',
-  //   })
-  //     .then(TagContainer.handleErrors)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         return [res.json(), res.headers._headers, tag];
-  //       }
-  //       return console.dir(res);
-  //     })
-  //     .catch(() => console.log('bad request'));
-  // }
+  React.useEffect(() => {
+    props.dispatchFetchTagNameAndDispatchSetTanNameAsync(props.match.params.tag);
+  }, [props.match.params.page, props.match.params.tag]);
 
-  /**
-   * @fix componentWillMountの置き換え
-   */
-  componentWillMount() {
-    return this.props.dispatchFetchTagNameAndDispatchSetTanNameAsync(this.props.match.params.tag);
-  }
+  React.useEffect(() => {
+    props.dispatchSetIndexAsync(fetchTagIndex, props.match.params.page, props.match.params.tag);
+  }, [props.match.params.page, props.match.params.tag]);
 
-  componentDidMount() {
-    this.props.dispatchActions(this.props.routingKey);
-    this.props.dispatchSetIndexAsync(
-      fetchTagIndex,
-      this.props.match.params.page,
-      this.props.match.params.tag,
-    );
-  }
-
-  componentWillUpdate(nextProps: any) {
-    if (
-      (nextProps.match.params.page !== '' &&
-        nextProps.match.params.page !== this.props.match.params.page) ||
-      nextProps.match.params.tag !== this.props.match.params.tag
-    ) {
-      this.props.dispatchFetchTagNameAndDispatchSetTanNameAsync(nextProps.match.params.tag);
-      this.props.dispatchSetIndexAsync(
-        fetchTagIndex,
-        nextProps.match.params.page,
-        nextProps.match.params.tag,
-      );
-    }
-  }
-
-  render() {
-    return <Index {...this.props} />;
-  }
+  return <Index {...props} />;
 }
 
 // Connect to Redux

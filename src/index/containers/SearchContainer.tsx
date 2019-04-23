@@ -13,64 +13,17 @@ import { fetchKeywordIndex } from '../../domains/wordpress';
 // view files
 import Index from '../components/Index';
 
-class SearchContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    return dispatch(
-      fetchIndexAndDispatchSetIndexAsync({
-        fetchMethod: fetchKeywordIndex,
-        pageNumber: renderProps.params.page,
-        keyword: renderProps.params.keyword,
-      }),
-    );
-  }
-
-  // static fetchData(keyword: string, page: number = 1) {
-  //   const params = `?context=embed&search=${keyword}&per_page=${config.perPage}&page=${page}`;
-  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-  //     method: 'get',
-  //   })
-  //     .then(SearchContainer.handleErrors)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         return [res.json(), res.headers._headers];
-  //       }
-  //       return console.dir(res);
-  //     })
-  //     .catch(() => console.log('bad request'));
-  // }
-
-  componentDidMount() {
-    this.props.dispatchActions(this.props.routingKey);
-    this.props.dispatchSetIndexAsync(
+function SearchContainer(props: any): JSX.Element {
+  React.useEffect(() => {
+    props.dispatchActions(props.routingKey);
+    props.dispatchSetIndexAsync(
       fetchKeywordIndex,
-      this.props.match.params.page,
-      this.props.match.params.keyword,
+      props.match.params.page,
+      props.match.params.keyword,
     );
-  }
+  }, [props.match.params.keyword, props.match.params.page]);
 
-  componentWillUpdate(nextProps: any) {
-    if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
-      this.props.dispatchSetIndexAsync(
-        fetchKeywordIndex,
-        this.props.match.params.page,
-        nextProps.keyword,
-      );
-    }
-    if (
-      nextProps.match.params.page !== '' &&
-      nextProps.match.params.page !== this.props.match.params.page
-    ) {
-      this.props.dispatchSetIndexAsync(
-        fetchKeywordIndex,
-        nextProps.match.params.page,
-        this.props.match.params.keyword,
-      );
-    }
-  }
-
-  render() {
-    return <Index {...this.props} />;
-  }
+  return <Index {...props} />;
 }
 
 // Connect to Redux

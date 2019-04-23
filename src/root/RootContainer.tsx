@@ -18,7 +18,8 @@ function RootContainer(props: any): JSX.Element {
   React.useEffect(() => {
     props.dispatchSetCategory();
     props.dispatchSetUser();
-  });
+  }, []);
+
   const routes = routingArray.map((route) => {
     return (
       <Route exact={true} path={route.path} component={route.component} key={props.match.path} />

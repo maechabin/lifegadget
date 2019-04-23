@@ -13,57 +13,17 @@ import { fetchAuthorIndex } from '../../domains/wordpress';
 // view files
 import Index from '../components/Index';
 
-class AuthorContainer extends React.Component<any, never> {
-  static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(
-      fetchIndexAndDispatchSetIndexAsync({
-        fetchMethod: fetchAuthorIndex,
-        pageNumber: renderProps.params.author,
-        keyword: renderProps.params.page,
-      }),
-    );
-  }
-
-  // static fetchData(author: any, page: number = 1) {
-  //   const params = `?context=embed&author=${author}&per_page=${config.perPage}&page=${page}`;
-  //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
-  //     method: 'get',
-  //   })
-  //     .then(AuthorContainer.handleErrors)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         return [res.json(), res.headers._headers];
-  //       }
-  //       return console.dir(res);
-  //     })
-  //     .catch(() => console.log('bad request'));
-  // }
-
-  componentDidMount() {
-    this.props.dispatchActions(this.props.routingKey);
-    this.props.dispatchSetIndexAsync(
+function AuthorContainer(props: any): JSX.Element {
+  React.useEffect(() => {
+    props.dispatchActions(props.routingKey);
+    props.dispatchSetIndexAsync(
       fetchAuthorIndex,
-      this.props.match.params.page,
-      this.props.match.params.author,
+      props.match.params.page,
+      props.match.params.author,
     );
-  }
+  }, [props.match.params.page]);
 
-  componentWillUpdate(nextProps: any) {
-    if (
-      nextProps.match.params.page !== '' &&
-      nextProps.match.params.page !== this.props.match.params.page
-    ) {
-      this.props.dispatchSetIndexAsync(
-        fetchAuthorIndex,
-        nextProps.match.params.page,
-        this.props.match.params.author,
-      );
-    }
-  }
-
-  render() {
-    return <Index {...this.props} />;
-  }
+  return <Index {...props} />;
 }
 
 function mapStateToProps(state: State) {
