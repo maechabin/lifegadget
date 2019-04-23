@@ -1,30 +1,80 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Pagination(props: any): JSX.Element {
-  const totalPages = Number(props.totalPages);
-  const paramsPage = Number(props.match.params.page) || 1;
-  const pager = new Array(5).fill(paramsPage);
+/** 表示するページの数 */
+const PAGE_LENGTH = 5;
 
-  const pathname = props.location.pathname.split('/');
+/** Path名 */
+enum PathName {
+  Search = 'search',
+  Category = 'category',
+  Tag = 'tag',
+  Author = 'author',
+}
 
-  function path(name: string, routeParams: any): string {
-    switch (name) {
-      case 'search':
-        return `/search/${routeParams.keyword}/`;
-      case 'category':
-        return `/category/${routeParams.category}/`;
-      case 'tag':
-        return `/tag/${routeParams.tag}/`;
-      case 'author':
-        return `/author/${routeParams.author}/`;
+type PropsTypes = {
+  totalPages: number;
+  match: any;
+  location: any;
+  routingKey: string;
+  isHiddenIndexList: boolean;
+};
+
+function Pagination(props: PropsTypes): JSX.Element {
+  const totalPages: number = props.totalPages;
+  const paramsPage: number = Number(props.match.params.page) || 1;
+  const pager = new Array(PAGE_LENGTH).fill(paramsPage);
+  const pathname: PathName = props.location.pathname.split('/')[1];
+
+  function createPath(pathName: PathName, matchParams: any): string {
+    switch (pathName) {
+      case PathName.Search:
+        return `/${PathName.Search}/${matchParams.keyword}/`;
+      case PathName.Category:
+        return `/${PathName.Category}/${matchParams.category}/`;
+      case PathName.Tag:
+        return `/${PathName.Tag}/${matchParams.tag}/`;
+      case PathName.Author:
+        return `/${PathName.Author}/${matchParams.author}/`;
       default:
         return '/';
     }
   }
 
-  const pagination = pager.map((page, i) => {
-    const number = page > totalPages - 5 + 1 ? totalPages - 5 + 1 - page + i : i;
+  function createPrevLink(): JSX.Element {
+    if (paramsPage === 1) {
+      return <li>前へ</li>;
+    }
+    if (totalPages >= PAGE_LENGTH && paramsPage > totalPages - PAGE_LENGTH) {
+      return (
+        <li>
+          <Link to={`${createPath(pathname, props.match.params)}${totalPages - PAGE_LENGTH}`}>
+            前へ
+          </Link>
+        </li>
+      );
+    }
+    return (
+      <li>
+        <Link to={`${createPath(pathname, props.match.params)}${paramsPage - 1}`}>前へ</Link>
+      </li>
+    );
+  }
+
+  function createNextLink(): JSX.Element {
+    if (paramsPage >= totalPages) {
+      return <li>次へ</li>;
+    }
+    return (
+      <li>
+        <Link to={`${createPath(pathname, props.match.params)}${paramsPage + 1}`}>次へ</Link>
+      </li>
+    );
+  }
+
+  const pagination = pager.map((page: number, index: number) => {
+    const number =
+      page > totalPages - PAGE_LENGTH + 1 ? totalPages - PAGE_LENGTH + 1 - page + index : index;
     if (page + number > totalPages || page + number < 1) {
       return false;
     }
@@ -37,49 +87,25 @@ function Pagination(props: any): JSX.Element {
     }
     return (
       <li key={page + number}>
-        <Link to={`${path(pathname[1], props.routeParams)}${page + number}`}>{page + number}</Link>
+        <Link to={`${createPath(pathname, props.match.params)}${page + number}`}>
+          {page + number}
+        </Link>
       </li>
     );
   });
-  const prev = () => {
-    if (paramsPage === 1) {
-      return <li>前へ</li>;
-    }
-    if (totalPages >= 5 && paramsPage > totalPages - 5) {
-      return (
-        <li>
-          <Link to={`${path(pathname[1], props.routeParams)}${totalPages - 5}`}>前へ</Link>
-        </li>
-      );
-    }
-    return (
-      <li>
-        <Link to={`${path(pathname[1], props.routeParams)}${paramsPage - 1}`}>前へ</Link>
-      </li>
-    );
-  };
-  const next = () => {
-    if (paramsPage >= totalPages) {
-      return <li>次へ</li>;
-    }
-    return (
-      <li>
-        <Link to={`${path(pathname[1], props.routeParams)}${paramsPage + 1}`}>次へ</Link>
-      </li>
-    );
-  };
-  const pagenationAll =
-    props.isHiddenIndexList && props.routingKey !== '' ? (
+
+  const pagenationElem =
+    props.isHiddenIndexList && props.routingKey != null ? (
       ''
     ) : (
       <ul>
-        {prev()}
+        {createPrevLink()}
         {pagination}
-        {next()}
+        {createNextLink()}
       </ul>
     );
 
-  return <div className="pagination">{pagenationAll}</div>;
+  return <div className="pagination">{pagenationElem}</div>;
 }
 
 export default Pagination;
