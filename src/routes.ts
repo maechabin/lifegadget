@@ -5,7 +5,7 @@ import Search from './containers/SearchContainer';
 import Category from './containers/CategoryContainer';
 import Tag from './containers/TagContainer';
 import Author from './containers/AuthorContainer';
-import NotFound from './components/root/NotFound';
+import NotFound from './shared/NotFound';
 
 export type Route = {
   path?: string;

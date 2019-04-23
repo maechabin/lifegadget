@@ -2,11 +2,11 @@ import React from 'react';
 
 import IndexTitle from './IndexTitle';
 import IndexList from './IndexList';
-import Pagination from './Pagination';
+import Pagination from '../../shared/Pagination';
 import config from '../../config';
-import CategoryButton from '../../widgets/CategoryButton';
-import Adsense from '../../widgets/Adsense';
-import NotFound from '../root/NotFound';
+import CategoryButton from '../../shared/CategoryButton';
+import Adsense from '../../shared/Adsense';
+import NotFound from '../../shared/NotFound';
 
 function Index(props: any): JSX.Element {
   const index = props.badRequest ? (

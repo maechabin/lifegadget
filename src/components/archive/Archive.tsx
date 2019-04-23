@@ -8,9 +8,9 @@ import ArchiveTag from './ArchiveTag';
 import ArchiveTitle from './ArchiveTitle';
 import ArchiveUser from './ArchiveUser';
 import config from '../../config';
-import CategoryButton from '../../widgets/CategoryButton';
-import Adsense from '../../widgets/Adsense';
-import NotFound from '../root/NotFound';
+import CategoryButton from '../../shared/CategoryButton';
+import Adsense from '../../shared/Adsense';
+import NotFound from '../../shared/NotFound';
 
 function Archive(props: any): JSX.Element {
   let article = <></>;

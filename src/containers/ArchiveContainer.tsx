@@ -37,7 +37,7 @@ class ArchiveContainer extends React.PureComponent<any, never> {
   // }
 
   componentDidMount() {
-    this.props.dispatchSetArticle(fetchArchive, this.props.match.params.id).then(
+    Promise.all([this.props.dispatchSetArticle(fetchArchive, this.props.match.params.id)]).then(
       () => {
         if (
           this.props.gettedTag === false &&
