@@ -2,16 +2,16 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { State } from '../state.model';
-import { fetchIndex } from '../domains/wordpress';
+import { State } from '../../state.model';
+import { fetchIndex } from '../../domains/wordpress';
 import {
   fetchIndexAndDispatchSetIndexAsync,
   setIsHiddenIndexListForTrue,
   setRoutingKey,
-} from '../actions/indexAction';
+} from '../indexAction';
 
 // view files
-import Index from '../components/index/Index';
+import Index from '../components/Index';
 
 class IndexContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {

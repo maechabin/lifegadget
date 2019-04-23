@@ -10,13 +10,13 @@ import { History, createBrowserHistory } from 'history';
 
 import { routingArray } from './routes';
 import { configureStore } from './store';
-import { indexReducer } from './reducers/indexReducer';
-import { rootReducer } from './reducers/rootReducer';
-import { archiveReducer } from './reducers/archiveReducer';
+import { indexReducer } from './index/indexReducer';
+import { rootReducer } from './root/rootReducer';
+import { archiveReducer } from './archive/archiveReducer';
 
 import { rootState, indexState, archiveState } from './state';
 
-import Root from './containers/RootContainer';
+import Root from './root/RootContainer';
 
 import './sass/App.scss';
 

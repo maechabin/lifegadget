@@ -16,15 +16,15 @@ import { rootState, indexState, archiveState } from './state';
 import { configureStore } from './store';
 
 // Reducers
-import { rootReducer } from './reducers/rootReducer';
-import { indexReducer } from './reducers/indexReducer';
-import { archiveReducer } from './reducers/archiveReducer';
+import { rootReducer } from './root/rootReducer';
+import { indexReducer } from './index/indexReducer';
+import { archiveReducer } from './archive/archiveReducer';
 
 // Actions
 import {
   fetchCategoryAndDispatchSetCategoryAsync,
   fetchUserAndDispatchSetUserAsync,
-} from './actions/rootAction';
+} from './root/rootAction';
 
 import renderFullPage from './server/renderFullPage';
 import makeRss from './feed';

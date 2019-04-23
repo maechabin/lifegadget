@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { Action, IndexActionType } from './action.model';
+import { Action, IndexActionType } from '../action.model';
 import {
   fetchIndex,
   fetchCategoryIndex,

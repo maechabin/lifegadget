@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { Action, RootActionType } from './action.model';
+import { Action, RootActionType } from '../action.model';
 import { fetchCategories, fetchUsers } from '../domains/wordpress';
 
 function _setCategory(payload: any[]): Action<any[]> {

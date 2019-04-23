@@ -1,10 +1,10 @@
-import Root from './containers/RootContainer';
-import Index from './containers/IndexContainer';
-import Archive from './containers/ArchiveContainer';
-import Search from './containers/SearchContainer';
-import Category from './containers/CategoryContainer';
-import Tag from './containers/TagContainer';
-import Author from './containers/AuthorContainer';
+import Root from './root/RootContainer';
+import Index from './index/containers/IndexContainer';
+import Archive from './archive/ArchiveContainer';
+import Search from './index/containers/SearchContainer';
+import Category from './index/containers/CategoryContainer';
+import Tag from './index/containers/TagContainer';
+import Author from './index/containers/AuthorContainer';
 import NotFound from './shared/NotFound';
 
 export type Route = {

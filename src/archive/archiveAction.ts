@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { Action, ArchiveActionType } from './action.model';
+import { Action, ArchiveActionType } from '../action.model';
 import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
 function badRequestArchive(): Action {

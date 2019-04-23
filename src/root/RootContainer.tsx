@@ -9,10 +9,10 @@ import {
   setSearchKeyword,
   fetchCategoryAndDispatchSetCategoryAsync,
   fetchUserAndDispatchSetUserAsync,
-} from '../actions/rootAction';
+} from './rootAction';
 import { routingArray } from '../routes';
 
-import Layout from '../components/root/Layout';
+import Layout from './components/Layout';
 
 function RootContainer(props: any): JSX.Element {
   React.useEffect(() => {

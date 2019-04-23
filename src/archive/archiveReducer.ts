@@ -1,5 +1,5 @@
 import { ArchiveState } from '../state.model';
-import { Action, ArchiveActionType } from '../actions/action.model';
+import { Action, ArchiveActionType } from '../action.model';
 
 export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action: Action) => {
   switch (action.type) {

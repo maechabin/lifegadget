@@ -3,14 +3,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import {
-  fetchArticleAndDispatchSetAsync,
-  fetchTagsAndDispatchSetTagsAsync,
-} from '../actions/archiveAction';
+import { fetchArticleAndDispatchSetAsync, fetchTagsAndDispatchSetTagsAsync } from './archiveAction';
 import { fetchArchive } from '../domains/wordpress';
 
 // view files
-import Archive from '../components/archive/Archive';
+import Archive from './components/Archive';
 
 class ArchiveContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {

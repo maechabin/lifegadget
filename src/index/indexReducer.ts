@@ -1,5 +1,5 @@
 import { IndexState } from '../state.model';
-import { Action, IndexActionType } from '../actions/action.model';
+import { Action, IndexActionType } from '../action.model';
 
 export const indexReducer = (state: IndexState = {} as IndexState, action: Action) => {
   switch (action.type) {

@@ -2,71 +2,68 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { State } from '../state.model';
+import { State } from '../../state.model';
 import {
   fetchIndexAndDispatchSetIndexAsync,
   setIsHiddenIndexListForTrue,
   setRoutingKey,
-  fetchTagNameAndDispatchSetTanNameAsync,
-} from '../actions/indexAction';
-import { fetchTagIndex } from '../domains/wordpress';
+} from '../indexAction';
+import { fetchKeywordIndex } from '../../domains/wordpress';
 
 // view files
-import Index from '../components/index/Index';
+import Index from '../components/Index';
 
-class TagContainer extends React.Component<any, never> {
+class SearchContainer extends React.Component<any, never> {
   static handleFetch(dispatch: Dispatch<any>, renderProps: any) {
-    dispatch(
+    return dispatch(
       fetchIndexAndDispatchSetIndexAsync({
-        fetchMethod: fetchTagIndex,
+        fetchMethod: fetchKeywordIndex,
         pageNumber: renderProps.params.page,
-        keyword: renderProps.params.tag,
+        keyword: renderProps.params.keyword,
       }),
     );
   }
 
-  // static fetchData(tag: number, page: number = 1) {
-  //   const params = `?context=embed&tags=${tag}&per_page=${config.perPage}&page=${page}`;
+  // static fetchData(keyword: string, page: number = 1) {
+  //   const params = `?context=embed&search=${keyword}&per_page=${config.perPage}&page=${page}`;
   //   return fetch(`${config.blogUrl}/wp-json/wp/v2/posts${params}`, {
   //     method: 'get',
   //   })
-  //     .then(TagContainer.handleErrors)
+  //     .then(SearchContainer.handleErrors)
   //     .then((res) => {
   //       if (res.status === 200) {
-  //         return [res.json(), res.headers._headers, tag];
+  //         return [res.json(), res.headers._headers];
   //       }
   //       return console.dir(res);
   //     })
   //     .catch(() => console.log('bad request'));
   // }
 
-  /**
-   * @fix componentWillMountの置き換え
-   */
-  componentWillMount() {
-    return this.props.dispatchFetchTagNameAndDispatchSetTanNameAsync(this.props.match.params.tag);
-  }
-
   componentDidMount() {
     this.props.dispatchActions(this.props.routingKey);
     this.props.dispatchSetIndexAsync(
-      fetchTagIndex,
+      fetchKeywordIndex,
       this.props.match.params.page,
-      this.props.match.params.tag,
+      this.props.match.params.keyword,
     );
   }
 
   componentWillUpdate(nextProps: any) {
-    if (
-      (nextProps.match.params.page !== '' &&
-        nextProps.match.params.page !== this.props.match.params.page) ||
-      nextProps.match.params.tag !== this.props.match.params.tag
-    ) {
-      this.props.dispatchFetchTagNameAndDispatchSetTanNameAsync(nextProps.match.params.tag);
+    if (nextProps.keyword !== '' && nextProps.keyword !== this.props.match.params.keyword) {
       this.props.dispatchSetIndexAsync(
-        fetchTagIndex,
+        fetchKeywordIndex,
+        this.props.match.params.page,
+        nextProps.keyword,
+      );
+    }
+    if (
+      nextProps.match.params.page !== '' &&
+      nextProps.match.params.page !== this.props.match.params.page
+    ) {
+      this.props.dispatchSetIndexAsync(
+        fetchKeywordIndex,
         nextProps.match.params.page,
-        nextProps.match.params.tag,
+        this.props.match.params.keyword,
       );
     }
   }
@@ -77,12 +74,12 @@ class TagContainer extends React.Component<any, never> {
 }
 
 // Connect to Redux
-function mapStateToProps(state: State & any) {
+function mapStateToProps(state: State) {
   return {
     index: state.index.index,
     badRequest: state.index.badRequest,
+    keyword: state.root.searchValue,
     isHiddenIndexList: state.index.isHiddenIndexList,
-    tagName: state.index.tagName,
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
@@ -91,11 +88,12 @@ function mapStateToProps(state: State & any) {
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    dispatchSetIndexAsync(fetchMethod: typeof fetchTagIndex, pageNumber: number, tagId: number) {
-      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: tagId }));
-    },
-    dispatchFetchTagNameAndDispatchSetTanNameAsync(tag: any) {
-      dispatch(fetchTagNameAndDispatchSetTanNameAsync(tag));
+    dispatchSetIndexAsync(
+      fetchMethod: typeof fetchKeywordIndex,
+      pageNumber: number,
+      keyword: string,
+    ) {
+      dispatch(fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword }));
     },
     dispatchActions(key: any) {
       [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
@@ -106,4 +104,4 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TagContainer);
+)(SearchContainer);
