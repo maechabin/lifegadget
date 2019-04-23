@@ -12,8 +12,6 @@ import { fetchArchive } from '../domains/wordpress';
 // view files
 import Archive from '../components/archive/Archive';
 
-declare const window: any;
-
 class ArchiveContainer extends React.PureComponent<any, never> {
   static handleFetch(dispatch: any, renderProps: any) {
     dispatch(
@@ -38,26 +36,14 @@ class ArchiveContainer extends React.PureComponent<any, never> {
   //     .catch(() => console.log('bad request'));
   // }
 
-  callAdSense() {
-    const ads = document.querySelectorAll('.adsbygoogle');
-    if (ads.length > 0) {
-      try {
-        ads.forEach(() => {
-          return (window.adsbygoogle = window.adsbygoogle || []).push({});
-        });
-      } catch (error) {}
-    }
-  }
-
   componentDidMount() {
-    Promise.all([this.props.dispatchSetArticle(fetchArchive, this.props.match.params.id)]).then(
+    this.props.dispatchSetArticle(fetchArchive, this.props.match.params.id).then(
       () => {
         if (
           this.props.gettedTag === false &&
           Object.prototype.toString.call(this.props.article.tags) === '[object Array]'
         ) {
           this.props.disaptchSetTagsAsync(this.props.article.tags);
-          this.callAdSense();
         }
       },
     );

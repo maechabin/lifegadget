@@ -1,5 +1,7 @@
 import React from 'react';
 
+declare const window: any;
+
 type PropsTypes = {
   style: React.CSSProperties;
   adsense: string;
@@ -8,16 +10,30 @@ type PropsTypes = {
   format: string;
 };
 
-function Adsense({ style, adsense, client, slot, format }: PropsTypes): JSX.Element {
+function Adsense({ style, client, slot, format }: PropsTypes): JSX.Element {
   const styles = {
     display: 'block',
     ...style,
   } as React.CSSProperties;
 
+  const adsenseRef = React.createRef<HTMLModElement>();
+
+  function callAdSense() {
+    if (adsenseRef.current) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (error) {}
+    }
+  }
+
+  React.useEffect(() => {
+    callAdSense();
+  }, []);
+
   return (
     <div className="widget__adsense">
       <ins
-        className="adsbygoogle"
+        ref={adsenseRef}
         style={styles}
         data-ad-client={client}
         data-ad-slot={slot}
