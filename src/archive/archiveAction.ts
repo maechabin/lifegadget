@@ -1,4 +1,6 @@
 import { Dispatch } from 'redux';
+
+import { Article } from '../state.model';
 import { Action, ArchiveActionType } from '../action.model';
 import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
@@ -30,12 +32,18 @@ export function fetchArticleAndDispatchSetAsync(query: {
   archiveId: number;
 }) {
   return async (dispatch: Dispatch) => {
-    const response = await query.fetchMethod(query.archiveId);
+    const response: Article = await query.fetchMethod(query.archiveId);
 
     if (response == null) {
       dispatch(_setHasArchiveErrorToTrue());
+      return;
     } else {
       dispatch(_setArticle(response));
+    }
+
+    if (response.tags.length > 0) {
+      const tagNames = await fetchTagNames(response.tags);
+      dispatch(_setTags(tagNames));
     }
 
     if (response._links['wp:featuredmedia']) {
@@ -50,12 +58,5 @@ function _setTags(payload: any): Action<any> {
   return {
     type: ArchiveActionType.SET_TAGS,
     payload,
-  };
-}
-
-export function fetchTagsAndDispatchSetTagsAsync(tagIds: number[]) {
-  return async (dispatch: Dispatch) => {
-    const tags = await fetchTagNames(tagIds);
-    dispatch(_setTags(tags));
   };
 }

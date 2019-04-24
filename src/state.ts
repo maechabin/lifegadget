@@ -21,9 +21,9 @@ export const indexState: IndexState = {
 
 export const archiveState: ArchiveState = {
   hasError: false,
-  article: {} as any,
+  article: null,
   articleImage: '',
   currentId: 0,
   tags: [],
-  gettedTag: false,
+  hasTagNames: false,
 };

@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../state.model';
-import { fetchArticleAndDispatchSetAsync, fetchTagsAndDispatchSetTagsAsync } from './archiveAction';
+import { fetchArticleAndDispatchSetAsync } from './archiveAction';
 import { fetchArchive } from '../domains/wordpress';
 
 // view files
@@ -11,14 +11,7 @@ import Archive from './components/Archive';
 
 function ArchiveContainer(props: any): JSX.Element {
   React.useEffect(() => {
-    Promise.all([props.dispatchSetArticle(fetchArchive, props.match.params.id)]).then(() => {
-      if (
-        props.gettedTag === false &&
-        Object.prototype.toString.call(props.article.tags) === '[object Array]'
-      ) {
-        props.disaptchSetTagsAsync(props.article.tags);
-      }
-    });
+    props.dispatchSetArticle(fetchArchive, props.match.params.id);
   }, []);
 
   React.useEffect(() => {
@@ -35,16 +28,13 @@ function mapStateToProps(state: State) {
     user: state.root.user,
     article: state.archive.article,
     tags: state.archive.tags,
-    gettedTag: state.archive.gettedTag,
+    hasTagNames: state.archive.hasTagNames,
   };
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
     dispatchSetArticle(fetchMethod: typeof fetchArchive, archiveId: number): void {
       dispatch(fetchArticleAndDispatchSetAsync({ fetchMethod, archiveId }));
-    },
-    disaptchSetTagsAsync(array: any): void {
-      dispatch(fetchTagsAndDispatchSetTagsAsync(array));
     },
   };
 }
