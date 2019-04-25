@@ -14,7 +14,9 @@ import { indexReducer } from './index/indexReducer';
 import { rootReducer } from './root/rootReducer';
 import { archiveReducer } from './archive/archiveReducer';
 
-import { rootState, indexState, archiveState } from './state';
+import { rootState } from './root/rootState';
+import { indexState } from './index/indexState';
+import { archiveState } from './archive/archiveState';
 
 import Root from './root/RootContainer';
 

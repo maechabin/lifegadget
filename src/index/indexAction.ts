@@ -10,7 +10,7 @@ import {
   fetchTagIndex,
   fetchTagName,
 } from '../domains/wordpress';
-import { Index } from '../state.model';
+import { Index } from './indexState';
 
 export function setIsHiddenIndexListForTrue() {
   return {

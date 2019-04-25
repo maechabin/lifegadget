@@ -1,4 +1,4 @@
-import { IndexState } from '../state.model';
+import { IndexState } from './indexState';
 import { Action, IndexActionType } from '../action.model';
 
 export const indexReducer = (state: IndexState = {} as IndexState, action: Action) => {

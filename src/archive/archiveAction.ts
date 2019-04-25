@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { Article } from '../state.model';
+import { Article } from './archiveState';
 import { Action, ArchiveActionType } from '../action.model';
 import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 

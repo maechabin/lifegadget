@@ -1,4 +1,4 @@
-import { RootState } from '../state.model';
+import { RootState } from './rootState';
 import { RootActionType, Action } from '../action.model';
 
 export const rootReducer = (state: RootState = {} as RootState, action: Action) => {

@@ -12,7 +12,9 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 // Store
-import { rootState, indexState, archiveState } from './state';
+import { rootState } from './root/rootState';
+import { indexState } from './index/indexState';
+import { archiveState } from './archive/archiveState';
 import { configureStore } from './store';
 
 // Reducers
