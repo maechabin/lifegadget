@@ -1,29 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { User } from '../../root/rootState';
+
 function ArchiveUser(props: any): JSX.Element {
-  const getUser = (userList: any) => (id: any) =>
-    userList.map((user: any, i: number) => (user.id === id ? i : null));
-  const userId = getUser(props.user)(props.article.author);
-  const id = userId.find((id: any) => id != null);
-  const user = props.nameOnly ? (
-    <p>
-      <i className="fa fa-pencil" />{' '}
-      <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
-    </p>
-  ) : (
-    <section>
-      <h3>この記事を書いた人</h3>
-      <figure>
-        <img src={props.user[id].avatar_urls['96']} alt={props.user[id].name} />
-        <figcaption>
-          <Link to={`/author/${props.user[id].id}`}>{props.user[id].name}</Link>
-        </figcaption>
-      </figure>
-      <p>{props.user[id].description}</p>
-    </section>
+  function getUserFactory(userList: User[]) {
+    return (authorId: number): User | undefined =>
+      userList.find((user: User) => user.id === authorId);
+  }
+
+  const user = getUserFactory(props.user)(props.article.author);
+
+  let userElem = <></>;
+
+  if (user) {
+    userElem = props.shouldDisplayOnlyName ? (
+      // ユーザー名のみ表示
+      <p>
+        <i className="fa fa-pencil" /> <Link to={`/author/${user.id}`}>{user.name}</Link>
+      </p>
+    ) : (
+      // ユーザー情報を表示
+      <section>
+        <h3>この記事を書いた人</h3>
+        <figure>
+          <img src={user.avatar_urls['96']} alt={user.name} />
+          <figcaption>
+            <Link to={`/author/${user.id}`}>{user.name}</Link>
+          </figcaption>
+        </figure>
+        <p>{user.description}</p>
+      </section>
+    );
+  }
+
+  return (
+    <div className={props.shouldDisplayOnlyName ? 'article__user_name' : 'article__user'}>
+      {userElem}
+    </div>
   );
-  return <div className={props.nameOnly ? 'article__user_name' : 'article__user'}>{user}</div>;
 }
 
 export default ArchiveUser;
