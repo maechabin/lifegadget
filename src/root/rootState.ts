@@ -1,12 +1,22 @@
 /** RootStateモデル */
 export interface RootState {
-  category: {
-    index?: any[];
-    page?: any;
-  }[];
+  category: Category[];
   user: User[];
   inputValue: string;
   searchValue: string;
+}
+
+export interface Category {
+  count: number;
+  description: string;
+  id: number;
+  link: string;
+  meta: any[];
+  name: string;
+  parent: number;
+  slug: string;
+  taxonomy: string;
+  _links: any;
 }
 
 export interface User {

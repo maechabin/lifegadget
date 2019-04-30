@@ -1,32 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
+
+import { Category } from '../../root/rootState';
 
 function ArchiveCategory(props: any): JSX.Element {
-  function getCategory(categoryList: any[]): (id: any) => (number | null)[] {
-    return (id: any): (number | null)[] => {
-      return categoryList.map((category: any, i: number) =>
-        category.id === parseInt(id, 10) ? i : null,
-      );
-    };
+  function getCategoryFactory(categories: Category[]) {
+    return (categoryId: number): Category | undefined =>
+      categories.find((category: Category) => category.id === categoryId);
   }
-  const getCategoryId = getCategory(props.category);
-  const category = _.isEmpty(props.article.categories)
-    ? ''
-    : props.article.categories.map((id: any) => {
-        const categoryId = getCategoryId(id).find((i: any) => i != null);
-        return (
-          <span key={id}>
-            {/*<Link to={`/category/${props.category[categoryId].id}`}>
-              {props.category[categoryId].name}
-        </Link>*/}
-          </span>
-        );
-      });
+
+  const getCategory = getCategoryFactory(props.category);
+
+  let categoryElem = <></>;
+
+  if (props.article && props.article.categories.length > 0) {
+    props.article.categories.map((id: number) => {
+      const category = getCategory(id);
+
+      if (!category) {
+        return;
+      }
+      return (
+        <span key={id}>
+          <Link to={`/category/${category.id}`}>{category.name}</Link>
+        </span>
+      );
+    });
+  }
 
   return (
     <div className="article__category">
-      <i className="fa fa-folder" /> {category}
+      <i className="fa fa-folder" /> {categoryElem}
     </div>
   );
 }
