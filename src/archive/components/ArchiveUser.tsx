@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { User } from '../../root/rootState';
 
 function ArchiveUser(props: any): JSX.Element {
-  function getUserFactory(userList: User[]) {
-    return (authorId: number): User | undefined =>
-      userList.find((user: User) => user.id === authorId);
+  function getUserFactory(users: User[]) {
+    return (authorId: number): User | undefined => users.find((user: User) => user.id === authorId);
   }
 
   const user = getUserFactory(props.user)(props.article.author);
