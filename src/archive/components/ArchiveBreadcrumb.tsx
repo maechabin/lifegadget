@@ -1,23 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
+
+import { Category } from '../../root/rootState';
 
 function ArchiveBreadcrumb(props: any): JSX.Element {
-  function getCategory(categoryList: any[]): (id: any) => (number | null)[] {
-    return (id: any): (number | null)[] => {
-      return categoryList.map((category: any, i: number) =>
-        category.id === parseInt(id, 10) ? i : null,
-      );
-    };
+  function getCategoryFactory(categories: Category[]) {
+    return (categoryId: number): Category | undefined =>
+      categories.find((category: Category) => category.id === categoryId);
   }
 
-  const getCategoryId = getCategory(props.category);
-  const category = _.isEmpty(props.article.categories)
-    ? ''
-    : props.article.categories.map((id: number) => getCategoryId(id).find((i: any) => i != null));
+  const getCategory = getCategoryFactory(props.category);
+  let categories = [];
 
-  const categoryId = props.category[category[0]] ? props.category[category[0]].id : '';
-  const categoryName = props.category[category[0]] ? props.category[category[0]].name : '';
+  if (props.article && props.article.categories.length > 0) {
+    categories = props.article.categories.map((id: number) => {
+      return getCategory(id);
+    });
+  }
+
+  const categoryId = categories[0] ? categories[0].id : '';
+  const categoryName = categories[0] ? categories[0].name : '';
 
   return (
     <ul className="breadcrumb">
