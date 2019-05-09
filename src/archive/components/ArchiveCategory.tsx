@@ -1,14 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Category } from '../../root/rootState';
+import { getCategoryFactory } from '../../domains/wordpress';
 
 function ArchiveCategory(props: any): JSX.Element {
-  function getCategoryFactory(categories: Category[]) {
-    return (categoryId: number): Category | undefined =>
-      categories.find((category: Category) => category.id === categoryId);
-  }
-
   const getCategory = getCategoryFactory(props.category);
 
   let categoryElem = <></>;

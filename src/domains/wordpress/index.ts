@@ -9,3 +9,4 @@ export * from './fetchCategories';
 export * from './fetchTagName';
 export * from './fetchTagNames';
 export * from './getEyeCatchImageUrl';
+export * from './getCategoryFactory';
