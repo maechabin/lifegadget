@@ -14,7 +14,7 @@ function ArchiveCategory(props: any): JSX.Element {
   let categoryElem = <></>;
 
   if (props.article && props.article.categories.length > 0) {
-    props.article.categories.map((id: number) => {
+    categoryElem = props.article.categories.map((id: number) => {
       const category = getCategory(id);
 
       if (!category) {
