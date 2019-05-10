@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { User } from '../../root/rootState';
+import { getUserFactory } from '../../domains/wordpress';
 
 function ArchiveUser(props: any): JSX.Element {
-  function getUserFactory(users: User[]) {
-    return (authorId: number): User | undefined => users.find((user: User) => user.id === authorId);
-  }
-
   const user = getUserFactory(props.user)(props.article.author);
 
   let userElem = <></>;

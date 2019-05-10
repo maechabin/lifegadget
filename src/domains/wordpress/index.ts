@@ -10,3 +10,4 @@ export * from './fetchTagName';
 export * from './fetchTagNames';
 export * from './getEyeCatchImageUrl';
 export * from './getCategoryFactory';
+export * from './getUserFactory';
