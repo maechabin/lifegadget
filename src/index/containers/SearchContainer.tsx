@@ -9,6 +9,7 @@ import {
   setRoutingKey,
 } from '../indexAction';
 import { fetchKeywordIndex } from '../../domains/wordpress';
+import ScrollToTop from '../../shared/ScrollToTop';
 
 // view files
 import Index from '../components/Index';
@@ -23,7 +24,11 @@ function SearchContainer(props: any): JSX.Element {
     );
   }, [props.match.params.keyword, props.match.params.page]);
 
-  return <Index {...props} />;
+  return (
+    <ScrollToTop>
+      <Index {...props} />
+    </ScrollToTop>
+  );
 }
 
 // Connect to Redux

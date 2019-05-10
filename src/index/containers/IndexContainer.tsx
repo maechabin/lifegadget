@@ -9,6 +9,7 @@ import {
   setIsHiddenIndexListForTrue,
   setRoutingKey,
 } from '../indexAction';
+import ScrollToTop from '../../shared/ScrollToTop';
 
 // view files
 import Index from '../components/Index';
@@ -19,7 +20,11 @@ function IndexContainer(props: any): JSX.Element {
     props.dispatchSetIndexAsync(fetchIndex, props.match.params.page);
   }, [props.match.params.page]);
 
-  return <Index {...props} />;
+  return (
+    <ScrollToTop>
+      <Index {...props} />
+    </ScrollToTop>
+  );
 }
 
 // Connect to Redux

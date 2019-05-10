@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { State } from '../state.model';
 import { fetchArticleAndDispatchSetAsync } from './archiveAction';
 import { fetchArchive } from '../domains/wordpress';
+import ScrollToTop from '../shared/ScrollToTop';
 
 // view files
 import Archive from './components/Archive';
@@ -18,7 +19,11 @@ function ArchiveContainer(props: any): JSX.Element {
     // window.twttr.widgets.load();
   });
 
-  return <Archive {...props} />;
+  return (
+    <ScrollToTop>
+      <Archive {...props} />
+    </ScrollToTop>
+  );
 }
 
 function mapStateToProps(state: State) {

@@ -10,6 +10,7 @@ import {
   fetchTagNameAndDispatchSetTanNameAsync,
 } from '../indexAction';
 import { fetchTagIndex } from '../../domains/wordpress';
+import ScrollToTop from '../../shared/ScrollToTop';
 
 // view files
 import Index from '../components/Index';
@@ -27,7 +28,11 @@ function TagContainer(props: any): JSX.Element {
     props.dispatchSetIndexAsync(fetchTagIndex, props.match.params.page, props.match.params.tag);
   }, [props.match.params.page, props.match.params.tag]);
 
-  return <Index {...props} />;
+  return (
+    <ScrollToTop>
+      <Index {...props} />
+    </ScrollToTop>
+  );
 }
 
 // Connect to Redux

@@ -9,6 +9,7 @@ import {
   setRoutingKey,
 } from '../indexAction';
 import { fetchAuthorIndex } from '../../domains/wordpress';
+import ScrollToTop from '../../shared/ScrollToTop';
 
 // view files
 import Index from '../components/Index';
@@ -23,7 +24,11 @@ function AuthorContainer(props: any): JSX.Element {
     );
   }, [props.match.params.page]);
 
-  return <Index {...props} />;
+  return (
+    <ScrollToTop>
+      <Index {...props} />
+    </ScrollToTop>
+  );
 }
 
 function mapStateToProps(state: State) {
