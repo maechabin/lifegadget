@@ -1,17 +1,17 @@
 import React from 'react';
 
 function SearchForm(props: any): JSX.Element {
-  function handleChange(event: React.FormEvent<HTMLInputElement>) {
+  function handleChange(event: React.FormEvent<HTMLInputElement>): void {
     const keyword = event.currentTarget.value;
     props.dispatchChangeSearchKeyword(keyword);
   }
-  function handleClick() {
+
+  function handleClick(): void {
     props.dispatchSetSearchKeyword(props.inputValue);
     props.dispatchChangeSearchKeyword('');
-    props.router.push({
-      pathname: `/search/${props.inputValue}`,
-    });
+    props.history.push(`/search/${props.inputValue}`);
   }
+
   return (
     <div className="searchform">
       <input
@@ -20,7 +20,9 @@ function SearchForm(props: any): JSX.Element {
         onChange={handleChange}
         value={props.inputValue}
       />
-      <button onClick={handleClick}>検索</button>
+      <button onClick={handleClick} disabled={!!!props.inputValue}>
+        検索
+      </button>
     </div>
   );
 }
