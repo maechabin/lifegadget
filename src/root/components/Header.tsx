@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
 
 function Header(props: any): JSX.Element {
-  // const headerClassName = props.location.pathname === '/' ? 'header' : 'header header__mini';
-  const headerClassName = 'header';
+  const headerClassName =
+    props.history.location.pathname === '/' ? 'header' : 'header header__mini';
+
   return (
     <header className={headerClassName}>
       <div className="header__title">

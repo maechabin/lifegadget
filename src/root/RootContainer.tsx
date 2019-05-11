@@ -27,7 +27,7 @@ function RootContainer(props: any): JSX.Element {
   });
 
   return (
-    <Layout>
+    <Layout {...props}>
       <Switch>{routes}</Switch>
     </Layout>
   );
