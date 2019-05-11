@@ -64,5 +64,5 @@ ReactDOM.render(
       <Route path="/" component={Root} history={history} />
     </Router>
   </Provider>,
-  document.querySelector('.content'),
+  document.querySelector('#content'),
 );
