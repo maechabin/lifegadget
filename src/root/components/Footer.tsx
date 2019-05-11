@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 // import Scrollchor from 'react-scrollchor';
 
 function Footer(props: any): JSX.Element {
+  const logo = require(`../../images/${props.config.blogLogoImage}`);
+
   return (
     <footer className="footer">
       <div className="footer__nav">
@@ -34,7 +36,7 @@ function Footer(props: any): JSX.Element {
       &copy; 2017
       <address>
         <Link to="/">
-          <img src={props.config.blogLogoImage} alt={props.config.blogTitle} width="80" />
+          <img src={logo} alt={props.config.blogTitle} width="80" />
         </Link>
       </address>
     </footer>
