@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { History, createBrowserHistory } from 'history';
 
-import { routingArray } from './routes';
 import { configureStore } from './store';
 import { indexReducer } from './index/indexReducer';
 import { rootReducer } from './root/rootReducer';
