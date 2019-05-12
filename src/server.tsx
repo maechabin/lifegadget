@@ -32,6 +32,9 @@ import renderFullPage from './server/renderFullPage';
 import makeRss from './feed';
 import { routingArray } from './routes';
 
+import Html from './server/Html';
+import Root from './root/RootContainer';
+
 // const router = express.Router();
 
 // function handleRender(req: any, res: any) {
@@ -109,52 +112,47 @@ const app = express();
 //   res.type('text/plain');
 //   return res.send('User-agent: Twitterbot\nDisallow:');
 // });
-app.use(express.static('./src'));
-app.get('/*', (req, res) => {
+// app.use(express.static('./src'));
+app.get('/', (req, res) => {
   // 1. Reducers
-  const reducers = combineReducers({
-    root: rootReducer,
-    index: indexReducer,
-    archive: archiveReducer,
-    // routing: routerReducer,
-  });
+  // const reducers = combineReducers({
+  //   root: rootReducer,
+  //   index: indexReducer,
+  //   archive: archiveReducer,
+  //   routing: routerReducer,
+  // });
 
   // 2. States
-  const initialState = {
-    root: rootState,
-    index: indexState,
-    archive: archiveState,
-  };
+  // const initialState = {
+  //   root: rootState,
+  //   index: indexState,
+  //   archive: archiveState,
+  // };
 
   // 3. Middleware
   // const memoryHistory = createMemoryHistory(req.url);
-  const middleware = () => applyMiddleware(thunk);
+  // const middleware = () => applyMiddleware(thunk);
 
   // Make Store
-  const store = configureStore(reducers, initialState, middleware());
+  // const store = configureStore(reducers, initialState, middleware());
 
-  const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
+  // const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
 
-  if (currentRoute) {
-    // Promise
-    // const promise1 = currentRoute.component.handleFetch
-    //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
-    //   : Promise.resolve('no fetching');
-    const promise2 = fetchCategoryAndDispatchSetCategoryAsync();
-    const promise3 = fetchUserAndDispatchSetUserAsync();
+  // if (currentRoute) {
+  // Promise
+  // const promise1 = currentRoute.component.handleFetch
+  //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
+  //   : Promise.resolve('no fetching');
+  // const promise2 = fetchCategoryAndDispatchSetCategoryAsync();
+  // const promise3 = fetchUserAndDispatchSetUserAsync();
 
-    // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
-    //   () => {
-    const html = ReactDOMServer.renderToNodeStream(
-      <Provider store={store}>
-        <currentRoute.component />
-      </Provider>,
-    );
-    const finalState = store.getState();
-    return res.status(200).send(renderFullPage(html, finalState));
-    //   },
-    // );
-  }
+  // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
+  //   () => {
+  ReactDOMServer.renderToNodeStream(<Html />).pipe(res);
+  // const finalState = store.getState();
+  //   },
+  // );
+  // }
 });
 
 app.listen(PORT, () => console.log(`Hello app listening on port ${PORT}!`));

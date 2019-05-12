@@ -57,7 +57,7 @@ const store = configureStore(reducers(history), initialState, middleware());
 // Google Analytics
 // history.listen((location) => window.ga('send', 'pageview', location.pathname));
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <Router>
       <Route path="/" component={Root} history={history} />

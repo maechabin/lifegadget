@@ -5,7 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "lint": "eslint ./src/server.jsx",
-    "serve": "ts-node ./src/server.tsx",
+    "serve": "ts-node --project ./src/server/tsconfig.server.json ./src/server.tsx",
     "start": "react-scripts start",
     "start_prod": "node ./build/server.jsx",
     "watch": "watchify -t babelify ./src/index.tsx -o ./build/bundle.js",

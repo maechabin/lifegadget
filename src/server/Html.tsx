@@ -2,36 +2,37 @@ import React from 'react';
 import config from '../config';
 
 function Html(props: any): JSX.Element {
-  const archive = props.finalState.archive.article;
-  const routing = props.finalState.routing.locationBeforeTransitions;
+  // const archive = props.finalState.archive.article;
+  // const routing = props.finalState.routing.locationBeforeTransitions;
 
-  function getTitle(pathname: any) {
-    switch (pathname) {
-      case 'archives':
-        if (archive.hasOwnProperty('title')) {
-          return `${archive.title.rendered} - ${config.blogTitleTag}`;
-        }
-        return '404 Not Found';
-      default:
-        return `${config.blogTitleTag} - ${config.blogSubTitle}`;
-    }
-  }
-  function getImage(pathname: any) {
-    switch (pathname) {
-      case 'archives':
-        return `${props.finalState.archive.articleImage}`;
-      default:
-        return `${config.blogUrl}${config.blogDefaultImage}`;
-    }
-  }
+  // function getTitle(pathname: any) {
+  //   switch (pathname) {
+  //     case 'archives':
+  //       if (archive.hasOwnProperty('title')) {
+  //         return `${archive.title.rendered} - ${config.blogTitleTag}`;
+  //       }
+  //       return '404 Not Found';
+  //     default:
+  //       return `${config.blogTitleTag} - ${config.blogSubTitle}`;
+  //   }
+  // }
+  // function getImage(pathname: any) {
+  //   switch (pathname) {
+  //     case 'archives':
+  //       return `${props.finalState.archive.articleImage}`;
+  //     default:
+  //       return `${config.blogUrl}${config.blogDefaultImage}`;
+  //   }
+  // }
 
-  const pathname = routing.pathname.split('/')[1];
-  const title = getTitle(pathname);
-  const image = getImage(pathname);
+  // const pathname = routing.pathname.split('/')[1];
+  // const title = getTitle(pathname);
+  // const image = getImage(pathname);
 
   return (
     <html>
       <head>
+        {/*
         <meta charSet="utf-8" />
         <title>{title}</title>
         <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico" />
@@ -55,10 +56,13 @@ function Html(props: any): JSX.Element {
           type="application/rss+xml"
           title="RSS"
           href={`http://${config.blogDomain}/feed`} />
+        */}
       </head>
 
       <body>
-        <div className="content" id="content">{props.children}</div>
+        <div className="content" id="content">
+          {props.children}
+        </div>
       </body>
     </html>
   );
