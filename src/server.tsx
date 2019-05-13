@@ -6,23 +6,9 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 // import { createMemoryHistory, match, RouterContext } from 'react-router';
 // import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import { StaticRouter, matchPath } from 'react-router-dom';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { History, createBrowserHistory } from 'history';
-import { combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { StaticRouter, Route } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
-
-// Store
-import { rootState } from './root/rootState';
-import { indexState } from './index/indexState';
-import { archiveState } from './archive/archiveState';
-import { configureStore } from './store';
-
-// Reducers
-import { rootReducer } from './root/rootReducer';
-import { indexReducer } from './index/indexReducer';
-import { archiveReducer } from './archive/archiveReducer';
 
 // Actions
 import {
@@ -34,6 +20,7 @@ import renderFullPage from './server/renderFullPage';
 import makeRss from './feed';
 import { routingArray } from './routes';
 
+import { store, history } from './redux';
 import Html from './server/Html';
 import Root from './root/RootContainer';
 
@@ -55,7 +42,8 @@ app.use(compression());
 // });
 // app.use(express.static('./src'));
 app.get('/*', (req, res) => {
-  let context = {}
+  let context = {};
+
   // const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
 
   // if (currentRoute) {
@@ -69,9 +57,13 @@ app.get('/*', (req, res) => {
   // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
   //   () => {
   ReactDOMServer.renderToNodeStream(
-    <StaticRouter location={req.url} context={context}>
-      <Html />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <Html>
+          <Route path="/" component={Root} history={history} />
+        </Html>
+      </StaticRouter>
+    </Provider>,
   ).pipe(res);
   // const finalState = store.getState();
   //   },
