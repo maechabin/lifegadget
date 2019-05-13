@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Footer(props: any): JSX.Element {
-  const logo = require(`../../images/${props.config.blogLogoImage}`);
+  // const logo = require(`../../images/${props.config.blogLogoImage}`);
 
   return (
     <footer className="footer">
@@ -39,7 +39,11 @@ function Footer(props: any): JSX.Element {
       &copy; 2019
       <address>
         <Link to="/">
-          <img src={logo} alt={props.config.blogTitle} width="80" />
+          <img
+            src={`../../images/${props.config.blogLogoImage}`}
+            alt={props.config.blogTitle}
+            width="80"
+          />
         </Link>
       </address>
     </footer>

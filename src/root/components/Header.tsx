@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
 
 function Header(props: any): JSX.Element {
-  const logo = require(`../../images/${props.config.blogLogoImage}`);
+  // const logo = require(`../../images/${props.config.blogLogoImage}`);
   const headerClassName =
     props.history.location.pathname === '/' ? 'header' : 'header header__mini';
 
@@ -13,7 +13,11 @@ function Header(props: any): JSX.Element {
       <div className="header__title">
         <h1>
           <Link to="/">
-            <img src={logo} alt={props.config.blogTitle} width="404" />
+            <img
+              src={`../../images/${props.config.blogLogoImage}`}
+              alt={props.config.blogTitle}
+              width="404"
+            />
           </Link>
           <span>
             生活をサポートする記事メディア<strong>「ライフガジェット」</strong>

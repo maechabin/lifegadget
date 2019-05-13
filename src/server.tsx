@@ -28,8 +28,8 @@ const PORT = process.env.PORT || 3030;
 const app = express();
 const router = express.Router();
 
-app.use(helmet());
-app.use(compression());
+// app.use(helmet());
+// app.use(compression());
 // app.use('/assets', express.static('build'));
 // app.use('/assets', express.static('public'));
 // app.get('/feed', (req, res) => {
@@ -41,8 +41,9 @@ app.use(compression());
 //   return res.send('User-agent: Twitterbot\nDisallow:');
 // });
 // app.use(express.static('./src'));
-app.get('/*', (req, res) => {
+app.get('*', async (req, res) => {
   let context = {};
+  res.write('<!DOCTYPE html>');
 
   // const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
 
@@ -51,8 +52,12 @@ app.get('/*', (req, res) => {
   // const promise1 = currentRoute.component.handleFetch
   //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
   //   : Promise.resolve('no fetching');
-  // const promise2 = fetchCategoryAndDispatchSetCategoryAsync();
-  // const promise3 = fetchUserAndDispatchSetUserAsync();
+  await fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch);
+  await fetchUserAndDispatchSetUserAsync()(store.dispatch);
+
+  const finalState = store.getState();
+
+  console.log(finalState);
 
   // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
   //   () => {
@@ -65,7 +70,7 @@ app.get('/*', (req, res) => {
       </StaticRouter>
     </Provider>,
   ).pipe(res);
-  // const finalState = store.getState();
+
   //   },
   // );
   // }
