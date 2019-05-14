@@ -7,23 +7,37 @@ import Tag from './index/containers/TagContainer';
 import Author from './index/containers/AuthorContainer';
 import NotFound from './shared/NotFound';
 
+import { fetchIndexAndDispatchSetIndexAsync } from './index/indexAction';
+import { fetchArticleAndDispatchSetAsync } from './archive/archiveAction';
+import { fetchIndex, fetchArchive } from './domains/wordpress';
+
 export type Route = {
   path?: string;
   component: any;
+  fetchData?: any;
 };
 
 export const routingArray: Route[] = [
   {
     path: '/',
     component: Index,
+    fetchData: (pageNumber: number, dispatch: any) => {
+      fetchIndexAndDispatchSetIndexAsync({ fetchMethod: fetchIndex, pageNumber })(dispatch);
+    },
   },
   {
     path: '/:page',
     component: Index,
+    fetchData: (pageNumber: number, dispatch: any) => {
+      fetchIndexAndDispatchSetIndexAsync({ fetchMethod: fetchIndex, pageNumber })(dispatch);
+    },
   },
   {
     path: '/archives/:id',
     component: Archive,
+    fetchData: (archiveId: number, dispatch: any) => {
+      fetchArticleAndDispatchSetAsync({ fetchMethod: fetchArchive, archiveId })(dispatch);
+    },
   },
   {
     path: '/search/:keyword',

@@ -14,7 +14,7 @@ import {
   fetchUserAndDispatchSetUserAsync,
 } from './root/rootAction';
 
-import makeRss from './feed';
+import makeRss from './server/feed';
 import { routingArray } from './routes';
 
 import { store, history } from './redux';
@@ -27,8 +27,8 @@ const router = express.Router();
 
 // app.use(helmet());
 // app.use(compression());
-// app.use('/assets', express.static('build'));
-// app.use('/assets', express.static('public'));
+app.use('/assets', express.static('build'));
+app.use('/assets', express.static('public'));
 // app.get('/feed', (req, res) => {
 //   res.type('rss');
 //   return makeRss().then((result) => res.send(result));
@@ -38,47 +38,34 @@ const router = express.Router();
 //   return res.send('User-agent: Twitterbot\nDisallow:');
 // });
 // app.use(express.static('./src'));
-app.get('/*', async (req, res) => {
+
+/**
+ * 参考URL
+ * https://alligator.io/react/react-router-ssr/
+ */
+app.get('*', (req, res) => {
   let context = {};
   res.write('<!doctype html>');
 
   const currentRoute = routingArray.find((route) => !!!matchPath(req.url, route)) || null;
 
-  // if (currentRoute) {
-  // Promise
-  // const promise1 = currentRoute.component.handleFetch
-  //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
-  //   : Promise.resolve('no fetching');
+  Promise.all([
+    currentRoute && currentRoute.fetchData(1, store.dispatch),
+    fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch),
+    fetchUserAndDispatchSetUserAsync()(store.dispatch),
+  ]).then(() => {
+    const finalState = store.getState();
 
-  /**
-   * 参考URL
-   * https://alligator.io/react/react-router-ssr/
-   */
-
-  try {
-    await fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch);
-    await fetchUserAndDispatchSetUserAsync()(store.dispatch);
-  } catch (error) {
-    console.log(error);
-  }
-
-  const finalState = store.getState();
-
-  // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
-  //   () => {
-  ReactDOMServer.renderToNodeStream(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <Html>
-          <Route path="/" component={Root} history={history} />
-        </Html>
-      </StaticRouter>
-    </Provider>,
-  ).pipe(res);
-
-  //   },
-  // );
-  // }
+    ReactDOMServer.renderToNodeStream(
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          <Html>
+            <Route path="/" component={Root} history={history} />
+          </Html>
+        </StaticRouter>
+      </Provider>,
+    ).pipe(res);
+  });
 });
 
 app.listen(PORT, () => console.log(`Hello app listening on port ${PORT}!`));
