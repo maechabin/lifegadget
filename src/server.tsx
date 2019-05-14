@@ -4,9 +4,7 @@ import compression from 'compression';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-// import { createMemoryHistory, match, RouterContext } from 'react-router';
-// import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import { StaticRouter, Route } from 'react-router-dom';
+import { StaticRouter, matchPath, Route } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
 
@@ -16,7 +14,6 @@ import {
   fetchUserAndDispatchSetUserAsync,
 } from './root/rootAction';
 
-import renderFullPage from './server/renderFullPage';
 import makeRss from './feed';
 import { routingArray } from './routes';
 
@@ -41,23 +38,31 @@ const router = express.Router();
 //   return res.send('User-agent: Twitterbot\nDisallow:');
 // });
 // app.use(express.static('./src'));
-app.get('*', async (req, res) => {
+app.get('/*', async (req, res) => {
   let context = {};
-  res.write('<!DOCTYPE html>');
+  res.write('<!doctype html>');
 
-  // const currentRoute = routingArray.find((route) => !!matchPath(req.url, route)) || null;
+  const currentRoute = routingArray.find((route) => !!!matchPath(req.url, route)) || null;
 
   // if (currentRoute) {
   // Promise
   // const promise1 = currentRoute.component.handleFetch
   //   ? currentRoute.component.handleFetch(store.dispatch, currentRoute)
   //   : Promise.resolve('no fetching');
-  await fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch);
-  await fetchUserAndDispatchSetUserAsync()(store.dispatch);
+
+  /**
+   * 参考URL
+   * https://alligator.io/react/react-router-ssr/
+   */
+
+  try {
+    await fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch);
+    await fetchUserAndDispatchSetUserAsync()(store.dispatch);
+  } catch (error) {
+    console.log(error);
+  }
 
   const finalState = store.getState();
-
-  console.log(finalState);
 
   // Promise.all([Promise.all(promise1), promise2(store.dispatch), promise3(store.dispatch)]).then(
   //   () => {
