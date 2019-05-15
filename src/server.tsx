@@ -42,30 +42,37 @@ app.use('/assets', express.static('public'));
 /**
  * 参考URL
  * https://alligator.io/react/react-router-ssr/
+ * https://github.com/ReactTraining/react-router/tree/master/packages/react-router/docs/api
  */
 app.get('*', (req, res) => {
   let context = {};
   res.write('<!doctype html>');
 
-  const currentRoute = routingArray.find((route) => !!!matchPath(req.url, route)) || null;
+  const currentRoute = routingArray.find((route) => !!matchPath(req.path, route)) || null;
 
-  Promise.all([
-    currentRoute && currentRoute.fetchData(1, store.dispatch),
-    fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch),
-    fetchUserAndDispatchSetUserAsync()(store.dispatch),
-  ]).then(() => {
-    const finalState = store.getState();
+  if (currentRoute) {
+    const match = matchPath(req.path, currentRoute);
+    console.log(currentRoute);
+    console.log(match);
 
-    ReactDOMServer.renderToNodeStream(
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-          <Html>
-            <Route path="/" component={Root} history={history} />
-          </Html>
-        </StaticRouter>
-      </Provider>,
-    ).pipe(res);
-  });
+    Promise.all([
+      match && currentRoute.fetchData(match.params, store.dispatch),
+      fetchCategoryAndDispatchSetCategoryAsync()(store.dispatch),
+      fetchUserAndDispatchSetUserAsync()(store.dispatch),
+    ]).then(() => {
+      const finalState = store.getState();
+
+      ReactDOMServer.renderToNodeStream(
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            <Html>
+              <Route path="/" component={Root} history={history} />
+            </Html>
+          </StaticRouter>
+        </Provider>,
+      ).pipe(res);
+    });
+  }
 });
 
 app.listen(PORT, () => console.log(`Hello app listening on port ${PORT}!`));
