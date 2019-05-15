@@ -1,42 +1,49 @@
 import React from 'react';
+
+import { State } from '../state.model';
 import config from '../config';
 
-function Html(props: any): JSX.Element {
-  // const archive = props.finalState.archive.article;
-  // const routing = props.finalState.routing.locationBeforeTransitions;
+type PropsTypes = {
+  children: JSX.Element | JSX.Element[];
+  finalState: State;
+};
 
-  // function getTitle(pathname: any) {
-  //   switch (pathname) {
-  //     case 'archives':
-  //       if (archive.hasOwnProperty('title')) {
-  //         return `${archive.title.rendered} - ${config.blogTitleTag}`;
-  //       }
-  //       return '404 Not Found';
-  //     default:
-  //       return `${config.blogTitleTag} - ${config.blogSubTitle}`;
-  //   }
-  // }
-  // function getImage(pathname: any) {
-  //   switch (pathname) {
-  //     case 'archives':
-  //       return `${props.finalState.archive.articleImage}`;
-  //     default:
-  //       return `${config.blogUrl}${config.blogDefaultImage}`;
-  //   }
-  // }
+function Html({ finalState, children }: PropsTypes): JSX.Element {
+  const archive = finalState.archive.article;
+  const routing = finalState.router.location;
 
-  // const pathname = routing.pathname.split('/')[1];
-  // const title = getTitle(pathname);
-  // const image = getImage(pathname);
+  function getTitle(pathname: string) {
+    switch (pathname) {
+      case 'archives':
+        if (archive && archive.hasOwnProperty('title')) {
+          return `${archive.title.rendered} - ${config.blogTitleTag}`;
+        }
+        return '404 Not Found';
+      default:
+        return `${config.blogTitleTag} - ${config.blogSubTitle}`;
+    }
+  }
+
+  function getImage(pathname: string) {
+    switch (pathname) {
+      case 'archives':
+        return `${finalState.archive.articleImage}`;
+      default:
+        return `${config.blogUrl}${config.blogDefaultImage}`;
+    }
+  }
+
+  const pathname = routing.pathname.split('/')[1];
+  const title = getTitle(pathname);
+  const image = getImage(pathname);
 
   return (
     <html>
       <head>
         <meta charSet="utf-8" />
-        <link rel="stylesheet" href="/assets/style.css" />
-        {/*
         <title>{title}</title>
         <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico" />
+        <link rel="stylesheet" href="/assets/style.css" />
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
         <meta name="robots" content="noindex,nofollow" />
         <meta property="og:type" content="website" />
@@ -55,13 +62,13 @@ function Html(props: any): JSX.Element {
           rel="alternate"
           type="application/rss+xml"
           title="RSS"
-          href={`http://${config.blogDomain}/feed`} />
-        */}
+          href={`http://${config.blogDomain}/feed`}
+        />
       </head>
 
       <body>
         <div className="content" id="content">
-          {props.children}
+          {children}
         </div>
       </body>
     </html>

@@ -52,8 +52,6 @@ app.get('*', (req, res) => {
 
   if (currentRoute) {
     const match = matchPath(req.path, currentRoute);
-    console.log(currentRoute);
-    console.log(match);
 
     Promise.all([
       match && currentRoute.fetchData(match.params, store.dispatch),
@@ -65,7 +63,7 @@ app.get('*', (req, res) => {
       ReactDOMServer.renderToNodeStream(
         <Provider store={store}>
           <StaticRouter location={req.url} context={context}>
-            <Html>
+            <Html finalState={finalState}>
               <Route path="/" component={Root} history={history} />
             </Html>
           </StaticRouter>
