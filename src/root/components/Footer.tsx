@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Footer(props: any): JSX.Element {
-  // const logo = require(`../../images/${props.config.blogLogoImage}`);
-
   return (
     <footer className="footer">
       <div className="footer__nav">
@@ -40,7 +38,7 @@ function Footer(props: any): JSX.Element {
       <address>
         <Link to="/">
           <img
-            src={`../../images/${props.config.blogLogoImage}`}
+            src={`/assets/images/${props.config.blogLogoImage}`}
             alt={props.config.blogTitle}
             width="80"
           />
