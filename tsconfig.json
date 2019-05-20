@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "types": ["node", "isomorphic-fetch"],
+    "types": ["node", "isomorphic-fetch", "serialize-javascript"],
     "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src"]

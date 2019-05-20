@@ -11,28 +11,36 @@ import { archiveReducer } from './archive/archiveReducer';
 import { rootState } from './root/rootState';
 import { indexState } from './index/indexState';
 import { archiveState } from './archive/archiveState';
+import { State } from './state.model';
 
-// History
-export const history = createMemoryHistory();
+export function createRedux(state?: State) {
+  // History
+  const history = createMemoryHistory();
 
-// 1. Reducers
-const reducers = (history: History) =>
-  combineReducers({
-    root: rootReducer,
-    index: indexReducer,
-    archive: archiveReducer,
-    router: connectRouter(history),
-  });
+  // 1. Reducers
+  const reducers = (history: History) =>
+    combineReducers({
+      root: rootReducer,
+      index: indexReducer,
+      archive: archiveReducer,
+      router: connectRouter(history),
+    });
 
-// 2. States
-const initialState = {
-  root: rootState,
-  index: indexState,
-  archive: archiveState,
-};
+  // 2. States
+  const initialState = state
+    ? state
+    : {
+        root: rootState,
+        index: indexState,
+        archive: archiveState,
+      };
 
-// 3. Middleware
-const middleware = () => applyMiddleware(routerMiddleware(history), thunk);
+  // 3. Middleware
+  const middleware = () => applyMiddleware(routerMiddleware(history), thunk);
 
-// Make Store
-export const store = configureStore(reducers(history), initialState, middleware());
+  // Make Store
+  return {
+    store: configureStore(reducers(history), initialState, middleware()),
+    history,
+  };
+}

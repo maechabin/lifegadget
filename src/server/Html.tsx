@@ -76,6 +76,7 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
         <div className="content" id="content">
           {children}
         </div>
+        <script id="initial-data" type="text/plain" data-json={JSON.stringify(finalState)} />
         {getScriptFiles()}
       </body>
     </html>

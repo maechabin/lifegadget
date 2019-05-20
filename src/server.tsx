@@ -5,7 +5,6 @@ import compression from 'compression';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter, matchPath, Route } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
 
 // Actions
@@ -17,13 +16,14 @@ import {
 import makeRss from './server/feed';
 import { routingArray } from './routes';
 
-import { store, history } from './redux';
+import { createRedux } from './redux';
 import Html from './server/Html';
 import Root from './root/RootContainer';
 
+const { store, history } = createRedux();
+
 const PORT = process.env.PORT || 3030;
 const app = express();
-const router = express.Router();
 
 // app.use(helmet());
 // app.use(compression());
