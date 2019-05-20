@@ -2,6 +2,7 @@ import React from 'react';
 
 import { State } from '../state.model';
 import config from '../config';
+import manifest from '../../build/asset-manifest.json';
 
 type PropsTypes = {
   children: JSX.Element | JSX.Element[];
@@ -11,6 +12,11 @@ type PropsTypes = {
 function Html({ finalState, children }: PropsTypes): JSX.Element {
   const archive = finalState.archive.article;
   const routing = finalState.router.location;
+
+  function getScriptFiles() {
+    const filePath = Object.values(manifest.files).filter((file) => file.match(/chunk\.js$/));
+    return filePath.map((path) => <script src={`assets${path}`} />);
+  }
 
   function getTitle(pathname: string) {
     switch (pathname) {
@@ -70,6 +76,7 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
         <div className="content" id="content">
           {children}
         </div>
+        {getScriptFiles()}
       </body>
     </html>
   );
