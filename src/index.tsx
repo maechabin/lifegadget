@@ -9,7 +9,16 @@ import Root from './root/RootContainer';
 
 import './sass/App.scss';
 
-const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
+let initialData;
+
+if (document.querySelector('#initial-data') !== null) {
+  const a = document.querySelector('#initial-data');
+  const b = a && a.getAttribute('data-json');
+  if (b) {
+    initialData = JSON.parse(b);
+  }
+}
+
 const { store, history } = createRedux(initialData);
 
 // Google Analytics
