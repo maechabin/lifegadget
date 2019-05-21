@@ -30,5 +30,5 @@ ReactDOM.hydrate(
       <Route path="/" component={Root} history={history} />
     </BrowserRouter>
   </Provider>,
-  document.querySelector('#content'),
+  document.getElementById('content'),
 );

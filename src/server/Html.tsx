@@ -14,9 +14,10 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
   const routing = finalState.router.location;
 
   function getScriptFiles() {
-    const filePath = Object.values(manifest.files).filter((file: string) =>
-      file.match(/chunk\.js$/),
-    );
+    const filePath = Object.values(manifest.files).filter((file: any) => {
+      console.log(file);
+      return file.match(/\.js$/);
+    });
     return filePath.map((path) => <script src={`assets${path}`} />);
   }
 

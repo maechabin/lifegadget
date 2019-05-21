@@ -49,7 +49,6 @@ app.get('*', (req, res) => {
   res.write('<!doctype html>');
 
   const currentRoute = routingArray.find((route) => !!matchPath(req.path, route)) || null;
-  console.log(currentRoute);
 
   if (currentRoute) {
     const match = matchPath(req.path, currentRoute);
