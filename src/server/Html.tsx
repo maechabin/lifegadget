@@ -50,7 +50,7 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
       <head>
         <meta charSet="utf-8" />
         <title>{title}</title>
-        <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
         <link rel="stylesheet" href="/assets/style.css" />
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
         <meta name="robots" content="noindex,nofollow" />
