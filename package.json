@@ -22,12 +22,10 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/redux": "^3.6.0",
     "@types/rss": "0.0.28",
-    "@types/serialize-javascript": "^1.5.0",
     "@types/showdown": "^1.9.2",
     "compression": "^1.7.4",
     "connected-react-router": "^6.4.0",
     "express": "^4.16.4",
-    "feed": "^0.3.1",
     "helmet": "^3.16.0",
     "history": "^4.9.0",
     "isomorphic-fetch": "^2.2.1",
@@ -39,7 +37,6 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.1.0",
     "rss": "^1.2.2",
-    "serialize-javascript": "^1.7.0",
     "showdown": "^1.9.0"
   },
   "devDependencies": {
@@ -54,7 +51,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "babelify": "^7.3.0",
     "folderify": "^1.2.1",
     "node-sass": "^4.11.0",
     "prettier": "^1.17.0",
