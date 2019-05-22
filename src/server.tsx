@@ -29,15 +29,14 @@ const app = express();
 // app.use(compression());
 app.use('/assets', express.static('build'));
 app.use('/assets', express.static('public'));
-// app.get('/feed', (req, res) => {
-//   res.type('rss');
-//   return makeRss().then((result) => res.send(result));
-// });
-// app.get('/robots.txt', (req, res) => {
-//   res.type('text/plain');
-//   return res.send('User-agent: Twitterbot\nDisallow:');
-// });
-// app.use(express.static('./src'));
+app.get('/feed', (req, res) => {
+  res.type('rss');
+  return makeRss().then((result) => res.send(result));
+});
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  return res.send('User-agent: Twitterbot\nDisallow:');
+});
 
 /**
  * 参考URL
