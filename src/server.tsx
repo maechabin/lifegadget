@@ -7,18 +7,16 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter, matchPath, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-// Actions
+import { routingArray } from './routes';
+import { createRedux } from './redux';
 import {
   fetchCategoryAndDispatchSetCategoryAsync,
   fetchUserAndDispatchSetUserAsync,
 } from './root/rootAction';
 
-import makeRss from './server/feed';
-import { routingArray } from './routes';
-
-import { createRedux } from './redux';
 import Html from './server/Html';
 import Root from './root/RootContainer';
+import makeRss from './server/feed';
 
 const { store, history } = createRedux();
 

@@ -15,7 +15,6 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
 
   function getScriptFiles() {
     const filePath = Object.values(manifest.files).filter((file: any) => {
-      console.log(file);
       return file.match(/\.js$/);
     });
     return filePath.map((path) => <script src={`assets${path}`} />);
