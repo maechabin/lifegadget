@@ -24,7 +24,9 @@ const PORT = process.env.PORT || 3030;
 const app = express();
 
 // app.use(helmet());
-// app.use(compression());
+// helmetが使えれば以下は必要ない
+app.disable('x-powered-by');
+app.use(compression());
 app.use('/assets', express.static('build'));
 app.use('/assets', express.static('public'));
 app.get('/feed', (req, res) => {
