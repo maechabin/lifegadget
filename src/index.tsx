@@ -6,6 +6,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import { createRedux } from './redux';
 import Root from './root/RootContainer';
+// import registerServiceWorker from './registerServiceWorker';
 
 import './sass/App.scss';
 
@@ -32,3 +33,4 @@ ReactDOM.hydrate(
   </Provider>,
   document.getElementById('content'),
 );
+// registerServiceWorker();
