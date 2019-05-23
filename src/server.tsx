@@ -29,7 +29,7 @@ app.disable('x-powered-by');
 app.use(compression());
 app.use('/assets', express.static('build'));
 app.use('/assets', express.static('public'));
-app.get('/feed', (req, res) => {
+app.get('/feed', async (req, res) => {
   res.type('rss');
   return makeRss().then((result) => res.send(result));
 });
