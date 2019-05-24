@@ -1,14 +1,16 @@
 import React from 'react';
 
-function ArchiveDate(props: any): JSX.Element {
-  function formatDate(date: any) {
-    const dividedDate = date.split('T')[0].split('-');
-    return `${dividedDate[0]}年${dividedDate[1]}月${dividedDate[2]}日`;
-  }
+import { formatDate } from '../../utils';
+import { Article } from '../archiveState';
 
+type PropsTypes = {
+  article: Article;
+}
+
+function ArchiveDate({ article }: PropsTypes): JSX.Element {
   return (
     <p className="article__date">
-      <i className="fa fa-calendar" /> <time>{formatDate(props.article.date)}</time>
+      <i className="fa fa-calendar" /> <time>{formatDate(article.date)}</time>
     </p>
   );
 }

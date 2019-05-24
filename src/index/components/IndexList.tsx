@@ -1,17 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Showdown from 'showdown';
 
 function IndexList(props: any): JSX.Element {
-  function rawMarkup(content: any) {
-    const converter = new Showdown.Converter();
-    const markup = converter.makeHtml(content.toString());
-    return { __html: markup };
-  }
-  function formatDate(date: any) {
-    const dividedDate = date.split('T')[0].split('-');
-    return `${dividedDate[0]}年${dividedDate[1]}月${dividedDate[2]}日`;
-  }
+import { createRawMarkup, formatDate } from '../../utils';
 
   const list =
     // props.isHiddenIndexList && props.routingKey !== '' ? (
