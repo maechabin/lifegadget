@@ -1,39 +1,57 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function IndexList(props: any): JSX.Element {
 import { createRawMarkup, formatDate } from '../../utils';
+import { Index } from '../indexState';
 
-  const list =
+type PropsTypes = {
+  index: Index[];
+}
+
+function IndexList({ index }: PropsTypes): JSX.Element {
+  const indexComponentCache = new WeakMap();
+
+  const listComponent =
     // props.isHiddenIndexList && props.routingKey !== '' ? (
     //   <div className="list__loading">
     //     <img src="../../images/loading.svg" alt="loading..." />
     //   </div>
     // ) : (
-    props.index.map((item: any) => {
-      const eyecatch = item.source_url ? (
-        <img src={item.source_url} alt={item.title.rendered} />
-      ) : (
-        ''
-      );
-      return (
-        <li key={item.id}>
-          <Link to={`/archives/${item.id}`}>{eyecatch}</Link>
-          <p className="index__list_date">
-            <i className="fa fa-calendar" /> <time>{formatDate(item.date)}</time>
-          </p>
-          <h3 className="index__list_title">
-            <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
-          </h3>
-          <div
-            className="index__list_description"
-            dangerouslySetInnerHTML={rawMarkup(item.excerpt.rendered)}
-          />
-        </li>
-      );
+    index.map((item: Index) => {
+      let component = null;
+      const cached = indexComponentCache.get(item);
+
+      if (cached) {
+        component = cached;
+      } else {
+        /** アイキャッチ画像 */
+        const eyecatch = item.source_url ? (
+          <img src={item.source_url} alt={item.title.rendered} />
+        ) : (
+          ''
+        );
+        component = (
+          <li key={item.id}>
+            <Link to={`/archives/${item.id}`}>{eyecatch}</Link>
+            <p className="index__list_date">
+              <i className="fa fa-calendar" /> <time>{formatDate(item.date)}</time>
+            </p>
+            <h3 className="index__list_title">
+              <Link to={`/archives/${item.id}`}>{item.title.rendered}</Link>
+            </h3>
+            <div
+              className="index__list_description"
+              dangerouslySetInnerHTML={createRawMarkup(item.excerpt.rendered.toString())}
+            />
+          </li>
+        );
+        indexComponentCache.set(index, component);
+      }
+
+      return component;
     });
   // );
-  return <ul className="index__list">{list}</ul>;
+  return <ul className="index__list">{listComponent}</ul>;
 }
 
 export default IndexList;
