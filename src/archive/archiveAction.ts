@@ -11,7 +11,7 @@ function _setHasArchiveErrorToTrue(): Action {
 }
 
 // Action creator
-function _setArticle(payload: any): Action<any> {
+function _setArticle(payload: Article): Action<any> {
   return {
     type: ArchiveActionType.SET_ARTICLE,
     payload,
@@ -31,8 +31,15 @@ export function fetchArticleAndDispatchSetAsync(query: {
   fetchMethod: typeof fetchArchive;
   archiveId: number;
 }) {
-  return async (dispatch: Dispatch) => {
-    const response: Article = await query.fetchMethod(query.archiveId);
+  return async (dispatch: Dispatch, getState?: any) => {
+    const { archive } = getState();
+    let response: Article | null;
+
+    if (archive && archive.article && archive.article[query.archiveId]) {
+      response = archive.article[query.archiveId];
+    } else {
+      response = await query.fetchMethod(query.archiveId);
+    }
 
     if (response == null) {
       dispatch(_setHasArchiveErrorToTrue());

@@ -1,12 +1,17 @@
 import { ArchiveState } from './archiveState';
 import { Action, ArchiveActionType } from '../action.model';
+import { fetchArticleAndDispatchSetAsync } from './archiveAction';
 
 export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action: Action) => {
   switch (action.type) {
     case ArchiveActionType.SET_ARTICLE:
+      const article = {
+        ...state.article,
+        [action.payload.id]: action.payload,
+      };
       return {
         ...state,
-        article: action.payload,
+        article,
         currentId: action.payload.id,
         tags: [],
         hasTagNames: false,

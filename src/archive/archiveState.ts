@@ -1,11 +1,15 @@
 /** ArchiveStateモデル */
 export interface ArchiveState {
   hasError: boolean;
-  article: Article | null;
+  article: Articles | null;
   articleImage: string;
   currentId: number;
   tags: { name: string; slug: string }[];
   hasTagNames: boolean;
+}
+
+export interface Articles {
+  [id: number]: Article;
 }
 
 /** 記事 */

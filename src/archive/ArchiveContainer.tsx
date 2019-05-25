@@ -12,7 +12,9 @@ import Archive from './components/Archive';
 
 function ArchiveContainer(props: any): JSX.Element {
   React.useEffect(() => {
+    // if (!(props.article && props.article[props.match.params.id])) {
     props.dispatchSetArticle(fetchArchive, props.match.params.id);
+    // }
   }, []);
 
   React.useEffect(() => {
@@ -21,12 +23,13 @@ function ArchiveContainer(props: any): JSX.Element {
 
   return (
     <ScrollToTop>
-      <Archive {...props} />
+      <Archive {...props} article={props.article ? props.article[props.match.params.id] : null} />
     </ScrollToTop>
   );
 }
 
 function mapStateToProps(state: State) {
+  const currentId = state.archive.currentId;
   return {
     hasError: state.archive.hasError,
     category: state.root.category,
