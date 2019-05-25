@@ -7,25 +7,16 @@ type PropsTypes = {
   article: Article;
 };
 
-let archiveComponentChache = new WeakMap();
-let key: { id: number } = { id: NaN };
-
 function ArchiveContent({ article }: PropsTypes): JSX.Element {
-  console.log(article.id);
-
-  if (key.id !== article.id) {
-    archiveComponentChache = new WeakMap();
-    key = { id: article.id };
-  }
+  const [key] = React.useState({ id: article.id });
+  const [archiveComponentChache] = React.useState(new WeakMap());
 
   let component = null;
   const cached = archiveComponentChache.get(key);
-  console.log(archiveComponentChache);
+
   if (cached) {
-    console.log('cached');
     component = cached;
   } else {
-    console.log('no cached');
     component = (
       <div
         className="article__content"
@@ -34,7 +25,6 @@ function ArchiveContent({ article }: PropsTypes): JSX.Element {
     );
     archiveComponentChache.set(key, component);
   }
-  console.log(archiveComponentChache);
   return component;
 }
 
