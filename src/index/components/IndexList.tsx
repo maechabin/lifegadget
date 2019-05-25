@@ -6,7 +6,7 @@ import { Index } from '../indexState';
 
 type PropsTypes = {
   index: Index[];
-}
+};
 
 function IndexList({ index }: PropsTypes): JSX.Element {
   const indexComponentCache = new WeakMap();
@@ -45,7 +45,7 @@ function IndexList({ index }: PropsTypes): JSX.Element {
             />
           </li>
         );
-        indexComponentCache.set(index, component);
+        indexComponentCache.set(item, component);
       }
 
       return component;
