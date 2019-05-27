@@ -12,8 +12,20 @@ export interface Articles {
   [id: number]: Article;
 }
 
-/** 記事 */
 export interface Article {
+  id: number;
+  author: number;
+  categories: number[];
+  content: string;
+  date: string;
+  eyecatch: string;
+  tags: number[];
+  tagNames: number[];
+  title: string;
+}
+
+/** 記事 */
+export interface Archive {
   author: number;
   categories: number[];
   comment_status: string;

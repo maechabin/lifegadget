@@ -20,7 +20,7 @@ function ArchiveContent({ article }: PropsTypes): JSX.Element {
     component = (
       <div
         className="article__content"
-        dangerouslySetInnerHTML={createRawMarkup(article.content.rendered.toString())}
+        dangerouslySetInnerHTML={createRawMarkup(article.content)}
       />
     );
     archiveComponentChache.set(key, component);

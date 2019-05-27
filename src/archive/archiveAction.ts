@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { Article } from './archiveState';
+import { Archive } from './archiveState';
 import { Action, ArchiveActionType } from '../action.model';
 import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
@@ -11,7 +11,7 @@ function _setHasArchiveErrorToTrue(): Action {
 }
 
 // Action creator
-function _setArticle(payload: Article): Action<any> {
+function _setArticle(payload: Archive): Action<Archive> {
   return {
     type: ArchiveActionType.SET_ARTICLE,
     payload,
@@ -33,7 +33,7 @@ export function fetchArticleAndDispatchSetAsync(query: {
 }) {
   return async (dispatch: Dispatch, getState?: any) => {
     const { archive } = getState();
-    let response: Article | null;
+    let response: Archive | null;
 
     if (archive && archive.article && archive.article[query.archiveId]) {
       response = archive.article[query.archiveId];

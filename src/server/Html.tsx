@@ -23,8 +23,8 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
   function getTitle(pathname: string) {
     switch (pathname) {
       case 'archives':
-        if (archive && archive.hasOwnProperty('title')) {
-          return `${archive.title.rendered} - ${config.blogTitleTag}`;
+        if (archive && archive[1].hasOwnProperty('title')) {
+          return `${archive[1].title} - ${config.blogTitleTag}`;
         }
         return '404 Not Found';
       default:
