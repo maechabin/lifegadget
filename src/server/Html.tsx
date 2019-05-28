@@ -35,7 +35,7 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
   function getImage(pathname: string) {
     switch (pathname) {
       case 'archives':
-        return `${finalState.archive.articleImage}`;
+        return `${archive && archive[1].eyecatch}`;
       default:
         return `${config.blogUrl}${config.blogDefaultImage}`;
     }

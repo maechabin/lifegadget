@@ -23,7 +23,7 @@ export interface Index {
   id: number;
   link: string;
   slug: string;
-  source_url: string;
+  source_url: string | null;
   title: {
     rendered: string;
   };

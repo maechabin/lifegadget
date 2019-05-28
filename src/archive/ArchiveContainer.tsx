@@ -35,8 +35,6 @@ function mapStateToProps(state: State) {
     category: state.root.category,
     user: state.root.user,
     article: state.archive.article,
-    tags: state.archive.tags,
-    hasTagNames: state.archive.hasTagNames,
   };
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {

@@ -2,15 +2,18 @@
 export interface ArchiveState {
   hasError: boolean;
   article: Articles | null;
-  articleImage: string;
   currentId: number;
-  tags: { name: string; slug: string }[];
-  hasTagNames: boolean;
 }
 
 /** 記事一覧 */
 export interface Articles {
   [id: number]: Article;
+}
+
+/** タグ名 */
+export interface TagName {
+  name: string;
+  slug: string;
 }
 
 /** 記事 */
@@ -22,7 +25,7 @@ export interface Article {
   date: string;
   eyecatch: string;
   tags: number[];
-  tagNames: number[];
+  tagNames: TagName[];
   title: string;
 }
 
@@ -30,8 +33,5 @@ export interface Article {
 export const archiveState: ArchiveState = {
   hasError: false,
   article: null,
-  articleImage: '',
-  currentId: 0,
-  tags: [],
-  hasTagNames: false,
+  currentId: NaN,
 };

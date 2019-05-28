@@ -23,20 +23,29 @@ export const archiveReducer = (state: ArchiveState = {} as ArchiveState, action:
         ...state,
         article,
         currentId: action.payload.id,
-        tags: [],
-        hasTagNames: false,
         hasError: false,
-      };
-    case ArchiveActionType.SET_ARTICLE_IMAGE:
-      return {
-        ...state,
-        articleImage: action.payload,
       };
     case ArchiveActionType.SET_TAGS:
       return {
         ...state,
-        tags: action.payload,
-        hasTagNames: true,
+        article: {
+          ...state.article,
+          [action.payload.archiveId]: {
+            ...(state && state.article && state.article[action.payload.archiveId]),
+            tagNames: action.payload.tagNames,
+          },
+        },
+      };
+    case ArchiveActionType.SET_ARTICLE_IMAGE:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          [action.payload.archiveId]: {
+            ...(state && state.article && state.article[action.payload.archiveId]),
+            eyecatch: action.payload.source_url,
+          },
+        },
       };
     case ArchiveActionType.SET_HAS_ARCHIVE_ERROR_TO_TRUE:
       return {

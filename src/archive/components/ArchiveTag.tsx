@@ -2,19 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function ArchiveTag(props: any): JSX.Element {
-  let tag = <></>;
+  let tagElement = <></>;
 
-  if (props.hasTagNames === true && props.tags.length > 0) {
-    tag = props.tags.map((tags: { name: string; slug: string }, index: number) => (
-      <span key={tags.slug}>
-        #<Link to={`/tag/${props.article.tags[index]}`}>{tags.name}</Link>
-      </span>
-    ));
+  if (props.article.tagNames && props.article.tagNames.length > 0) {
+    tagElement = props.article.tagNames.map(
+      (tag: { name: string; slug: string }, index: number) => (
+        <span key={tag.slug}>
+          #<Link to={`/tag/${props.article.tags[index]}`}>{tag.name}</Link>
+        </span>
+      ),
+    );
   }
 
   return (
     <div className="article__tag">
-      <i className="fa fa-tag" /> {tag}
+      <i className="fa fa-tag" /> {tagElement}
     </div>
   );
 }

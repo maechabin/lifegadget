@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 
 import { Action, ArchiveActionType } from '../action.model';
+import { TagName } from './archiveState';
 import { Archive, fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
 function _setHasArchiveErrorToTrue(): Action {
@@ -17,8 +18,28 @@ function _setArticle(payload: Archive): Action<Archive> {
   };
 }
 
+// TagIDからTag名取得
+function _setTags(payload: {
+  archiveId: number;
+  tagNames: TagName[];
+}): Action<{
+  archiveId: number;
+  tagNames: TagName[];
+}> {
+  return {
+    type: ArchiveActionType.SET_TAGS,
+    payload,
+  };
+}
+
 // 任意のIDのアイキャッチ画像の取得、保存
-function _setArticleImage(payload: string): Action<string> {
+function _setArticleImage(payload: {
+  archiveId: number;
+  source_url: string | null;
+}): Action<{
+  archiveId: number;
+  source_url: string | null;
+}> {
   return {
     type: ArchiveActionType.SET_ARTICLE_IMAGE,
     payload,
@@ -35,7 +56,7 @@ export function fetchArticleAndDispatchSetAsync(query: {
     let response: Archive | null;
 
     if (archive && archive.article && archive.article[query.archiveId]) {
-      response = archive.article[query.archiveId];
+      return;
     } else {
       response = await query.fetchMethod(query.archiveId);
     }
@@ -49,20 +70,22 @@ export function fetchArticleAndDispatchSetAsync(query: {
 
     if (response.tags.length > 0) {
       const tagNames = await fetchTagNames(response.tags);
-      dispatch(_setTags(tagNames));
+      dispatch(
+        _setTags({
+          archiveId: response.id,
+          tagNames,
+        }),
+      );
     }
 
     if (response._links['wp:featuredmedia']) {
       const source_url = await getEyeCatchImageUrl(response._links['wp:featuredmedia'][0].href);
-      dispatch(_setArticleImage(source_url));
+      dispatch(
+        _setArticleImage({
+          archiveId: response.id,
+          source_url,
+        }),
+      );
     }
-  };
-}
-
-// TagIDからTag名取得
-function _setTags(payload: any): Action<any> {
-  return {
-    type: ArchiveActionType.SET_TAGS,
-    payload,
   };
 }
