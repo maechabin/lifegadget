@@ -2,11 +2,49 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
+/** 記事 */
+export interface Archive {
+  author: number;
+  categories: number[];
+  comment_status: string;
+  content: {
+    protected: boolean;
+    rendered: string;
+  };
+  date: string;
+  date_gmt: string;
+  excerpt: {
+    protected: boolean;
+    rendered: string;
+  };
+  featured_media: number;
+  format: string;
+  guid: {
+    rendered: string;
+  };
+  id: number;
+  link: string;
+  meta: any[];
+  modified: string;
+  modified_gmt: string;
+  ping_status: string;
+  slug: string;
+  status: string;
+  sticky: boolean;
+  tags: number[];
+  template: string;
+  title: {
+    rendered: string;
+  };
+  type: string;
+  _links: any;
+}
+
 /**
  * 記事データを取得する
  * @param articleId 取得する記事のID
  */
-export async function fetchArchive(articleId: number) {
+export async function fetchArchive(articleId: number): Promise<Archive | null> {
   /** リクエストパラメータ */
   const params = '?context=view';
 
@@ -23,8 +61,12 @@ export async function fetchArchive(articleId: number) {
         if (res.status === 200) {
           return res.json();
         }
-        return console.log(res);
+        console.log(res);
+        return null;
       })
-      .catch(() => console.log('bad request'))
+      .catch((error) => {
+        console.error(error);
+        return null;
+      })
   );
 }

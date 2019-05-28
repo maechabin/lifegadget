@@ -8,10 +8,12 @@ export interface ArchiveState {
   hasTagNames: boolean;
 }
 
+/** 記事一覧 */
 export interface Articles {
   [id: number]: Article;
 }
 
+/** 記事 */
 export interface Article {
   id: number;
   author: number;
@@ -24,44 +26,7 @@ export interface Article {
   title: string;
 }
 
-/** 記事 */
-export interface Archive {
-  author: number;
-  categories: number[];
-  comment_status: string;
-  content: {
-    protected: boolean;
-    rendered: string;
-  };
-  date: string;
-  date_gmt: string;
-  excerpt: {
-    protected: boolean;
-    rendered: string;
-  };
-  featured_media: number;
-  format: string;
-  guid: {
-    rendered: string;
-  };
-  id: number;
-  link: string;
-  meta: any[];
-  modified: string;
-  modified_gmt: string;
-  ping_status: string;
-  slug: string;
-  status: string;
-  sticky: boolean;
-  tags: number[];
-  template: string;
-  title: {
-    rendered: string;
-  };
-  type: string;
-  _links: any;
-}
-
+/** 初期State */
 export const archiveState: ArchiveState = {
   hasError: false,
   article: null,

@@ -1,8 +1,7 @@
 import { Dispatch } from 'redux';
 
-import { Archive } from './archiveState';
 import { Action, ArchiveActionType } from '../action.model';
-import { fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
+import { Archive, fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
 function _setHasArchiveErrorToTrue(): Action {
   return {
