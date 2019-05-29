@@ -4,13 +4,24 @@ import { Action, ArchiveActionType } from '../action.model';
 import { TagName } from './archiveState';
 import { Archive, fetchArchive, fetchTagNames, getEyeCatchImageUrl } from '../domains/wordpress';
 
+type SetTags = {
+  archiveId: number;
+  tagNames: TagName[];
+};
+
+type SetArticleImage = {
+  archiveId: number;
+  source_url: string | null;
+};
+
+/** エラー状態アクション */
 function _setHasArchiveErrorToTrue(): Action {
   return {
     type: ArchiveActionType.SET_HAS_ARCHIVE_ERROR_TO_TRUE,
   };
 }
 
-// Action creator
+/** 記事情報アクション */
 function _setArticle(payload: Archive): Action<Archive> {
   return {
     type: ArchiveActionType.SET_ARTICLE,
@@ -18,61 +29,51 @@ function _setArticle(payload: Archive): Action<Archive> {
   };
 }
 
-// TagIDからTag名取得
-function _setTags(payload: {
-  archiveId: number;
-  tagNames: TagName[];
-}): Action<{
-  archiveId: number;
-  tagNames: TagName[];
-}> {
+/** タグ名アクション */
+function _setTags(payload: SetTags): Action<SetTags> {
   return {
     type: ArchiveActionType.SET_TAGS,
     payload,
   };
 }
 
-// 任意のIDのアイキャッチ画像の取得、保存
-function _setArticleImage(payload: {
-  archiveId: number;
-  source_url: string | null;
-}): Action<{
-  archiveId: number;
-  source_url: string | null;
-}> {
+/** アイキャッチ画像アクション */
+function _setArticleImage(payload: SetArticleImage): Action<SetArticleImage> {
   return {
     type: ArchiveActionType.SET_ARTICLE_IMAGE,
     payload,
   };
 }
 
-// redux-thunk
+/**
+ * redux-thunk
+ * 記事情報を取得してそれぞれのアクションを使ってdispatchする
+ */
 export function fetchArticleAndDispatchSetAsync(query: {
   fetchMethod: typeof fetchArchive;
   archiveId: number;
 }) {
   return async (dispatch: Dispatch, getState?: any) => {
-    const { archive } = getState();
-    let response: Archive | null;
+    const { archive } = getState(); 
 
     if (archive && archive.article && archive.article[query.archiveId]) {
       return;
-    } else {
-      response = await query.fetchMethod(query.archiveId);
     }
+
+    const response = await query.fetchMethod(query.archiveId);
 
     if (response == null) {
       dispatch(_setHasArchiveErrorToTrue());
       return;
-    } else {
-      dispatch(_setArticle(response));
     }
+
+    dispatch(_setArticle(response));
 
     if (response.tags.length > 0) {
       const tagNames = await fetchTagNames(response.tags);
       dispatch(
         _setTags({
-          archiveId: response.id,
+          archiveId: query.archiveId,
           tagNames,
         }),
       );
@@ -82,7 +83,7 @@ export function fetchArticleAndDispatchSetAsync(query: {
       const source_url = await getEyeCatchImageUrl(response._links['wp:featuredmedia'][0].href);
       dispatch(
         _setArticleImage({
-          archiveId: response.id,
+          archiveId: query.archiveId,
           source_url,
         }),
       );
