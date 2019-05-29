@@ -17,7 +17,7 @@ export async function fetchAuthorIndex(pageNumber: number = 1, authorId: number)
   return (
     fetch(url, {
       method: 'get',
-      mode: 'cors',
+      mode: 'no-cors',
     })
       // .then(AuthorContainer.handleErrors)
       .then((res: Response) => {

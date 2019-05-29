@@ -23,7 +23,7 @@ export async function fetchUsers(): Promise<User[]> {
 
   return fetch(url, {
     method: 'get',
-    mode: 'cors',
+    mode: 'no-cors',
   })
     .then((res: Response) => {
       if (res.status === 200) {

@@ -17,7 +17,7 @@ export async function fetchTagIndex(pageNumber: number = 1, tagId: number) {
   return (
     fetch(url, {
       method: 'get',
-      mode: 'cors',
+      mode: 'no-cors',
     })
       // .then(TagContainer.handleErrors)
       .then((res: Response) => {

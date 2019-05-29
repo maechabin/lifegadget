@@ -13,7 +13,7 @@ export async function fetchTagNames(tagIds: number[]) {
 
     return fetch(url, {
       method: 'get',
-      mode: 'cors',
+      mode: 'no-cors',
     })
       .then((res: Response) => {
         if (res.status === 200) {

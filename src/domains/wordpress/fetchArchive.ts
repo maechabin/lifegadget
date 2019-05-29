@@ -54,7 +54,7 @@ export async function fetchArchive(articleId: number): Promise<Archive | null> {
   return (
     fetch(url, {
       method: 'get',
-      mode: 'cors',
+      mode: 'no-cors',
     })
       // .then(ArchiveContainer.handleErrors)
       .then((res: Response) => {

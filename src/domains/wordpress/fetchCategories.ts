@@ -33,7 +33,7 @@ export async function fetchCategories(): Promise<WP_Category[]> {
   const url = `${config.blogUrl}/wp-json/wp/v2/categories`;
   return fetch(url, {
     method: 'get',
-    mode: 'cors',
+    mode: 'no-cors',
   }).then((res: Response) => {
     if (res.status === 200) {
       return res.json();

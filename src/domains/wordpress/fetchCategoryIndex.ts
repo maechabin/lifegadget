@@ -19,7 +19,7 @@ export async function fetchCategoryIndex(pageNumber: number = 1, categoryId: num
   return (
     fetch(url, {
       method: 'get',
-      mode: 'cors',
+      mode: 'no-cors',
     })
       // .then(CategoryContainer.handleErrors)
       .then((res: Response) => {

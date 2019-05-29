@@ -15,7 +15,7 @@ export async function fetchIndex(pageNumber: number = 1) {
 
   return fetch(url, {
     method: 'get',
-    mode: 'cors',
+    mode: 'no-cors',
   }).then((res: Response) => {
     if (res.status === 200) {
       return {
