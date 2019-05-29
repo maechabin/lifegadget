@@ -24,7 +24,10 @@ export async function fetchTagName(tagId: number): Promise<string> {
 
   return fetch(url, {
     method: 'get',
-    mode: 'no-cors',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
   })
     .then((res: Response) => {
       if (res.status === 200) {

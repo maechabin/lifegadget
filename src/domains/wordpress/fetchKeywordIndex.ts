@@ -19,7 +19,10 @@ export async function fetchKeywordIndex(pageNumber: number = 1, keyword: string)
   return (
     fetch(url, {
       method: 'get',
-      mode: 'no-cors',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     })
       // .then(SearchContainer.handleErrors)
       .then((res: Response) => {

@@ -15,7 +15,10 @@ export async function fetchIndex(pageNumber: number = 1) {
 
   return fetch(url, {
     method: 'get',
-    mode: 'no-cors',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
   }).then((res: Response) => {
     if (res.status === 200) {
       return {

@@ -3,7 +3,7 @@ export default <Config>{
   blogSubTitle: '生活をサポートする記事メディア',
   blogTitleTag: 'LifeGadget（ライフガジェット）',
   blogDomain: 'lifegadget.tokyo',
-  blogUrl: 'http://localhost:8888',
+  blogUrl: 'https://lifegadget.maechabin.mixh.jp/wp',
   blogLogoImage: 'lifegadget_white.png',
   blogDefaultImage: 'lifegadget.png',
   perPage: 12,

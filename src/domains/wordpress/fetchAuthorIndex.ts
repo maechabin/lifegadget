@@ -17,7 +17,10 @@ export async function fetchAuthorIndex(pageNumber: number = 1, authorId: number)
   return (
     fetch(url, {
       method: 'get',
-      mode: 'no-cors',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     })
       // .then(AuthorContainer.handleErrors)
       .then((res: Response) => {
