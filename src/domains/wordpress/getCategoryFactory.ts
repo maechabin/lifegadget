@@ -1,4 +1,4 @@
-import { Category } from '../../root/rootState';
+import { Category } from './';
 
 export function getCategoryFactory(categories: Category[]) {
   return (categoryId: number): Category | undefined =>

@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
-export type WP_Category = {
+export type Category = {
   /** カテゴリーID */
   id: number;
   /** 所属記事数 */
@@ -28,7 +28,7 @@ export type WP_Category = {
 /**
  * カテゴリー一覧を取得する
  */
-export async function fetchCategories(): Promise<WP_Category[]> {
+export async function fetchCategories(): Promise<Category[]> {
   /** リクエストURL */
   const url = `${config.blogUrl}/wp-json/wp/v2/categories`;
   return fetch(url, {
