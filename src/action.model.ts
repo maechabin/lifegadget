@@ -9,6 +9,7 @@ export enum RootActionType {
   SET_SEARCH_KEYWORD = 'SET_SEARCH_KEYWORD',
   SET_CATEGORY = 'SET_CATEGORY',
   SET_USER = 'SET_USER',
+  SET_IS_LOADING = 'SET_IS_LOADING',
 }
 
 export enum IndexActionType {

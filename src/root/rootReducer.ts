@@ -23,6 +23,11 @@ export const rootReducer = (state: RootState = {} as RootState, action: Action) 
         ...state,
         user: action.payload,
       };
+    case RootActionType.SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     default:
       return state;
   }

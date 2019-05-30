@@ -44,3 +44,10 @@ export function setSearchKeyword(payload: string): Action<string> {
     payload,
   };
 }
+
+export function setIsLoading(payload: boolean): Action<boolean> {
+  return {
+    type: RootActionType.SET_IS_LOADING,
+    payload,
+  };
+}
