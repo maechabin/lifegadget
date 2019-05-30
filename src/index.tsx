@@ -9,13 +9,13 @@ import Root from './root/RootContainer';
 
 import './sass/App.scss';
 
-let initialData;
+let initialData = null;
 
 if (document.querySelector('#initial-data') !== null) {
-  const a = document.querySelector('#initial-data');
-  const b = a && a.getAttribute('data-json');
-  if (b) {
-    initialData = JSON.parse(b);
+  const data = document.querySelector('#initial-data');
+  const json = data && data.getAttribute('data-json');
+  if (json) {
+    initialData = JSON.parse(json);
   }
 }
 
