@@ -15,11 +15,23 @@ declare module '*.json' {
 import manifest from '../../build/asset-manifest.json';
 ```
 
+参考
+https://hackernoon.com/import-json-into-typescript-8d465beded79
+
 ## create-react-app でビルドして分割されたファイルを読み込む方法
 
 Universal App を作成する場合、ビルドした js ファイルを SSR  した HTML で読み込む必要があるが、create-react-app でビルドすると、ファイルが分割され、なおかつファイル名にハッシュがつく。手動で書き換えるのは辛い。。
 
 なお、ビルドした際に出力される `asset-manifest.json` にビルドされたファイル名とパスが記述されているので、これを ssr 時に読み込んで、動的にファイル名とパスを書き換えるようにする。
+
+それぞれのファイルの役割
+
+- `main.[hash].chunk.js` 実際のアプリのコード
+- `[number].[hash].chunk.js` vender code や code splitting chunks
+- `runtime~main.[hash].js` webpack のランタイムロジック
+
+参考
+https://facebook.github.io/create-react-app/docs/production-build
 
 `asset-manifest.json` を読み込む
 
@@ -89,3 +101,15 @@ fetch(url, {
   },
 });
 ```
+
+## 参考にしたページなど
+
+- WP REST API<br>https://ja.wp-api.org/reference/posts/
+- Server Rendering - React Router<br>https://reacttraining.com/react-router/web/guides/server-rendering
+- React シングルページアプリケーションをサーバサイドレンダリングする<br>https://nukosuke.hatenablog.jp/entry/react-ssr-171203
+- Using React Router 4 with Server-Side Rendering<br>https://alligator.io/react/react-router-ssr/
+- Making CRA apps work with SSR — Part 1<br>https://medium.com/@zhirzh/making-cra-apps-work-with-ssr-part-1-1e23d6b1603d
+- サンプルで react-router v4 を理解してみよう。<br>https://qiita.com/park-jh/items/b4c7b16ea9eb0cf44942
+- [React]react-router v4 で画面遷移時に前のページのスクロール位置が残る<br>https://qiita.com/dnrsm/items/e424701aee9f922850d3
+- Scroll Restoration - React Router<br>https://reacttraining.com/react-router/web/guides/scroll-restoration
+- 十六章第一回　 WeakMap と WeakSet<br>https://uhyohyo.net/javascript/16_1.html
