@@ -16,8 +16,8 @@ function Index(props: any): JSX.Element {
       <Adsense
         style={{ backgroundColor: '#F5F5F5' }}
         adsense={'LifeGadget_レスポンシブ'}
-        client={config.adsenseCode}
-        slot={'8575297173'}
+        client={process.env.REACT_APP_GOOGLE_ADSENSE_CODE}
+        slot={'7443537956'}
         format={'auto'}
       />
       <CategoryButton />
@@ -28,8 +28,8 @@ function Index(props: any): JSX.Element {
       <Adsense
         style={{ backgroundColor: '#F5F5F5' }}
         adsense={'LifeGadget_レスポンシブ'}
-        client={config.adsenseCode}
-        slot={'8575297173'}
+        client={process.env.REACT_APP_GOOGLE_ADSENSE_CODE}
+        slot={'7443537956'}
         format={'auto'}
       />
     </section>

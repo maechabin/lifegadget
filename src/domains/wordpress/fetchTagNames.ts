@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
 
-import config from '../../config';
-
 /**
  * タグ名一覧を取得する
  * @param tagIds 名前を取得したいタグIDの配列
@@ -9,7 +7,7 @@ import config from '../../config';
 export async function fetchTagNames(tagIds: number[]) {
   const tags = tagIds.map(async (tagId: number) => {
     /** リクエストURL */
-    const url = `${config.blogUrl}/wp-json/wp/v2/tags/${tagId}`;
+    const url = `${process.env.REACT_APP_API_URI}/wp-json/wp/v2/tags/${tagId}`;
 
     return fetch(url, {
       method: 'get',

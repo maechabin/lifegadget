@@ -8,9 +8,9 @@ export default async function makeRss() {
   const feed = new RSS({
     title: `${config.blogTitle}`,
     description: `${config.blogSubTitle}`,
-    feed_url: `${config.blogUrl}/feed`,
-    site_url: `${config.blogUrl}`,
-    image_url: `${config.blogUrl}/assets/images/${config.blogDefaultImage}`,
+    feed_url: `https://${config.blogDomain}/feed`,
+    site_url: `https://${config.blogDomain}`,
+    image_url: `https://${config.blogDomain}/assets/images/${config.blogDefaultImage}`,
     copyright: `${config.blogTitle}`,
     language: 'ja',
     pubDate: new Date(),
@@ -25,7 +25,7 @@ export default async function makeRss() {
       feed.item({
         title: index.title.rendered,
         description: index.excerpt.rendered,
-        url: `${config.blogUrl}/archives/${index.id}`,
+        url: `https://${config.blogDomain}/archives/${index.id}`,
         guid: String(index.id),
         date: index.date,
       }),

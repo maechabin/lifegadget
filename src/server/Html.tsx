@@ -37,7 +37,7 @@ function Html({ finalState, children }: PropsTypes): JSX.Element {
       case 'archives':
         return `${archive && archive[1].eyecatch}`;
       default:
-        return `${config.blogUrl}${config.blogDefaultImage}`;
+        return `https://${config.blogDomain}/assets/images/${config.blogDefaultImage}`;
     }
   }
 

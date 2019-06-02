@@ -11,7 +11,7 @@ export async function fetchIndex(pageNumber: number = 1) {
   const params = `?context=embed&per_page=${config.perPage}&page=${pageNumber}`;
 
   /** リクエストURL */
-  const url = `${config.blogUrl}/wp-json/wp/v2/posts${params}`;
+  const url = `${process.env.REACT_APP_API_URI}/wp-json/wp/v2/posts${params}`;
 
   return fetch(url, {
     method: 'get',

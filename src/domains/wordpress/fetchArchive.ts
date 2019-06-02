@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
 
-import config from '../../config';
-
 /** 記事 */
 export interface Archive {
   author: number;
@@ -49,7 +47,7 @@ export async function fetchArchive(articleId: number): Promise<Archive | null> {
   const params = '?context=view';
 
   /** リクエストURL */
-  const url = `${config.blogUrl}/wp-json/wp/v2/posts/${articleId}${params}`;
+  const url = `${process.env.REACT_APP_API_URI}/wp-json/wp/v2/posts/${articleId}${params}`;
 
   return (
     fetch(url, {

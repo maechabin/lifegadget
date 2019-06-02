@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
 
-import config from '../../config';
-
 export type User = {
   avatar_urls: any;
   description: string;
@@ -19,7 +17,7 @@ export type User = {
  */
 export async function fetchUsers(): Promise<User[]> {
   /** リクエストURL */
-  const url = `${config.blogUrl}/wp-json/wp/v2/users`;
+  const url = `${process.env.REACT_APP_API_URI}/wp-json/wp/v2/users`;
 
   return fetch(url, {
     method: 'get',

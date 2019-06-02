@@ -3,11 +3,11 @@ import React from 'react';
 declare const window: any;
 
 type PropsTypes = {
-  style: React.CSSProperties;
-  adsense: string;
-  client: string;
-  slot: string;
-  format: string;
+  style?: React.CSSProperties;
+  adsense?: string;
+  client?: string;
+  slot?: string;
+  format?: string;
 };
 
 function Adsense({ style, client, slot, format }: PropsTypes): JSX.Element {

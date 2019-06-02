@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
 
-import config from '../../config';
-
 export type WP_Tag = {
   id: number;
   link: string;
@@ -20,7 +18,7 @@ export async function fetchTagName(tagId: number): Promise<string> {
   const params = `?include=${tagId}&context=embed`;
 
   /** リクエストURL */
-  const url = `${config.blogUrl}/wp-json/wp/v2/tags${params}`;
+  const url = `${process.env.REACT_APP_API_URI}/wp-json/wp/v2/tags${params}`;
 
   return fetch(url, {
     method: 'get',
