@@ -54,7 +54,7 @@ export function fetchArticleAndDispatchSetAsync(query: {
   archiveId: number;
 }) {
   return async (dispatch: Dispatch, getState?: any) => {
-    const { archive } = getState(); 
+    const { archive } = getState();
 
     if (archive && archive.article && archive.article[query.archiveId]) {
       return;

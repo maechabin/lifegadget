@@ -14,11 +14,12 @@ import Archive from './components/Archive';
 
 function ArchiveContainer(props: any): JSX.Element {
   React.useEffect(() => {
-    // if (!(props.article && props.article[props.match.params.id])) {
-    props.dispatchSetIsLoading(true);
+    const isLoading = !((props.article && props.article[props.match.params.id]) || props.hasError);
+    props.dispatchSetIsLoading(isLoading);
+  });
+
+  React.useEffect(() => {
     props.dispatchSetArticle(fetchArchive, props.match.params.id);
-    props.dispatchSetIsLoading(false);
-    // }
   }, []);
 
   React.useEffect(() => {
