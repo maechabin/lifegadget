@@ -3,11 +3,11 @@ import React from 'react';
 import { createRawMarkup } from '../../utils';
 import { Article } from '../archiveState';
 
-type PropsTypes = {
+type PropsType = {
   article: Article;
 };
 
-function ArchiveContent({ article }: PropsTypes): JSX.Element {
+function ArchiveContent({ article }: PropsType): JSX.Element {
   const [key] = React.useState({ id: article.id });
   const [archiveComponentChache] = React.useState(new WeakMap());
 

@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { createRawMarkup, formatDate } from '../../utils';
 import { Index } from '../indexState';
 
-type PropsTypes = {
+type PropsType = {
   index: Index[];
 };
 
-function IndexList({ index }: PropsTypes): JSX.Element {
+function IndexList({ index }: PropsType): JSX.Element {
   const indexComponentCache = new WeakMap();
 
   const listComponent =

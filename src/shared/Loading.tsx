@@ -1,11 +1,11 @@
 import React from 'react';
 
-type PropsTypes = {
+type PropsType = {
   isLoading: boolean;
   children: JSX.Element | JSX.Element[];
 };
 
-function Loading({ isLoading, children }: PropsTypes): JSX.Element {
+function Loading({ isLoading, children }: PropsType): JSX.Element {
   const childComponent = isLoading ? (
     <img src="../images/loading.svg" alt="loading..." />
   ) : (

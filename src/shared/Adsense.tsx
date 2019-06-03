@@ -2,7 +2,7 @@ import React from 'react';
 
 declare const window: any;
 
-type PropsTypes = {
+type PropsType = {
   style?: React.CSSProperties;
   adsense?: string;
   client?: string;
@@ -10,7 +10,7 @@ type PropsTypes = {
   format?: string;
 };
 
-function Adsense({ style, client, slot, format }: PropsTypes): JSX.Element {
+function Adsense({ style, client, slot, format }: PropsType): JSX.Element {
   const styles = {
     display: 'block',
     ...style,

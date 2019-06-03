@@ -12,7 +12,7 @@ enum PathName {
   Author = 'author',
 }
 
-type PropsTypes = {
+type PropsType = {
   totalPages: number;
   match: any;
   location: any;
@@ -20,7 +20,7 @@ type PropsTypes = {
   isHiddenIndexList: boolean;
 };
 
-function Pagination(props: PropsTypes): JSX.Element {
+function Pagination(props: PropsType): JSX.Element {
   const totalPages: number = props.totalPages;
   const paramsPage: number = Number(props.match.params.page) || 1;
   const pager = new Array(PAGE_LENGTH).fill(paramsPage);

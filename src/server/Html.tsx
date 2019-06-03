@@ -4,12 +4,12 @@ import { State } from '../state.model';
 import config from '../config';
 import manifest from '../../build/asset-manifest.json';
 
-type PropsTypes = {
+type PropsType = {
   children: JSX.Element | JSX.Element[];
   finalState: State;
 };
 
-function Html({ finalState, children }: PropsTypes): JSX.Element {
+function Html({ finalState, children }: PropsType): JSX.Element {
   const archive = finalState.archive.article;
   const routing = finalState.router.location;
 
