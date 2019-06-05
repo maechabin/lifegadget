@@ -168,9 +168,6 @@ a {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    &__loading {
-      text-align: center;
-    }
     li {
       border-radius: 2px;
       box-sizing: border-box;
