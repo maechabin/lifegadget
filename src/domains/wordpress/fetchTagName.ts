@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+require('dotenv').config();
+
 export type WP_Tag = {
   id: number;
   link: string;

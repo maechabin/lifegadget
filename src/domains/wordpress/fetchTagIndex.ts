@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
+require('dotenv').config();
+
 /**
  * 特定のタグの記事Indexを取得する
  * @param tagId タグID

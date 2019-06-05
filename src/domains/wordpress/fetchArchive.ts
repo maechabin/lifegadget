@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+require('dotenv').config();
+
 /** 記事 */
 export interface Archive {
   author: number;

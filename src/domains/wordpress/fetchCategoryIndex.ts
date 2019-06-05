@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
+require('dotenv').config();
+
 /**
  * 特定のカテゴリーの記事Indexを取得する
  * @param authorId カテゴリーID

@@ -8,6 +8,8 @@ import CategoryButton from '../../shared/CategoryButton';
 import Adsense from '../../shared/Adsense';
 import NotFound from '../../shared/NotFound';
 
+require('dotenv').config();
+
 function Index(props: any): JSX.Element {
   const index = props.hasError ? (
     <NotFound {...props} />

@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+require('dotenv').config();
+
 export type User = {
   avatar_urls: any;
   description: string;

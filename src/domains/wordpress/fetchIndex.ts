@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 
 import config from '../../config';
 
+require('dotenv').config();
+
 /**
  * 記事Indexを取得する
  * @param pageNumber ページ番号

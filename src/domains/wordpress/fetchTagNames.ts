@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+require('dotenv').config();
+
 /**
  * タグ名一覧を取得する
  * @param tagIds 名前を取得したいタグIDの配列
