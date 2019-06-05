@@ -38,7 +38,7 @@ function Footer(props: any): JSX.Element {
       <address>
         <Link to="/">
           <img
-            src={`/assets/images/${props.config.blogLogoImage}`}
+            src={`${process.env.REACT_APP_IMAGE_PATH}/${props.config.blogLogoImage}`}
             alt={props.config.blogTitle}
             width="80"
           />
