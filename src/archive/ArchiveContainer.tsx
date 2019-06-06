@@ -28,8 +28,8 @@ function ArchiveContainer(props: any): JSX.Element {
 
   return (
     <ScrollToTop>
-      <Loading isLoading={props.isLoading}>
         <Archive {...props} article={props.article ? props.article[props.match.params.id] : null} />
+      <Loading isLoading={props.isLoading} size={100}>
       </Loading>
     </ScrollToTop>
   );

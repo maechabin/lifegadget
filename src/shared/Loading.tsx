@@ -2,10 +2,11 @@ import React from 'react';
 
 type PropsType = {
   isLoading: boolean;
+  size: number;
   children: JSX.Element | JSX.Element[];
 };
 
-function Loading({ isLoading, children }: PropsType): JSX.Element {
+function Loading({ isLoading, size, children }: PropsType): JSX.Element {
   const style = {
     loading: {
       padding: '80px 0',
@@ -13,20 +14,15 @@ function Loading({ isLoading, children }: PropsType): JSX.Element {
     } as React.CSSProperties,
   };
 
-  const childComponent = isLoading ? (
+  const loadingComponent = isLoading ? (
     <div style={style.loading}>
-      <img
-        src={`${process.env.REACT_APP_IMAGE_PATH}/loading.svg`}
-        alt="loading..."
-        width="100"
-        height="100"
-      />
+      <img src={`${process.env.REACT_APP_IMAGE_PATH}/loading.svg`} alt="loading..." width={size} />
     </div>
   ) : (
     children
   );
 
-  return <div>{childComponent}</div>;
+  return <div>{loadingComponent}</div>;
 }
 
 export default Loading;
