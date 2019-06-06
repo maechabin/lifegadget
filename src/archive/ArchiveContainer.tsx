@@ -10,9 +10,11 @@ import ScrollToTop from '../shared/ScrollToTop';
 
 // view files
 import Loading from '../shared/Loading';
+import NotFound from '../shared/NotFound';
 import Archive from './components/Archive';
 
 function ArchiveContainer(props: any): JSX.Element {
+  console.log(props);
   React.useEffect(() => {
     const isLoading = !((props.article && props.article[props.match.params.id]) || props.hasError);
     props.dispatchSetIsLoading(isLoading);
@@ -28,15 +30,19 @@ function ArchiveContainer(props: any): JSX.Element {
 
   return (
     <ScrollToTop>
-        <Archive {...props} article={props.article ? props.article[props.match.params.id] : null} />
       <Loading isLoading={props.isLoading} size={100}>
+        <NotFound isNotFound={props.hasError}>
+          <Archive
+            {...props}
+            article={props.article ? props.article[props.match.params.id] : null}
+          />
+        </NotFound>
       </Loading>
     </ScrollToTop>
   );
 }
 
 function mapStateToProps(state: State) {
-  const currentId = state.archive.currentId;
   return {
     hasError: state.archive.hasError,
     category: state.root.category,
