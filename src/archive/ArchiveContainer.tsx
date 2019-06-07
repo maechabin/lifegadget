@@ -14,7 +14,6 @@ import NotFound from '../shared/NotFound';
 import Archive from './components/Archive';
 
 function ArchiveContainer(props: any): JSX.Element {
-  console.log(props);
   React.useEffect(() => {
     const isLoading = !((props.article && props.article[props.match.params.id]) || props.hasError);
     props.dispatchSetIsLoading(isLoading);

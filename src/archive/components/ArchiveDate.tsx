@@ -1,16 +1,15 @@
 import React from 'react';
 
 import { formatDate } from '../../utils';
-import { Article } from '../archiveState';
 
 type PropsType = {
-  article: Article;
-}
+  date: string;
+};
 
-function ArchiveDate({ article }: PropsType): JSX.Element {
+function ArchiveDate({ date }: PropsType): JSX.Element {
   return (
     <p className="article__date">
-      <i className="fa fa-calendar" /> <time>{formatDate(article.date)}</time>
+      <i className="fa fa-calendar" /> <time>{formatDate(date)}</time>
     </p>
   );
 }
