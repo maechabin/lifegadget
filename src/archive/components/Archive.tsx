@@ -16,7 +16,7 @@ function Archive(props: any): JSX.Element {
   const articleComponent =
     props.article && !!props.article.id ? (
       <article className="article">
-        <ArchiveBreadcrumb {...props} />
+        <ArchiveBreadcrumb categories={props.category} categoryIds={props.article.categories} />
         <ArchiveDate date={props.article.date} />
         <ArchiveTitle title={props.article.title} />
         <div className="article__meta">
@@ -31,7 +31,7 @@ function Archive(props: any): JSX.Element {
           slot={'7443537956'}
           format={'auto'}
         />
-        <ArchiveContent {...props} />
+        <ArchiveContent article={props.article} />
         <ArchiveCategory {...props} />
         <ArchiveTag tags={props.article.tags} tagNames={props.article.tagNames} />
         <ArchiveUser {...props} shouldDisplayOnlyName={false} />

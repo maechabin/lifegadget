@@ -1,20 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { getCategoryFactory } from '../../domains/wordpress';
+import { Category, getCategoryFactory } from '../../domains/wordpress';
 
-function ArchiveBreadcrumb(props: any): JSX.Element {
-  const getCategory = getCategoryFactory(props.category);
-  let categories = [];
+type PropsType = {
+  categories: Category[];
+  categoryIds: number[];
+};
 
-  if (props.article && props.article.categories.length > 0) {
-    categories = props.article.categories.map((id: number) => {
-      return getCategory(id);
-    });
-  }
+function ArchiveBreadcrumb({ categories, categoryIds }: PropsType): JSX.Element {
+  const getCategory = getCategoryFactory(categories);
+  const ctgs = categoryIds.map((id: number) => {
+    return getCategory(id);
+  });
 
-  const categoryId = categories[0] ? categories[0].id : '';
-  const categoryName = categories[0] ? categories[0].name : '';
+  const c = ctgs[0];
+  const categoryId = c ? c.id : '';
+  const categoryName = c ? c.name : '';
 
   return (
     <ul className="breadcrumb">
