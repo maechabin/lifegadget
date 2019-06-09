@@ -20,7 +20,7 @@ function Archive(props: any): JSX.Element {
         <ArchiveDate date={props.article.date} />
         <ArchiveTitle title={props.article.title} />
         <div className="article__meta">
-          <ArchiveUser {...props} shouldDisplayOnlyName />
+          <ArchiveUser users={props.user} authorId={props.article.author} shouldDisplayOnlyName />
           <ArchiveCategory {...props} />
           <ArchiveTag tags={props.article.tags} tagNames={props.article.tagNames} />
         </div>
@@ -34,7 +34,11 @@ function Archive(props: any): JSX.Element {
         <ArchiveContent article={props.article} />
         <ArchiveCategory {...props} />
         <ArchiveTag tags={props.article.tags} tagNames={props.article.tagNames} />
-        <ArchiveUser {...props} shouldDisplayOnlyName={false} />
+        <ArchiveUser
+          users={props.user}
+          authorId={props.article.author}
+          shouldDisplayOnlyName={false}
+        />
       </article>
     ) : (
       <></>

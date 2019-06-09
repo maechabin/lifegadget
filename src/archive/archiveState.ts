@@ -1,7 +1,7 @@
 /** ArchiveStateモデル */
 export interface ArchiveState {
   hasError: boolean;
-  article: Articles | null;
+  article: Articles | undefined;
   currentId: number;
 }
 
@@ -19,6 +19,7 @@ export interface TagName {
 /** 記事 */
 export interface Article {
   id: number;
+  /** 投稿者ID */
   author: number;
   categories: number[];
   content: string;
@@ -32,6 +33,6 @@ export interface Article {
 /** 初期State */
 export const archiveState: ArchiveState = {
   hasError: false,
-  article: null,
+  article: undefined,
   currentId: NaN,
 };
