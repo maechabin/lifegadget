@@ -12,9 +12,9 @@ type PropsType = {
 
 function ArchiveBreadcrumb({ categories, categoryIds }: PropsType): JSX.Element {
   const getCategory = getCategoryFactory(categories);
-  const ctgs = categoryIds.map((id: number) => getCategory(id));
+  const usedCategories = categoryIds.map((id: number) => getCategory(id));
 
-  const category = ctgs[0];
+  const category = usedCategories[0];
   const breadcrumbComponent = category ? (
     <>
       <li>

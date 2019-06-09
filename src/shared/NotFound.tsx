@@ -19,5 +19,3 @@ function NotFound({ isNotFound, children }: PropsType): JSX.Element {
 }
 
 export default NotFound;
-
-// props.routingKey != null
