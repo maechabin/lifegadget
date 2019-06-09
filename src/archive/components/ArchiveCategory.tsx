@@ -1,31 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { getCategoryFactory } from '../../domains/wordpress';
+import { Category, getCategoryFactory } from '../../domains/wordpress';
 
-function ArchiveCategory(props: any): JSX.Element {
-  const getCategory = getCategoryFactory(props.category);
+type PropsType = {
+  /** ブログで使用中のカテゴリ情報一覧 */
+  categories: Category[];
+  /** 記事のカテゴリID一覧 */
+  categoryIds: number[];
+};
 
-  let categoryElem = <></>;
+function ArchiveCategory({ categories, categoryIds }: PropsType): JSX.Element {
+  const getCategory = getCategoryFactory(categories);
 
-  if (props.article && props.article.categories.length > 0) {
-    categoryElem = props.article.categories.map((id: number) => {
+  let categoryComponent = undefined;
+
+  if (categoryIds && categoryIds.length > 0) {
+    categoryComponent = categoryIds.map((id: number) => {
       const category = getCategory(id);
 
-      if (!category) {
-        return;
-      }
-      return (
+      return category ? (
         <span key={id}>
           <Link to={`/category/${category.id}`}>{category.name}</Link>
         </span>
+      ) : (
+        undefined
       );
     });
   }
 
   return (
     <div className="article__category">
-      <i className="fa fa-folder" /> {categoryElem}
+      <i className="fa fa-folder" /> {categoryComponent}
     </div>
   );
 }
