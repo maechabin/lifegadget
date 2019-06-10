@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../../state.model';
+import { setIsLoading } from '../../root/rootAction';
 import {
   fetchIndexAndDispatchSetIndexAsync,
   setIsHiddenIndexListForTrue,
@@ -12,9 +13,16 @@ import { fetchCategoryIndex } from '../../domains/wordpress';
 import ScrollToTop from '../../shared/ScrollToTop';
 
 // view files
+import Loading from '../../shared/Loading';
+import NotFound from '../../shared/NotFound';
 import Index from '../components/Index';
 
 function CategoryContainer(props: any): JSX.Element {
+  React.useEffect(() => {
+    const isLoading = !(!props.isHiddenIndexList || props.hasError);
+    props.dispatchSetIsLoading(isLoading);
+  });
+
   useEffect(() => {
     props.dispatchActions(props.routingKey);
     props.dispatchSetIndexAsync(
@@ -26,7 +34,11 @@ function CategoryContainer(props: any): JSX.Element {
 
   return (
     <ScrollToTop>
-      <Index {...props} />
+      <Loading isLoading={props.isLoading} size={100}>
+        <NotFound isNotFound={props.hasError}>
+          <Index {...props} />
+        </NotFound>
+      </Loading>
     </ScrollToTop>
   );
 }
@@ -42,6 +54,7 @@ function mapStateToProps(state: State) {
     currentPage: state.index.currentPage,
     pathname: state.router.location.pathname,
     routingKey: state.router.location.key,
+    isLoading: state.root.isLoading,
   };
 }
 function mapDispatchToProps(dispatch: Dispatch<any>) {
@@ -54,6 +67,9 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
       dispatch(
         fetchIndexAndDispatchSetIndexAsync({ fetchMethod, pageNumber, keyword: categoryId }),
       );
+    },
+    dispatchSetIsLoading(isLoading: boolean) {
+      dispatch(setIsLoading(isLoading));
     },
     dispatchActions(key: any) {
       [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
