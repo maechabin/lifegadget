@@ -39,7 +39,7 @@ function TagContainer(props: any): JSX.Element {
   return (
     <ScrollToTop>
       <Loading isLoading={props.isLoading} size={100}>
-        <NotFound isNotFound={props.hasError}>
+        <NotFound isNotFound={props.hasError || props.index.length === 0}>
           <Index {...props} />
         </NotFound>
       </Loading>
