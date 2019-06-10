@@ -16,7 +16,6 @@ type PropsType = {
   totalPages: number;
   match: any;
   location: any;
-  routingKey: string;
   isHiddenIndexList: boolean;
 };
 
@@ -94,16 +93,15 @@ function Pagination(props: PropsType): JSX.Element {
     );
   });
 
-  const pagenationElem =
-    props.isHiddenIndexList && props.routingKey != null ? (
-      ''
-    ) : (
-      <ul>
-        {createPrevLink()}
-        {pagination}
-        {createNextLink()}
-      </ul>
-    );
+  const pagenationElem = props.isHiddenIndexList ? (
+    ''
+  ) : (
+    <ul>
+      {createPrevLink()}
+      {pagination}
+      {createNextLink()}
+    </ul>
+  );
 
   return <div className="pagination">{pagenationElem}</div>;
 }

@@ -30,12 +30,9 @@ function IndexTitle(props: any): JSX.Element {
     }
   };
 
-  const title = props.isHiddenIndexList && props.routingKey !== '' ? '' : getTitle(pathname);
+  const title = props.isHiddenIndexList ? '' : getTitle(pathname);
   const page = props.match.params && props.match.params.page ? props.match.params.page : '1';
-  const total =
-    props.isHiddenIndexList && props.routingKey !== ''
-      ? ''
-      : `全 ${props.total} 件 - ${page}ページ目`;
+  const total = props.isHiddenIndexList ? '' : `全 ${props.total} 件 - ${page}ページ目`;
 
   return (
     <div className="index__title">

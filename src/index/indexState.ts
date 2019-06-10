@@ -2,7 +2,6 @@
 export interface IndexState {
   hasError: boolean;
   index: Index[];
-  routingKey: string;
   isHiddenIndexList: boolean;
   tagName: string;
   total: number;
@@ -34,7 +33,6 @@ export interface Index {
 export const indexState: IndexState = {
   hasError: false,
   index: [],
-  routingKey: '',
   isHiddenIndexList: true,
   tagName: '',
   total: 0,

@@ -7,7 +7,6 @@ import { setIsLoading } from '../../root/rootAction';
 import {
   fetchIndexAndDispatchSetIndexAsync,
   setIsHiddenIndexListForTrue,
-  setRoutingKey,
   fetchTagNameAndDispatchSetTanNameAsync,
 } from '../indexAction';
 import { fetchTagIndex } from '../../domains/wordpress';
@@ -25,7 +24,7 @@ function TagContainer(props: any): JSX.Element {
   });
 
   React.useEffect(() => {
-    props.dispatchActions(props.routingKey);
+    props.dispatchSetIsHiddenIndexListForTrue();
   }, []);
 
   React.useEffect(() => {
@@ -57,7 +56,6 @@ function mapStateToProps(state: State) {
     total: Number(state.index.total),
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
-    routingKey: state.router.location.key,
     isLoading: state.root.isLoading,
   };
 }
@@ -72,8 +70,8 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
     dispatchSetIsLoading(isLoading: boolean) {
       dispatch(setIsLoading(isLoading));
     },
-    dispatchActions(key: any) {
-      [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
+    dispatchSetIsHiddenIndexListForTrue() {
+      dispatch(setIsHiddenIndexListForTrue());
     },
   };
 }

@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../../state.model';
 import { setIsLoading } from '../../root/rootAction';
-import {
-  fetchIndexAndDispatchSetIndexAsync,
-  setIsHiddenIndexListForTrue,
-  setRoutingKey,
-} from '../indexAction';
+import { fetchIndexAndDispatchSetIndexAsync, setIsHiddenIndexListForTrue } from '../indexAction';
 import { fetchAuthorIndex } from '../../domains/wordpress';
 import ScrollToTop from '../../shared/ScrollToTop';
 
@@ -24,7 +20,7 @@ function AuthorContainer(props: any): JSX.Element {
   });
 
   React.useEffect(() => {
-    props.dispatchActions(props.routingKey);
+    props.dispatchSetIsHiddenIndexListForTrue();
     props.dispatchSetIndexAsync(
       fetchAuthorIndex,
       props.match.params.page,
@@ -53,7 +49,6 @@ function mapStateToProps(state: State) {
     totalPages: Number(state.index.totalPages),
     currentPage: state.index.currentPage,
     pathname: state.router.location.pathname,
-    routingKey: state.router.location.key,
     isLoading: state.root.isLoading,
   };
 }
@@ -69,8 +64,8 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
     dispatchSetIsLoading(isLoading: boolean) {
       dispatch(setIsLoading(isLoading));
     },
-    dispatchActions(key: any) {
-      [setIsHiddenIndexListForTrue(), setRoutingKey(key)].forEach((action) => dispatch(action));
+    dispatchSetIsHiddenIndexListForTrue() {
+      dispatch(setIsHiddenIndexListForTrue());
     },
   };
 }

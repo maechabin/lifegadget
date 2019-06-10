@@ -18,13 +18,6 @@ export function setIsHiddenIndexListForTrue() {
   };
 }
 
-export function setRoutingKey(payload: string): Action<string> {
-  return {
-    type: IndexActionType.SET_ROUTING_KEY,
-    payload,
-  };
-}
-
 function _setTagName(payload: string): Action<string> {
   return {
     type: IndexActionType.SET_TAG_NAME,
