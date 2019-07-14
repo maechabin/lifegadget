@@ -1,0 +1,25 @@
+@baseUrl =  https://lifegadget.maechabin.mixh.jp/wp/wp-json/wp/v2
+
+# 記事一覧取得
+GET {{ baseUrl }}/posts HTTP/1.1
+
+###
+
+# ユーザー一覧取得
+GET {{ baseUrl }}/users HTTP/1.1
+
+###
+
+# タグ一覧取得
+GET {{ baseUrl }}/tags HTTP/1.1
+
+###
+
+# カテゴリ一覧取得
+GET {{ baseUrl }}/categories HTTP/1.1
+
+###
+
+# メディア取得
+@id = 10
+GET {{ baseUrl }}/media/{{ id }}
