@@ -10,12 +10,12 @@ export default <Config>{
 };
 
 export interface Config {
-  blogTitle: string;
-  blogSubTitle: string;
-  blogTitleTag: string;
-  blogDomain: string;
-  blogLogoImage: string;
-  blogDefaultImage: string;
-  perPage: number;
-  twitter: string;
+  readonly blogTitle: string;
+  readonly blogSubTitle: string;
+  readonly blogTitleTag: string;
+  readonly blogDomain: string;
+  readonly blogLogoImage: string;
+  readonly blogDefaultImage: string;
+  readonly perPage: number;
+  readonly twitter: string;
 }
